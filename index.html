@@ -2,470 +2,340 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NYC Events Digest — Apr 30 – May 3</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYC Events Digest — May 4–8, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#0f0f13;color:#e2e8f0;min-height:100vh;padding-bottom:60px}
-a{color:inherit;text-decoration:none}
-.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:28px 24px 20px;border-bottom:1px solid #2d2d4e}
-.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1400px;margin:0 auto}
-.header-title{font-size:clamp(22px,4vw,32px);font-weight:700;color:#fff;letter-spacing:-0.5px}
-.header-title span{color:#f59e0b}
-.header-sub{font-size:13px;color:#94a3b8;margin-top:4px}
-.update-btn{background:#1e40af;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s}
-.update-btn:hover{background:#1d4ed8}
-.toast{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e40af;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:9999;max-width:340px;text-align:center}
-.filters{position:sticky;top:0;z-index:100;background:#13131f;border-bottom:1px solid #2d2d4e;padding:10px 16px}
-.filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:1400px;margin:0 auto 6px}
+body{font-family:'Inter',sans-serif;background:#0f0f13;color:#e8e8f0;min-height:100vh}
+a{color:#a78bfa;text-decoration:none}a:hover{text-decoration:underline}
+.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:28px 20px 20px;text-align:center;border-bottom:1px solid #2a2a4a}
+.header h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#e8e8f0}
+.header .subtitle{color:#94a3b8;font-size:.85rem;margin-top:6px}
+.header .updated{color:#64748b;font-size:.75rem;margin-top:4px}
+.update-btn{display:inline-block;margin-top:12px;background:#7c3aed;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:.8rem;font-family:inherit;font-weight:600}
+#toast{position:fixed;bottom:24px;right:24px;background:#1e1b4b;border:1px solid #4c1d95;color:#c4b5fd;padding:12px 18px;border-radius:10px;font-size:.82rem;display:none;z-index:9999;max-width:300px;line-height:1.4}
+.filters{position:sticky;top:0;z-index:100;background:#13131f;border-bottom:1px solid #1e1e35;padding:10px 16px}
+.filter-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
 .filter-row:last-child{margin-bottom:0}
-.search-wrap{position:relative;flex:1;min-width:180px;max-width:320px}
-.search-wrap input{width:100%;background:#1e1e30;border:1px solid #3d3d5c;border-radius:8px;color:#e2e8f0;padding:7px 32px 7px 12px;font-size:13px;font-family:inherit;outline:none}
-.search-wrap input:focus{border-color:#6366f1}
-.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#64748b;cursor:pointer;font-size:16px;padding:0;line-height:1}
-.event-count{font-size:12px;color:#64748b;white-space:nowrap}
-.clear-all{background:none;border:none;color:#6366f1;font-size:12px;cursor:pointer;padding:4px 8px;border-radius:6px;font-family:inherit}
-.clear-all:hover{background:#1e1e30}
-.chip-label{font-size:11px;color:#64748b;white-space:nowrap;margin-right:2px}
-.chip{background:#1e1e30;border:1px solid #3d3d5c;border-radius:20px;color:#94a3b8;cursor:pointer;font-size:12px;font-family:inherit;padding:4px 12px;transition:all .15s;white-space:nowrap}
-.chip:hover{border-color:#6366f1;color:#c7d2fe}
-.chip.active{background:#6366f1;border-color:#6366f1;color:#fff;font-weight:600}
-.chip.day-chip.active{background:#0ea5e9;border-color:#0ea5e9}
-.museum-box{max-width:1400px;margin:16px auto;padding:0 16px}
-.museum-card{background:#1a1a2e;border:1px solid #2d2d4e;border-radius:12px;padding:14px 18px}
-.museum-card h3{font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
-.museum-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.museum-item{background:#13131f;border-radius:8px;padding:10px 12px}
-.museum-item .mi-name{font-size:13px;font-weight:600;color:#e2e8f0}
-.museum-item .mi-detail{font-size:12px;color:#64748b;margin-top:3px}
-.museum-item .mi-badge{display:inline-block;background:#064e3b;color:#34d399;font-size:11px;font-weight:600;border-radius:4px;padding:2px 6px;margin-top:4px}
-.wburg-section{max-width:1400px;margin:16px auto 0;padding:0 16px}
-.wburg-header{font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.wburg-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:#3d3d5c #13131f}
-.wburg-strip::-webkit-scrollbar{height:4px}
-.wburg-strip::-webkit-scrollbar-track{background:#13131f}
-.wburg-strip::-webkit-scrollbar-thumb{background:#3d3d5c;border-radius:4px}
-.wburg-card{flex:0 0 220px;background:#1a1a2e;border:1px solid #f59e0b44;border-radius:10px;padding:12px;cursor:pointer}
-.wburg-card .wc-name{font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:4px}
-.wburg-card .wc-detail{font-size:11px;color:#94a3b8}
-.main{max-width:1400px;margin:20px auto 0;padding:0 16px}
-.day-section{margin-bottom:32px}
-.day-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:10px 0;border-bottom:2px solid #2d2d4e}
-.dh-name{font-size:20px;font-weight:700;color:#e2e8f0}
-.dh-date{font-size:14px;color:#64748b}
-.dh-count{background:#2d2d4e;color:#94a3b8;font-size:12px;font-weight:600;border-radius:12px;padding:2px 10px}
+#searchBox{background:#1e1e35;border:1px solid #2a2a4a;color:#e8e8f0;padding:7px 12px;border-radius:8px;font-size:.82rem;font-family:inherit;width:200px;outline:none}
+#searchBox::placeholder{color:#475569}
+#eventCount{color:#64748b;font-size:.78rem;white-space:nowrap}
+.clear-btn{background:none;border:1px solid #2a2a4a;color:#94a3b8;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:inherit}
+.chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:500;cursor:pointer;border:1px solid #2a2a4a;background:#1a1a2e;color:#94a3b8;transition:all .15s;white-space:nowrap}
+.chip.active,.chip:hover{border-color:#7c3aed;background:#1e1b4b;color:#c4b5fd}
+.filter-label{color:#475569;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.wburg-section{background:#1a1a2e;border-bottom:2px solid #2d1b69;padding:12px 16px}
+.wburg-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#f59e0b;margin-bottom:8px}
+.wburg-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:#2a2a4a #1a1a2e}
+.wburg-mini{background:#0f172a;border:1px solid #2d1b69;border-radius:8px;padding:8px 12px;min-width:190px;flex-shrink:0}
+.wburg-mini .wm-name{font-size:.8rem;font-weight:600;color:#e8e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wburg-mini .wm-meta{font-size:.7rem;color:#94a3b8;margin-top:2px}
+.museum-box{background:#0d1117;border:1px solid #1e3a4a;border-radius:12px;margin:16px;padding:14px 16px}
+.museum-box h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#38bdf8;margin-bottom:10px}
+.museum-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.museum-item{background:#0f172a;border-radius:8px;padding:8px 12px;border-left:3px solid #0ea5e9}
+.museum-item .mi-name{font-size:.8rem;font-weight:600;color:#e8e8f0}
+.museum-item .mi-when{font-size:.72rem;color:#94a3b8;margin-top:2px}
+.main{padding:8px 12px 40px}
+.day-section{margin-bottom:28px}
+.day-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:8px 0 8px 4px;border-bottom:1px solid #1e1e35}
+.dh-name{font-size:1.1rem;font-weight:700;color:#e8e8f0}
+.dh-date{font-size:.85rem;color:#64748b}
+.dh-count{background:#1e1e35;color:#94a3b8;font-size:.72rem;padding:2px 8px;border-radius:10px;font-weight:600}
 .day-header.ongoing .dh-name{color:#f59e0b}
-.day-header.ongoing{border-bottom-color:#f59e0b55}
-.day-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.day-header.ongoing{border-bottom-color:#2d1f00}
+.day-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:900px){.day-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.day-grid{grid-template-columns:1fr}}
-.event-card{background:#1a1a2e;border:1px solid #2d2d4e;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
-.event-card:hover{border-color:#6366f188}
-.ec-name{font-size:14px;font-weight:700;color:#e2e8f0;line-height:1.3}
-.ec-datetime{font-size:12px;color:#64748b}
-.ec-venue{font-size:12px;color:#94a3b8}
-.ec-badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:2px}
-.badge-price{font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px}
-.badge-free{background:#064e3b;color:#34d399}
-.badge-cheap{background:#451a03;color:#fbbf24}
-.badge-mid{background:#1e3a5f;color:#60a5fa}
-.badge-wburg{background:#78350f;color:#f59e0b;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px}
-.badge-cat{font-size:11px;font-weight:600;border-radius:5px;padding:2px 8px;color:#fff}
-.ec-desc{font-size:12px;color:#94a3b8;line-height:1.5;flex:1}
-.ec-source{font-size:11px;color:#64748b}
-.ec-source a{color:#6366f1}
-.ec-source a:hover{text-decoration:underline}
-.nbr-section{max-width:1400px;margin:32px auto 0;padding:0 16px}
-.nbr-card{background:#1a1a2e;border:1px solid #2d2d4e;border-radius:12px;padding:18px}
-.nbr-card h3{font-size:15px;font-weight:700;color:#22c55e;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.nbr-table{width:100%;border-collapse:collapse;font-size:13px}
-.nbr-table th{text-align:left;color:#64748b;font-weight:600;padding:6px 10px;border-bottom:1px solid #2d2d4e}
-.nbr-table td{padding:7px 10px;border-bottom:1px solid #1e1e30;color:#94a3b8}
-.nbr-table tr.highlight td{background:#052e16;color:#34d399;font-weight:600}
-.nbr-table tr:last-child td{border-bottom:none}
-.footer{max-width:1400px;margin:32px auto 0;padding:0 16px}
-.footer-card{background:#1a1a2e;border:1px solid #2d2d4e;border-radius:12px;padding:18px;font-size:12px;color:#64748b;line-height:1.8}
-.footer-card h4{color:#94a3b8;font-size:13px;margin-bottom:8px}
-.footer-card strong{color:#94a3b8}
+@media(max-width:580px){.day-grid{grid-template-columns:1fr}}
+.card{background:#13131f;border:1px solid #1e1e35;border-radius:10px;padding:12px 14px;transition:border-color .15s}
+.card:hover{border-color:#3b3b5a}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:6px}
+.card-name{font-size:.85rem;font-weight:700;color:#f1f5f9;line-height:1.3;flex:1}
+.wburg-badge{background:#f59e0b;color:#000;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;align-self:flex-start;margin-top:2px}
+.card-meta{font-size:.72rem;color:#64748b;margin-bottom:4px}
+.card-venue{font-size:.75rem;color:#94a3b8;margin-bottom:6px}
+.price-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:4px;margin-bottom:6px}
+.price-free{background:#14532d;color:#4ade80}
+.price-low{background:#422006;color:#fb923c}
+.price-mid{background:#1e3a5f;color:#60a5fa}
+.card-desc{font-size:.75rem;color:#94a3b8;line-height:1.5;margin-bottom:7px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.cat-chip{font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:capitalize}
+.source-link{font-size:.68rem;color:#7c3aed}
+.cat-music{background:#2e1065;color:#a855f7}.cat-comedy{background:#431407;color:#f97316}.cat-art{background:#500724;color:#ec4899}.cat-markets{background:#042f2e;color:#14b8a6}.cat-runs{background:#052e16;color:#22c55e}.cat-film{background:#450a0a;color:#ef4444}.cat-talks{background:#172554;color:#3b82f6}.cat-outdoors{background:#1a2e05;color:#84cc16}.cat-food{background:#422006;color:#f59e0b}.cat-learning{background:#083344;color:#06b6d4}.cat-networking{background:#2e1065;color:#8b5cf6}.cat-wellness{background:#052e16;color:#10b981}.cat-other{background:#1e293b;color:#64748b}
+.nbr-section{margin:16px 12px;background:#0d1117;border:1px solid #1e3a4a;border-radius:12px;padding:14px 16px}
+.nbr-section h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#22c55e;margin-bottom:10px}
+.nbr-table{width:100%;border-collapse:collapse;font-size:.75rem}
+.nbr-table th{text-align:left;color:#64748b;font-weight:600;padding:4px 8px;border-bottom:1px solid #1e1e35}
+.nbr-table td{padding:5px 8px;color:#94a3b8;border-bottom:1px solid #13131f}
+.nbr-table tr.highlight td{background:#052e16;color:#4ade80;font-weight:600}
+.footer{background:#0a0a12;border-top:1px solid #1e1e35;padding:20px 16px}
+.footer h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#475569;margin-bottom:8px}
+.footer ul,.footer p{font-size:.72rem;color:#475569;line-height:1.8;list-style:none}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-top">
-    <div>
-      <div class="header-title">NYC Events <span>Apr 30 – May 3</span></div>
-      <div class="header-sub">Free &amp; cheap events · Williamsburg focus · 100+ events · Updated Thu Apr 30, 2026</div>
-    </div>
-    <button class="update-btn" onclick="triggerUpdate()">↺ Update</button>
-  </div>
+  <h1>NYC Events Digest</h1>
+  <div class="subtitle">Free &amp; Cheap Events · May 4–8, 2026 · Williamsburg Focus</div>
+  <div class="updated">Updated Mon, May 4, 2026</div>
+  <button class="update-btn" onclick="triggerUpdate()">&#8635; Update</button>
 </div>
+<div id="toast"></div>
 
 <div class="filters">
   <div class="filter-row">
-    <div class="search-wrap">
-      <input type="text" id="searchInput" placeholder="Search events…" oninput="applyFilters()">
-      <button class="search-clear" onclick="clearSearch()" title="Clear">✕</button>
-    </div>
-    <span class="event-count" id="eventCount"></span>
-    <button class="clear-all" onclick="clearAll()">Clear filters</button>
+    <input type="text" id="searchBox" placeholder="Search events…" oninput="applyFilters()">
+    <span id="eventCount"></span>
+    <button class="clear-btn" onclick="clearAll()">Clear filters</button>
   </div>
   <div class="filter-row" id="dayChips">
-    <span class="chip-label">Day:</span>
-    <button class="chip day-chip active" data-day="all" onclick="toggleDay(this)">All</button>
-    <button class="chip day-chip" data-day="thu" onclick="toggleDay(this)">Thu Apr 30</button>
-    <button class="chip day-chip" data-day="fri" onclick="toggleDay(this)">Fri May 1</button>
-    <button class="chip day-chip" data-day="sat" onclick="toggleDay(this)">Sat May 2</button>
-    <button class="chip day-chip" data-day="sun" onclick="toggleDay(this)">Sun May 3</button>
-    <button class="chip day-chip" data-day="ongoing" onclick="toggleDay(this)">Ongoing</button>
+    <span class="filter-label">Day</span>
+    <span class="chip active" data-day="all" onclick="toggleDay(this)">All</span>
+    <span class="chip" data-day="mon" onclick="toggleDay(this)">Mon 5/4</span>
+    <span class="chip" data-day="tue" onclick="toggleDay(this)">Tue 5/5</span>
+    <span class="chip" data-day="wed" onclick="toggleDay(this)">Wed 5/6</span>
+    <span class="chip" data-day="thu" onclick="toggleDay(this)">Thu 5/7</span>
+    <span class="chip" data-day="fri" onclick="toggleDay(this)">Fri 5/8</span>
+    <span class="chip" data-day="ongoing" onclick="toggleDay(this)">Ongoing</span>
   </div>
   <div class="filter-row" id="catChips">
-    <span class="chip-label">Category:</span>
-    <button class="chip active" data-cat="all" onclick="toggleCat(this)">All</button>
-    <button class="chip" data-cat="music" onclick="toggleCat(this)">🎵 Music</button>
-    <button class="chip" data-cat="comedy" onclick="toggleCat(this)">😂 Comedy</button>
-    <button class="chip" data-cat="art" onclick="toggleCat(this)">🎨 Art</button>
-    <button class="chip" data-cat="markets" onclick="toggleCat(this)">🛍 Markets</button>
-    <button class="chip" data-cat="runs" onclick="toggleCat(this)">🏃 Runs</button>
-    <button class="chip" data-cat="film" onclick="toggleCat(this)">🎬 Film</button>
-    <button class="chip" data-cat="talks" onclick="toggleCat(this)">💬 Talks</button>
-    <button class="chip" data-cat="outdoors" onclick="toggleCat(this)">🌿 Outdoors</button>
-    <button class="chip" data-cat="food" onclick="toggleCat(this)">🍜 Food</button>
-    <button class="chip" data-cat="learning" onclick="toggleCat(this)">📚 Learning</button>
-    <button class="chip" data-cat="other" onclick="toggleCat(this)">✨ Other</button>
+    <span class="filter-label">Category</span>
+    <span class="chip active" data-cat="all" onclick="toggleCat(this)">All</span>
+    <span class="chip" data-cat="music" onclick="toggleCat(this)">Music</span>
+    <span class="chip" data-cat="comedy" onclick="toggleCat(this)">Comedy</span>
+    <span class="chip" data-cat="art" onclick="toggleCat(this)">Art</span>
+    <span class="chip" data-cat="markets" onclick="toggleCat(this)">Markets</span>
+    <span class="chip" data-cat="runs" onclick="toggleCat(this)">Runs</span>
+    <span class="chip" data-cat="film" onclick="toggleCat(this)">Film</span>
+    <span class="chip" data-cat="talks" onclick="toggleCat(this)">Talks</span>
+    <span class="chip" data-cat="outdoors" onclick="toggleCat(this)">Outdoors</span>
+    <span class="chip" data-cat="food" onclick="toggleCat(this)">Food</span>
+    <span class="chip" data-cat="learning" onclick="toggleCat(this)">Learning</span>
+    <span class="chip" data-cat="networking" onclick="toggleCat(this)">Networking</span>
+    <span class="chip" data-cat="wellness" onclick="toggleCat(this)">Wellness</span>
+    <span class="chip" data-cat="other" onclick="toggleCat(this)">Other</span>
   </div>
-  <div class="filter-row" id="srcChips">
-    <span class="chip-label">Source:</span>
-  </div>
+</div>
+
+<div class="wburg-section" id="wburgStrip">
+  <div class="wburg-title">&#9733; Williamsburg Picks</div>
+  <div class="wburg-strip" id="wburgCards"></div>
 </div>
 
 <div class="museum-box">
-  <div class="museum-card">
-    <h3>🏛 Museum Free Nights &amp; Days This Week</h3>
-    <div class="museum-grid">
-      <div class="museum-item">
-        <div class="mi-name">Whitney Museum</div>
-        <div class="mi-detail">99 Gansevoort St · Meatpacking</div>
-        <div class="mi-badge">FREE Fri May 1 · 5–10pm + Wicked Night</div>
-      </div>
-      <div class="museum-item">
-        <div class="mi-name">MoMA PS1</div>
-        <div class="mi-detail">22-25 Jackson Ave · Long Island City</div>
-        <div class="mi-badge">FREE always (since Jan 2026) · Thu–Mon 12–6pm</div>
-      </div>
-      <div class="museum-item">
-        <div class="mi-name">Brooklyn Museum</div>
-        <div class="mi-detail">200 Eastern Pkwy · Crown Heights</div>
-        <div class="mi-badge">FREE First Sat May 2 · 5–11pm</div>
-      </div>
-      <div class="museum-item">
-        <div class="mi-name">The Frick Collection</div>
-        <div class="mi-detail">1 E 70th St · Upper East Side</div>
-        <div class="mi-badge">FREE First Fri May 1 · 5:30–9pm</div>
-      </div>
-    </div>
+  <h3>&#127963; Museum Free Nights &amp; Always-Free Admission</h3>
+  <div class="museum-grid">
+    <div class="museum-item"><div class="mi-name">MoMA PS1</div><div class="mi-when">Always free (since Jan 2026) · Thu–Mon noon–6pm · Long Island City</div></div>
+    <div class="museum-item"><div class="mi-name">Whitney Museum</div><div class="mi-when">Free Fri 5–10pm · Free 2nd Sun (May 10) · Always free under 25</div></div>
+    <div class="museum-item"><div class="mi-name">MoMA Midtown</div><div class="mi-when">Free Fri 5:30–8:30pm for NY State residents</div></div>
+    <div class="museum-item"><div class="mi-name">Brooklyn Museum</div><div class="mi-when">Free First Saturdays 5–11pm · Next: June 7</div></div>
+    <div class="museum-item"><div class="mi-name">American Folk Art Museum</div><div class="mi-when">Always free · 2 Lincoln Square, UWS</div></div>
+    <div class="museum-item"><div class="mi-name">Museum at FIT</div><div class="mi-when">Always free · 227 W 27th St, Chelsea</div></div>
+    <div class="museum-item"><div class="mi-name">New Museum</div><div class="mi-when">Pay-what-you-wish Thu 7–9pm · 235 Bowery</div></div>
+    <div class="museum-item"><div class="mi-name">Leslie-Lohman Museum</div><div class="mi-when">Always free (suggested $10 donation)</div></div>
   </div>
 </div>
 
-<div class="wburg-section" id="wburgSection">
-  <div class="wburg-header">★ Williamsburg Events</div>
-  <div class="wburg-strip" id="wburgStrip"></div>
-</div>
-
-<div class="main" id="mainGrid"></div>
+<div class="main" id="mainContent"></div>
 
 <div class="nbr-section">
-  <div class="nbr-card">
-    <h3>🏃 North Brooklyn Runners (NBR) Schedule</h3>
-    <table class="nbr-table">
-      <thead><tr><th>Run</th><th>Day</th><th>Time</th><th>This Week</th></tr></thead>
-      <tbody>
-        <tr><td>Morning Easy</td><td>Monday</td><td>6:45am</td><td>Apr 27 ✓</td></tr>
-        <tr><td>Night Easy</td><td>Monday</td><td>7:30pm</td><td>Apr 27 ✓</td></tr>
-        <tr><td>Beginner Run</td><td>Wednesday</td><td>7:00pm</td><td>Apr 29 ✓</td></tr>
-        <tr><td>Night Road Run</td><td>Wednesday</td><td>7:30pm</td><td>Apr 29 ✓</td></tr>
-        <tr class="highlight"><td>🐟 1st Fri Salmon Run</td><td>Friday</td><td>7:30am</td><td>May 1 ← THIS WEEK</td></tr>
-        <tr><td>Long Run (Narwhals)</td><td>Saturday</td><td>7:00am</td><td>May 2</td></tr>
-        <tr><td>Bridge &amp; Coffee</td><td>Saturday</td><td>9:00am</td><td>May 2</td></tr>
-        <tr><td>Funday Long Run</td><td>Sunday</td><td>8:30am</td><td>May 3</td></tr>
-        <tr><td>🍩 2nd Fri Donut Run</td><td>Friday</td><td>7:30am</td><td>May 8</td></tr>
-        <tr><td>🍺 2nd Fri Brewery Run</td><td>Friday</td><td>6:30pm</td><td>May 8</td></tr>
-        <tr><td>🍦 3rd Fri Ice Cream Run</td><td>Friday</td><td>6:00pm</td><td>May 15</td></tr>
-        <tr><td>🥯 4th Fri Bagel Run</td><td>Friday</td><td>7:30am</td><td>May 22</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <h3>&#127939; North Brooklyn Runners (NBR) — This Week</h3>
+  <table class="nbr-table">
+    <thead><tr><th>Day</th><th>Run</th><th>Time</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Mon 5/4</td><td>Monday Morning Easy</td><td>6:45am</td><td>Easy pace</td></tr>
+      <tr><td>Mon 5/4</td><td>Monday Night Easy</td><td>7:30pm</td><td>All levels</td></tr>
+      <tr><td>Wed 5/6</td><td>Wednesday Beginner</td><td>7pm</td><td>Beginner-friendly</td></tr>
+      <tr><td>Wed 5/6</td><td>Wednesday Night Road</td><td>7:30pm</td><td>Road run</td></tr>
+      <tr class="highlight"><td>Fri 5/8</td><td>2nd Friday Donut Run</td><td>7:30am</td><td>&#127849; 2nd Fri of month</td></tr>
+      <tr class="highlight"><td>Fri 5/8</td><td>2nd Friday Brewery Run</td><td>6:30pm</td><td>&#127866; 2nd Fri of month</td></tr>
+      <tr><td>Sat 5/9</td><td>Saturday Bridge &amp; Coffee</td><td>9am</td><td>Bridge route + coffee</td></tr>
+      <tr><td>Sat 5/9</td><td>Saturday Long Run (Narwhals)</td><td>7am</td><td>Long run crew</td></tr>
+      <tr><td>Sun 5/10</td><td>Sunday Funday Long Run</td><td>8:30am</td><td>Fun long run</td></tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="footer">
-  <div class="footer-card">
-    <h4>📵 Source Notes This Run</h4>
-    <p><strong>No Sleep Club NYC</strong> — fully scraped ✓ · <strong>warmly (calli)</strong> — archive checked; latest post Apr 24-26, paywalled after 2 events; no current-week edition found · <strong>Eddie's List NYC</strong> — archive checked; last post was May 2025 (appears inactive) · <strong>GM NYC events page</strong> — members-only, genuinely inaccessible · <strong>Dice.fm free bundle</strong> — 403 error · <strong>Found NY</strong> — paywalled · <strong>Bite the Apple / Katie Romero</strong> — paywalled Substack · <strong>The Underground</strong> — SF-focused, skipped · <strong>Nonsense NYC</strong> — email-only, cannot scrape</p>
-    <br>
-    <p><strong>Instagram accounts worth checking manually:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
-  </div>
+  <h4>Sources Not Accessible This Edition</h4>
+  <ul>
+    <li>Nonsense NYC — email-only newsletter</li>
+    <li>Found NY (ny.itsfound.com) — paywalled</li>
+    <li>Bite The Apple / Katie Romero — paywalled Substack</li>
+    <li>warmly (calli) — paywalled after 2 events</li>
+    <li>Brooklyn Brainery — site unavailable this run</li>
+    <li>The Underground — SF-focused, skipped</li>
+  </ul>
+  <p style="margin-top:10px"><strong>Check manually on Instagram:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
-const CAT_COLORS = {
-  music:'#a855f7',comedy:'#f97316',art:'#ec4899',markets:'#14b8a6',
-  runs:'#22c55e',film:'#ef4444',talks:'#3b82f6',outdoors:'#84cc16',
-  food:'#f59e0b',learning:'#06b6d4',networking:'#8b5cf6',
-  wellness:'#10b981',other:'#64748b'
-};
-
-const events = [
-  // ── THURSDAY APR 30 ──────────────────────────────────────────────
-  {name:"Tai Chi in Bryant Park",date:"Thu Apr 30",time:"7:30am",venue:"Bryant Park Fountain Terrace",neighborhood:"Midtown",price:"Free",priceType:"free",desc:"Free outdoor tai chi classes for all experience levels. Great way to start the day.",source:"The Skint",sourceUrl:"https://bryantpark.org/activities/tai-chi",category:"outdoors",days:["thu"],williamsburg:false},
-  {name:"Movies Under the Palms: Annie Sing-Along",date:"Thu Apr 30",time:"5pm",venue:"Brookfield Place",neighborhood:"Lower Manhattan",price:"Free",priceType:"free",desc:"Sing-along screening of Annie with complimentary popcorn in the indoor palm court atrium.",source:"The Skint",sourceUrl:"https://www.bfplny.com/events/movies-under-the-palms",category:"film",days:["thu"],williamsburg:false},
-  {name:"A Suspension in Time at Diptyque",date:"Thu Apr 30",time:"12–7pm",venue:"377 Bleecker St",neighborhood:"West Village",price:"Free",priceType:"free",desc:"Four-day sensorial pop-up exploring Diptyque's iconic candle with immersive fragrance moments and curated atmosphere. Through Fri May 1.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"art",days:["thu","fri"],williamsburg:false},
-  {name:"Swans of Harlem: Carrying Legacy Forward",date:"Thu Apr 30",time:"6:30pm",venue:"List Hall, Metropolitan Opera",neighborhood:"Lincoln Center",price:"Free",priceType:"free",desc:"Panel discussion exploring Karen Valby's book about five Black ballerinas from Dance Theatre of Harlem and what it means to carry artistic legacy forward.",source:"Lincoln Center",sourceUrl:"https://www.lincolncenter.org",category:"talks",days:["thu"],williamsburg:false},
-  {name:"Lunch on a Beam: Christine Roussel",date:"Thu Apr 30",time:"6pm",venue:"Rizzoli Bookstore",neighborhood:"Flatiron",price:"Free",priceType:"free",desc:"Rockefeller Center archivist discusses the iconic 1932 photograph of ironworkers eating lunch on a beam, followed by book signing.",source:"The Skint",sourceUrl:"https://www.rizzolibookstore.com",category:"talks",days:["thu"],williamsburg:false},
-  {name:"Miller Theater Pop-Up: Alice Teyssier",date:"Thu Apr 30",time:"6pm",venue:"Miller Theatre",neighborhood:"Morningside Heights",price:"Free (+ drink)",priceType:"free",desc:"Soprano Alice Teyssier presents a new work inspired by La Maupin, the late-17th-century queer opera singer. Free drink included.",source:"The Skint",sourceUrl:"https://www.millertheatre.com",category:"music",days:["thu"],williamsburg:false},
-  {name:"Confronting Climate Change (Talk Series)",date:"Thu Apr 30",time:"6:30pm",venue:"Center for Brooklyn History",neighborhood:"Brooklyn Heights",price:"Free",priceType:"free",desc:"Three-part discussion series on climate change moderated by an NPR correspondent. Brooklyn Public Library programming.",source:"The Skint",sourceUrl:"https://www.bklynlibrary.org",category:"talks",days:["thu"],williamsburg:false},
-  {name:"FUTUROS: Mirror Mirror — World Premiere Opera",date:"Thu Apr 30",time:"7:30pm",venue:"David Rubenstein Atrium",neighborhood:"Lincoln Center",price:"Free",priceType:"free",desc:"World premiere opera by Venezuelan-Chilean composer Miguel Farías, inspired by the work of Chilean novelist and performer Pedro Lemebel.",source:"Lincoln Center",sourceUrl:"https://www.lincolncenter.org",category:"music",days:["thu"],williamsburg:false},
-  {name:"Gallery Opening Night: 20+ Chelsea/Tribeca Shows",date:"Thu Apr 30",time:"6–8pm",venue:"Gagosian, Hauser & Wirth, White Cube, Marianne Boesky, Petzel + 15 more",neighborhood:"Chelsea / Tribeca / Midtown",price:"Free",priceType:"free",desc:"Massive gallery opening night. Highlights: Helen Frankenthaler at Gagosian, Allison Katz at Hauser & Wirth, David Hammons & Jannis Kounellis at White Cube, Sanford Biggers at Marianne Boesky, Emma Webster at Petzel. Full list at Alex Feim's art map.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"art",days:["thu"],williamsburg:false},
-  {name:"Kari Cholnoky: Leech Performances",date:"Thu Apr 30",time:"6–8:30pm",venue:"Nicelle Beauchene Gallery",neighborhood:"Lower East Side",price:"Free",priceType:"free",desc:"Live performances by Kari Cholnoky at the opening of her gallery show. Performance art meets painting.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"art",days:["thu"],williamsburg:false},
-  {name:"Love in a Time of Allegory Book Launch",date:"Thu Apr 30",time:"6–8pm",venue:"Printed Matter",neighborhood:"Chelsea",price:"Free",priceType:"free",desc:"Book launch and reception at NYC's legendary art book store. Drinks, conversation, and browsing the stacks.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"talks",days:["thu"],williamsburg:false},
-  {name:"The Friction Between Inherent and Undoing Panel",date:"Thu Apr 30",time:"6:30pm",venue:"The 8th Floor",neighborhood:"Chelsea",price:"Free",priceType:"free",desc:"Artist panel discussion in The 8th Floor's gallery space. Free and open to the public.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"talks",days:["thu"],williamsburg:false},
-  {name:"Page Break: Stage Break Reading Series",date:"Thu Apr 30",time:"7pm",venue:"Littlefield",neighborhood:"Gowanus",price:"$10",priceType:"cheap",desc:"Four writers take the stage to read original short stories one page at a time, alternating with three audience members reading their own pages.",source:"The Skint",sourceUrl:"https://littlefieldnyc.com",category:"talks",days:["thu"],williamsburg:false},
-  {name:"We Love a Theme: Storytelling Show",date:"Thu Apr 30",time:"7pm",venue:"Pete's Candy Store",neighborhood:"Williamsburg",price:"Free ($5 suggested)",priceType:"free",desc:"Monthly storytelling show themed 'rain on me' with performers sharing original stories. One of Williamsburg's coziest venues.",source:"The Skint",sourceUrl:"https://www.petescandystore.com",category:"other",days:["thu"],williamsburg:true},
-  {name:"Talent Show for Adults",date:"Thu Apr 30",time:"7–9:30pm",venue:"Brooklyn Bowl",neighborhood:"Williamsburg",price:"$20",priceType:"mid",desc:"Showcase featuring singing, comedy, and hidden skills in Williamsburg's iconic concert and bowling venue.",source:"City Happenings",sourceUrl:"https://cityhappenings.substack.com/p/nyc-happenings-and-events-april-27",category:"music",days:["thu"],williamsburg:true},
-  {name:"Park Slop Comedy (Free Beer 7:30–8pm)",date:"Thu Apr 30",time:"8pm",venue:"Two Boots Pizza",neighborhood:"Park Slope",price:"Free ($10 suggested)",priceType:"free",desc:"Stand-up comedy with free beer from 7:30–8pm and a raffle for free pizza. One of Brooklyn's best free comedy nights.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"comedy",days:["thu"],williamsburg:false},
-  {name:"Live Band Karaoke at Arlene's Grocery",date:"Thu Apr 30",time:"8pm",venue:"Arlene's Grocery",neighborhood:"Lower East Side",price:"$10",priceType:"cheap",desc:"Pick your song, grab the mic, and be a star with your very own live band. A classic LES institution.",source:"The Skint",sourceUrl:"https://www.arlenesgrocerynyc.com",category:"music",days:["thu"],williamsburg:false},
-
-  // added from No Sleep Club NYC Apr 27–May 3 post
-  {name:"Jean-Michel Basquiat: Editions Opening Party",date:"Thu Apr 30",time:"6–8pm (RSVP req.)",venue:"Taglialatella Galleries, 229 10th Ave",neighborhood:"Chelsea",price:"Free",priceType:"free",desc:"Opening party for 25 years of limited-edition prints from the Basquiat estate featuring iconic imagery. RSVP required.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"art",days:["thu"],williamsburg:false},
-  {name:"MetroCard Art Pop-Up (Last Day)",date:"Thu Apr 30",time:"12–7pm",venue:"W StyleLab, 1567 Broadway 7th Fl",neighborhood:"Midtown",price:"Free",priceType:"free",desc:"Last day to see upcycled MetroCard artwork by Thomas McKean. Free to browse this Earth Month pop-up.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"art",days:["thu"],williamsburg:false},
-
-  // ── FRIDAY MAY 1 ─────────────────────────────────────────────────
-  {name:"NBR 1st Friday Salmon Run",date:"Fri May 1",time:"7:30am",venue:"Meet at Prospect Park (north entrance)",neighborhood:"Prospect Heights",price:"Free",priceType:"free",desc:"North Brooklyn Runners' monthly First Friday Salmon Run. All paces welcome.",source:"NBR",sourceUrl:"https://www.nbruns.com",category:"runs",days:["fri"],williamsburg:false},
-  {name:"Labor of Love Puppet Procession",date:"Fri May 1",time:"9:45–11:45am",venue:"Governors Island",neighborhood:"Governors Island",price:"Free (RSVP req.)",priceType:"free",desc:"Experiential puppet procession celebrating art and aquatic ecosystems with costume workshops, food, and live music. Free ferry included with RSVP.",source:"City Happenings",sourceUrl:"https://cityhappenings.substack.com/p/nyc-happenings-and-events-april-27",category:"art",days:["fri"],williamsburg:false},
-  {name:"ILIA Sun Serum Bike Pop-Up",date:"Fri May 1",time:"9am–12:30pm",venue:"Sephora SoHo & Meatpacking",neighborhood:"SoHo / Meatpacking",price:"Free",priceType:"free",desc:"ILIA-branded bike cart distributing sunscreen samples, scratch-off cards, and complimentary transit ride vouchers at two Sephora locations.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["fri"],williamsburg:false},
-  {name:"Run for the Roses (Woodford Reserve)",date:"Fri May 1",time:"11am–7pm",venue:"Grand Central, Vanderbilt Hall",neighborhood:"Midtown",price:"Free (21+)",priceType:"free",desc:"Derby-inspired activation with a life-size Flying Ebony sculpture, complimentary cocktail tastings, 4,000+ red roses, and a vendor marketplace. Ages 21+ only.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["fri"],williamsburg:false},
-  {name:"Jane's Walk NYC 2026 (200+ Free Tours)",date:"Fri May 1",time:"Various",venue:"All 5 boroughs",neighborhood:"Citywide",price:"Free",priceType:"free",desc:"Annual festival of 200+ free community-led walking conversations across NYC, inspired by urbanist Jane Jacobs. Walks on Fri May 1, Sat May 2, and Sun May 3.",source:"MAS / NYC Parks",sourceUrl:"https://www.mas.org/events/janes-walk-nyc/",category:"outdoors",days:["fri","sat","sun"],williamsburg:false},
-  {name:"Jane's Walk: Jackie Robinson's Harlem",date:"Fri May 1",time:"1pm",venue:"Jackie Robinson Museum, Harlem",neighborhood:"Harlem",price:"Free",priceType:"free",desc:"90-minute walking tour exploring Jackie Robinson's Harlem, led by a museum curator. Repeats Sat May 2 at 1pm.",source:"Jackie Robinson Museum",sourceUrl:"https://www.jackierobinsonmuseum.org",category:"outdoors",days:["fri","sat"],williamsburg:false},
-  {name:"Movies Under the Palms: Wizard of Oz Sing-Along",date:"Fri May 1",time:"1pm",venue:"Brookfield Place",neighborhood:"Lower Manhattan",price:"Free",priceType:"free",desc:"Sing-along screening of The Wizard of Oz with complimentary popcorn, comfy seating, and pre-show entertainment.",source:"The Skint",sourceUrl:"https://www.bfplny.com",category:"film",days:["fri"],williamsburg:false},
-  {name:"Gallery Opening Receptions: LES & Elsewhere",date:"Fri May 1",time:"6–8pm",venue:"Matthew Marks, Derek Eller, Jane Lombard, Sebastian Gladstone + more",neighborhood:"Chelsea / LES / Various",price:"Free",priceType:"free",desc:"Second wave of opening receptions. Highlights: Vija Celmins prints at Matthew Marks, Alyson Shotz: Deep Field at Derek Eller, Your Birth is My Birth at Jane Lombard. Full list at Alex Feim.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"art",days:["fri"],williamsburg:false},
-  {name:"Whitney Museum Free Friday + Wicked Night",date:"Fri May 1",time:"5–10pm",venue:"Whitney Museum of American Art",neighborhood:"Meatpacking District",price:"Free",priceType:"free",desc:"Free Friday night admission plus special Wicked Night programming: cast performances, panel with the show's creative team, and DJ sets. Reserve timed tickets at whitney.org.",source:"NYC for FREE / Whitney",sourceUrl:"https://whitney.org/visit/free-friday-nights",category:"art",days:["fri"],williamsburg:false},
-  {name:"Frick Collection First Fridays",date:"Fri May 1",time:"5:30–9pm",venue:"The Frick Collection",neighborhood:"Upper East Side",price:"Free",priceType:"free",desc:"Fashion Week at the Frick evening — free admission with gallery talks, live music, and art-making. Walk-ups welcome; timed tickets recommended.",source:"The Skint",sourceUrl:"https://www.frick.org/programs/first_fridays",category:"art",days:["fri"],williamsburg:false},
-  {name:"Bryant Park Dance Party: Salsa Clásica",date:"Fri May 1",time:"6pm lesson, 7–8:30pm",venue:"Bryant Park Fountain",neighborhood:"Midtown",price:"Free",priceType:"free",desc:"Free beginner-friendly salsa lesson at 6pm, then live music with Maria Raquel performing salsa clásica until 8:30pm.",source:"The Skint",sourceUrl:"https://bryantpark.org/activities/dance-party",category:"music",days:["fri"],williamsburg:false},
-  {name:"¡VAYA! Oscar Dudamel y su Orquesta (Salsa)",date:"Fri May 1",time:"7:30pm",venue:"David Rubenstein Atrium",neighborhood:"Lincoln Center",price:"Free",priceType:"free",desc:"Venezuelan bandleader Oscar Dudamel leads his orchestra in an electrifying night of salsa music and dance. In-person and livestream available.",source:"Lincoln Center",sourceUrl:"https://www.lincolncenter.org",category:"music",days:["fri"],williamsburg:false},
-  {name:"Letters + Sodas Reading Series",date:"Fri May 1",time:"7pm",venue:"The Greats of Craft",neighborhood:"Long Island City",price:"$5",priceType:"cheap",desc:"Standup, humor pieces, fiction, and essay readings by comedians and writers — a laid-back reading series in LIC.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"talks",days:["fri"],williamsburg:false},
-  {name:"Speakeasy: The Definitive Speechwriting Comedy Show",date:"Fri May 1",time:"7pm",venue:"Caveat",neighborhood:"Lower East Side",price:"$15.67 (code 'speakcheaply')",priceType:"mid",desc:"Professional speechwriters and comedians explore famous speeches. From West Wing Writers. Code 'speakcheaply' saves you $9.",source:"The Skint",sourceUrl:"https://www.caveat.nyc",category:"comedy",days:["fri"],williamsburg:false},
-  {name:"Overeager (BroadwayWorld award-nominated play)",date:"Fri May 1",time:"7:30pm",venue:"Brooklyn Art Haus",neighborhood:"Williamsburg",price:"$20",priceType:"mid",desc:"Award-nominated play about a college dropout who joins a pyramid scheme. Funny, sharp, and very Brooklyn.",source:"The Skint",sourceUrl:"https://www.eventbrite.com",category:"other",days:["fri"],williamsburg:true},
-  {name:"Whiskey River Revival: Willie Nelson Birthday",date:"Fri May 1",time:"8pm",venue:"Littlefield",neighborhood:"Gowanus",price:"~$15 (code 'willie93')",priceType:"mid",desc:"Rotating group of musicians takes on Willie Nelson's songbook to celebrate the outlaw country legend's birthday.",source:"The Skint",sourceUrl:"https://littlefieldnyc.com",category:"music",days:["fri"],williamsburg:false},
-  {name:"Jim Henson Drag Tribute Show",date:"Fri May 1",time:"8pm",venue:"C'mon Everybody",neighborhood:"Bed-Stuy",price:"$13.39",priceType:"mid",desc:"The worlds of puppetry and drag collide in this tribute to Jim Henson. A uniquely Brooklyn evening.",source:"The Skint",sourceUrl:"https://dice.fm",category:"comedy",days:["fri"],williamsburg:false},
-  {name:"Comedy on Kingston",date:"Fri May 1",time:"8:30pm",venue:"Salon on Kingston",neighborhood:"Crown Heights",price:"$15",priceType:"mid",desc:"Stand-up featuring Mandal (Netflix), Sureni Weerasekera, and Quincy Jones at a Crown Heights salon.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"comedy",days:["fri"],williamsburg:false},
-  {name:"Prismatic Ground Film Festival",date:"Fri May 1",time:"Various screenings",venue:"BAM, Anthology, Metrograph, DCTV, Light Industry",neighborhood:"Brooklyn / Manhattan",price:"$10–20",priceType:"mid",desc:"Annual festival of experimental documentary and avant-garde film across multiple beloved NYC venues.",source:"The Skint",sourceUrl:"https://www.prismaticground.com",category:"film",days:["fri","sat"],williamsburg:false},
-  {name:"MoonFest at Green-Wood Cemetery",date:"Fri May 1",time:"6–11pm",venue:"Green-Wood Cemetery, 500 25th St",neighborhood:"Greenwood Heights, Brooklyn",price:"Free",priceType:"free",desc:"First-ever after-hours celebration under the Flower Moon inside Green-Wood Cemetery, inspired by John Draper's historic 1840 moon photograph taken at the site. A totally unique NYC night.",source:"Time Out NY",sourceUrl:"https://www.timeout.com/newyork/things-to-do/things-to-do-in-new-york-this-week",category:"outdoors",days:["fri"],williamsburg:false},
-  {name:"Gyalhattan: Dancehall & Hip-Hop Party",date:"Fri May 1",time:"Evening",venue:"Deluxx Fluxx",neighborhood:"Williamsburg",price:"Free",priceType:"free",desc:"Free dancehall and hip-hop party at Deluxx Fluxx — the neon-lit Williamsburg venue. Vibes guaranteed.",source:"Dice.fm",sourceUrl:"https://dice.fm/browse/new_york-5bbf4db0f06331478e9b2c59",category:"music",days:["fri"],williamsburg:true},
-  {name:"First Friday at Poster House",date:"Fri May 1",time:"11:30am–8pm",venue:"Poster House, 119 W 23rd St",neighborhood:"Chelsea",price:"Free",priceType:"free",desc:"Monthly free admission at the world's first museum dedicated to posters. Extended hours with tours, workshops, and performances.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"art",days:["fri"],williamsburg:false},
-  {name:"Kimbap & Art Happy Hour",date:"Fri May 1",time:"5–7pm",venue:"Pearl River Mart Foods, Chelsea Market",neighborhood:"Chelsea",price:"Free",priceType:"free",desc:"Free art, kimbap, and desserts celebrating Korean food culture at Pearl River Mart Foods in Chelsea Market.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"food",days:["fri"],williamsburg:false},
-  {name:"Audible Story House (Opens)",date:"Fri May 1",time:"11am–7pm (Wed–Sun through May 31)",venue:"260 Bowery",neighborhood:"NoLita",price:"Free",priceType:"free",desc:"Audible's first physical space dedicated to audio storytelling: seven listening environments, interactive story tiles, and premium headphone experiences. Free to visit.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["fri","sat","sun"],williamsburg:false},
-  {name:"Margaret Mead Film Festival",date:"Fri May 1",time:"7pm opening, various screenings Fri–Sun",venue:"American Museum of Natural History",neighborhood:"Upper West Side",price:"$15–20 per screening",priceType:"mid",desc:"Opens with 'Time and Water,' a documentary about climate change and glacier loss. Weekend pass $75; individual screenings $13–15.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"film",days:["fri","sat","sun"],williamsburg:false},
-  {name:"Summer at Watermark Beach (Opens)",date:"Fri May 1",time:"Opens May 1",venue:"Pier 15, 78 South St",neighborhood:"Seaport",price:"Free to enter",priceType:"free",desc:"10,000-square-foot outdoor tropical bar transforms Pier 15 into a tiki oasis for the season. Free to enter — drinks available.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["fri","sat","sun"],williamsburg:false},
-  {name:"Not a Normal Market",date:"Fri May 1",time:"All weekend",venue:"Former Barney's NYC, 660 Madison Ave",neighborhood:"Upper East Side",price:"Entry fee TBD",priceType:"cheap",desc:"Quarterly design market taking over the old Barneys building with 3 floors of ultra-curated finds: vintage, fashion, art, home goods, and 100+ vendors. Runs Fri May 1 through Sun May 3.",source:"Marked (Morgan McDonald)",sourceUrl:"https://markedbymorgan.substack.com/p/this-week-in-nyc-marked-0d4",category:"markets",days:["fri","sat","sun"],williamsburg:false},
-
-  // ── SATURDAY MAY 2 ───────────────────────────────────────────────
-  {name:"NBR Saturday Long Run (Narwhals)",date:"Sat May 2",time:"7am",venue:"Meet at McCarren Park",neighborhood:"Williamsburg",price:"Free",priceType:"free",desc:"NBR's Saturday long run with the Narwhals crew. All long-run paces welcome.",source:"NBR",sourceUrl:"https://www.nbruns.com",category:"runs",days:["sat"],williamsburg:true},
-  {name:"NBR Bridge & Coffee",date:"Sat May 2",time:"9am",venue:"Meet at McCarren Park",neighborhood:"Williamsburg",price:"Free",priceType:"free",desc:"NBR's weekly Saturday social run across the bridges, followed by coffee.",source:"NBR",sourceUrl:"https://www.nbruns.com",category:"runs",days:["sat"],williamsburg:true},
-  {name:"Blessing of the Bikes",date:"Sat May 2",time:"8:30–9am",venue:"Cathedral Church of St. John the Divine",neighborhood:"Upper West Side",price:"Free",priceType:"free",desc:"28th annual cycling tradition — the reverend says kind words and sprinkles bikes with holy water. All cyclists welcome.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"outdoors",days:["sat"],williamsburg:false},
-  {name:"Smorgasburg Williamsburg",date:"Sat May 2",time:"11am–6pm",venue:"Marsha P. Johnson State Park, 90 Kent Ave",neighborhood:"Williamsburg",price:"Free entry (food $)",priceType:"free",desc:"NYC's iconic open-air food market returns to the Williamsburg waterfront with 70+ vendors. New this season: 82 Bowl, Ambo, Bingsoo, Nano Burger, and more.",source:"Smorgasburg",sourceUrl:"https://www.smorgasburg.com",category:"food",days:["sat"],williamsburg:true},
-  {name:"Padma Lakshmi Book Signing at Greenmarket",date:"Sat May 2",time:"11am–1pm",venue:"Union Square Greenmarket",neighborhood:"Union Square",price:"Free",priceType:"free",desc:"Padma Lakshmi signs her new book at Union Square Greenmarket. Meet the author and pick up farm-fresh produce while you're there.",source:"GrowNYC",sourceUrl:"https://grownyc.org/events",category:"food",days:["sat"],williamsburg:false},
-  {name:"Bindlestiff Family Cirkus",date:"Sat May 2",time:"10am–5:30pm",venue:"20 Battery Place",neighborhood:"Battery Park",price:"Free",priceType:"free",desc:"Vintage-inspired circus featuring clowns, jugglers, wire walkers, acrobats, and aerialists performing throughout the day.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["sat"],williamsburg:false},
-  {name:"Jane's Carousel Day DUMBO",date:"Sat May 2",time:"11am–5:50pm",venue:"Dock Street",neighborhood:"DUMBO",price:"Free",priceType:"free",desc:"Annual celebration with free rides and face paint for all at the iconic DUMBO waterfront carousel.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["sat"],williamsburg:false},
-  {name:"Free Comic Book Day 2026",date:"Sat May 2",time:"11am–5pm",venue:"Comic shops citywide",neighborhood:"All boroughs",price:"Free",priceType:"free",desc:"Annual tradition: publishers distribute free comics including DC, Marvel, Minecraft, and Star Wars titles. Find your nearest participating shop.",source:"NYC for FREE",sourceUrl:"https://www.freecomicbookday.com",category:"other",days:["sat"],williamsburg:false},
-  {name:"Manhattan Fine Press Book Fair",date:"Sat May 2",time:"9am–5pm",venue:"St. Vincent Ferrer Church, 869 Lexington Ave",neighborhood:"Upper East Side",price:"Free",priceType:"free",desc:"One-day fair showcasing limited-edition books, artist books, and experimental letterpress formats from independent publishers.",source:"City Happenings / Blankman List",sourceUrl:"https://cityhappenings.substack.com/p/nyc-happenings-and-events-april-27",category:"other",days:["sat"],williamsburg:false},
-  {name:"Drawing in Nature",date:"Sat May 2",time:"10am",venue:"Hudson River Park area",neighborhood:"Hudson River Park",price:"Free",priceType:"free",desc:"Paint in watercolor or use pastels to capture the vistas of the Hudson River. All materials welcome; beginners encouraged.",source:"Club Free Time",sourceUrl:"https://www.clubfreetime.com",category:"outdoors",days:["sat"],williamsburg:false},
-  {name:"Fishing with Urban Park Rangers",date:"Sat May 2",time:"11am–12:30pm",venue:"Brooklyn waterway (TBA)",neighborhood:"Brooklyn",price:"Free",priceType:"free",desc:"Rangers guide participants in basic angling and introduce the inhabitants of Brooklyn's estuaries. All gear provided.",source:"NYC Parks",sourceUrl:"https://www.nycgovparks.org/events",category:"outdoors",days:["sat"],williamsburg:false},
-  {name:"Gallery Crawl: Lower East Side",date:"Sat May 2",time:"1–3pm",venue:"Starting at Ki Smith Gallery, 170 Forsyth St",neighborhood:"Lower East Side",price:"$15",priceType:"mid",desc:"Guided crawl through LES galleries with private walkthroughs led by gallery directors. Press materials included.",source:"City Happenings",sourceUrl:"https://cityhappenings.substack.com/p/nyc-happenings-and-events-april-27",category:"art",days:["sat"],williamsburg:false},
-  {name:"Gallery Opening Receptions: Paula Cooper, Jeffrey Deitch + More",date:"Sat May 2",time:"11am–6pm (galleries open)",venue:"Paula Cooper, Jeffrey Deitch, PPOW, Andrew Edlin, Kentler + more",neighborhood:"Chelsea / Lower East Side",price:"Free",priceType:"free",desc:"Major Saturday openings: Mark di Suvero: Avanti! at Paula Cooper, Walter Robinson: Let the Music Play at Jeffrey Deitch, Pilot Light at PPOW. Full list at Alex Feim.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"art",days:["sat"],williamsburg:false},
-  {name:"Ficre Ghebreyesus Panel Discussion",date:"Sat May 2",time:"2pm",venue:"Galerie LeLong",neighborhood:"Chelsea",price:"Free",priceType:"free",desc:"Panel discussion on the work of Eritrean-American artist Ficre Ghebreyesus at Galerie LeLong. Free and open to the public.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"talks",days:["sat"],williamsburg:false},
-  {name:"Maya Man: Star Power Closing Reception",date:"Sat May 2",time:"5–8pm",venue:"bitforms gallery",neighborhood:"Lower East Side",price:"Free",priceType:"free",desc:"Closing reception for Maya Man's Star Power exhibition at bitforms gallery, one of NYC's best digital/new media art spaces.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"art",days:["sat"],williamsburg:false},
-  {name:"Bryant Park Dance Party: Motown & R&B",date:"Sat May 2",time:"6pm lesson, 7–8:30pm",venue:"Bryant Park Fountain",neighborhood:"Midtown",price:"Free",priceType:"free",desc:"Free dance lesson at 6pm followed by live music with L*A*W and The Planet 12 Movement performing Motown, funk, and R&B.",source:"The Skint",sourceUrl:"https://bryantpark.org/activities/dance-party",category:"music",days:["sat"],williamsburg:false},
-  {name:"Brooklyn Museum First Saturday: Spring Tide",date:"Sat May 2",time:"5–11pm",venue:"Brooklyn Museum",neighborhood:"Crown Heights",price:"Free (registration req.)",priceType:"free",desc:"AAPI Heritage Month celebration with The Brooklyn Nomads (violin/synth/oud), Lei Day hula performances, lei-making workshops, and an AAPI small-business marketplace. Get tickets at brooklynmuseum.org.",source:"Brooklyn Museum",sourceUrl:"https://www.brooklynmuseum.org/programs/first-saturday-may-2026",category:"art",days:["sat"],williamsburg:false},
-  {name:"Antiquarian Book Fair (ABAA)",date:"Sat May 2",time:"12–9pm",venue:"Park Avenue Armory",neighborhood:"Upper East Side",price:"$10 students / 25% off (code 'theskintxnyiabf')",priceType:"cheap",desc:"66th annual fair with rare books, maps, manuscripts, photographs, and prints from 170+ exhibitors. Also open Fri Apr 30 through Sun May 3.",source:"The Skint",sourceUrl:"https://www.nyantiquarianbookfair.com",category:"other",days:["sat"],williamsburg:false},
-  {name:"Queens New Music Festival",date:"Sat May 2",time:"Evening",venue:"Culture Lab LIC",neighborhood:"Long Island City",price:"$20 ($10 students)",priceType:"mid",desc:"Annual festival of contemporary and experimental music with concerts and world premieres.",source:"The Skint",sourceUrl:"https://www.ram-nyc.org",category:"music",days:["sat"],williamsburg:false},
-  {name:"LES Film Festival",date:"Sat May 2",time:"Various screenings",venue:"Village East Cinema, ICP, KBG Bar",neighborhood:"Lower East Side",price:"2-for-1 (code 'skintles50')",priceType:"cheap",desc:"16th Annual Lower East Side Film Festival with independent films and premieres, including the Ghost World 25-year reunion.",source:"The Skint",sourceUrl:"https://www.lesfilmfestival.com",category:"film",days:["sat"],williamsburg:false},
-  {name:"Secrets and Lies: Seaport Edition",date:"Sat May 2",time:"7pm",venue:"Tall Ship Wavertree",neighborhood:"South Street Seaport",price:"$15 (incl. drinks & snacks)",priceType:"mid",desc:"Evening of untold tales about the unsung queens of South Street aboard the historic tall ship Wavertree.",source:"The Skint",sourceUrl:"https://southstreetseaportmuseum.org",category:"other",days:["sat"],williamsburg:false},
-  {name:"Golden Spiral Comedy Show",date:"Sat May 2",time:"7pm",venue:"Whiskey Cellar NYC",neighborhood:"East Village",price:"$10.38 (code 'skintspiral')",priceType:"cheap",desc:"Stand-up sets where lengths follow the Fibonacci sequence. Kate Sisk, Shenuque Tissera, and others.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"comedy",days:["sat"],williamsburg:false},
-  {name:"Connor Ratliff: The Acting Class (w/ Zach Cherry)",date:"Sat May 2",time:"8:30pm",venue:"UCB",neighborhood:"East Village",price:"$10",priceType:"cheap",desc:"Fully improvised show disguised as an acting workshop, with guest Zach Cherry from Severance. Always hilarious.",source:"The Skint",sourceUrl:"https://ucbcomedy.com",category:"comedy",days:["sat"],williamsburg:false},
-  {name:"Keith Haring at Brant Foundation",date:"Sat May 2",time:"11am–5:30pm",venue:"Brant Foundation",neighborhood:"Lower East Side",price:"$20 ($15 students/East Village residents)",priceType:"mid",desc:"Major Keith Haring retrospective at the Brant Foundation, open through May 31. One of the best ongoing shows in the city.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com",category:"art",days:["sat","sun"],williamsburg:false},
-  {name:"MUJI Mother's Day Workshop: Scented Sachet",date:"Sat May 2",time:"12–7pm",venue:"MUJI, 59 Cooper Square",neighborhood:"East Village",price:"Free (MUJI members)",priceType:"free",desc:"Create scented sachets with cotton and essential oils for Mother's Day. Free for MUJI members; also runs Sun May 3.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co",category:"learning",days:["sat","sun"],williamsburg:false},
-
-  {name:"JAPAN Fes NYC",date:"Sat May 2",time:"All day",venue:"Astor Place",neighborhood:"East Village",price:"From $10",priceType:"cheap",desc:"World's largest Japanese food festival celebrating its 10th NYC anniversary. Dozens of vendors, live performances, and street food: yakisoba, takoyaki, and more. Also runs Sun May 3.",source:"Secret NYC",sourceUrl:"https://secretnyc.co/what-to-do-this-weekend-nyc/",category:"food",days:["sat","sun"],williamsburg:false},
-  {name:"BBG: Three Sisters Planting w/ Angela Ferguson",date:"Sat May 2",time:"10:30am–12:30pm",venue:"Brooklyn Botanic Garden",neighborhood:"Crown Heights",price:"Free w/ garden admission (~$20)",priceType:"cheap",desc:"Native seed planting led by Onondaga farmer and educator Angela Ferguson. Part of Spring Family Discovery Weekends. Drop-in.",source:"Brooklyn Botanic Garden",sourceUrl:"https://www.bbg.org/visit/calendar",category:"learning",days:["sat"],williamsburg:false},
-  {name:"AAPI Pizza Crawl + Dumplings",date:"Sat May 2",time:"12:30pm",venue:"Meet near Marcy Ave (J/M/Z)",neighborhood:"South Williamsburg",price:"Free (request to join)",priceType:"free",desc:"Pizza crawl visiting Asian-American-owned slice shops and dumpling spots in South Williamsburg. Request to join via No Sleep Club.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"food",days:["sat"],williamsburg:true},
-  {name:"Bohemian Battles IV",date:"Sat May 2",time:"3–6pm",venue:"Bohemian Beer Hall, 29-19 24th Ave",neighborhood:"Astoria",price:"Free to watch",priceType:"free",desc:"New Yorkers in real battle armor fight with swords and blunt weapons. Free to spectate — bring a beer and enjoy the chaos.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["sat"],williamsburg:false},
-
-  // ── SUNDAY MAY 3 ─────────────────────────────────────────────────
-  {name:"NBR Sunday Funday Long Run",date:"Sun May 3",time:"8:30am",venue:"Meet at McCarren Park",neighborhood:"Williamsburg",price:"Free",priceType:"free",desc:"NBR's Sunday long run. All paces welcome for this fun social run through the borough.",source:"NBR",sourceUrl:"https://www.nbruns.com",category:"runs",days:["sun"],williamsburg:true},
-  {name:"TD Five Boro Bike Tour — Free to Spectate",date:"Sun May 3",time:"7:30am–6pm",venue:"All 5 boroughs",neighborhood:"Citywide",price:"Free to watch",priceType:"free",desc:"32,000 cyclists ride 40 miles through all five boroughs on traffic-free streets. Find a spot along the Brooklyn waterfront for the best viewing. World's largest charitable biking event.",source:"Bike New York",sourceUrl:"https://www.bike.nyc/events/td-five-boro-bike-tour/",category:"outdoors",days:["sun"],williamsburg:false},
-  {name:"MoMA PS1: Greater New York 2026",date:"Sun May 3",time:"12–6pm",venue:"MoMA PS1",neighborhood:"Long Island City, Queens",price:"Free",priceType:"free",desc:"Free since January 2026. See Greater New York 2026 (50+ emerging artists across the historic building) and Red Canary Song: Touch the Heart.",source:"MoMA PS1",sourceUrl:"https://www.momaps1.org",category:"art",days:["sun"],williamsburg:false},
-  {name:"Create-athon: Monsters Everywhere!",date:"Sun May 3",time:"1pm",venue:"David Rubenstein Atrium",neighborhood:"Lincoln Center",price:"Free",priceType:"free",desc:"Hands-on workshop with The New York Sewing Center for designing creatures and costumes. Family-friendly; all ages welcome.",source:"Lincoln Center",sourceUrl:"https://www.lincolncenter.org",category:"learning",days:["sun"],williamsburg:false},
-  {name:"An Afternoon with Abdellah Taïa",date:"Sun May 3",time:"3pm",venue:"Albertine",neighborhood:"Upper East Side",price:"Free",priceType:"free",desc:"Moroccan writer discusses the English translation of his 2022 novel about a resilient Moroccan countrywoman. Albertine is the French cultural institute's gorgeous bookshop.",source:"Blankman List",sourceUrl:"https://www.blankmanlist.com/p/free-highlights-may-2026-things-to-do-in-nyc",category:"talks",days:["sun"],williamsburg:false},
-  {name:"Berta Indeed: Let the Music Play (Jazz)",date:"Sun May 3",time:"2–5pm",venue:"Brooklyn Park",neighborhood:"Brooklyn",price:"Free",priceType:"free",desc:"Community jazz concerts featuring an array of local musicians and vocalists performing in the park.",source:"NYC Parks",sourceUrl:"https://www.nycgovparks.org/events",category:"music",days:["sun"],williamsburg:false},
-  {name:"Traditional Irish Music: Cillian Vallely & Kevin Crawford",date:"Sun May 3",time:"7:30pm",venue:"Symphony Space",neighborhood:"Upper West Side",price:"Discounted (code SKINT5 for $5 off)",priceType:"cheap",desc:"Two of Ireland's most celebrated traditional musicians from band Lúnasa perform an intimate acoustic evening.",source:"The Skint",sourceUrl:"https://www.symphonyspace.org",category:"music",days:["sun"],williamsburg:false},
-  {name:"BBG: Weekends in Bloom — Afro-Venezuelan Music & Dance",date:"Sun May 3",time:"Various times",venue:"Brooklyn Botanic Garden",neighborhood:"Crown Heights",price:"Free w/ garden admission (~$20)",priceType:"cheap",desc:"Folk and Bollywood dance, Afro-Venezuelan music, garden tours, and accessibility programming. Part of Weekends in Bloom series.",source:"Brooklyn Botanic Garden",sourceUrl:"https://www.bbg.org/visit/calendar",category:"music",days:["sun"],williamsburg:false},
-  {name:"Worst Dog Breath Contest",date:"Sun May 3",time:"11:30am",venue:"Washington Square Park",neighborhood:"Greenwich Village",price:"Free",priceType:"free",desc:"The stinkiest pup wins a year's supply of Pupgum. Judging, samples, and maximum chaos guaranteed. Free to attend.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["sun"],williamsburg:false},
-  {name:"NYC Tape Fair",date:"Sun May 3",time:"12–6pm",venue:"Selva NYC, 1329 Willoughby Ave",neighborhood:"Bushwick",price:"Free",priceType:"free",desc:"Shop rare, vintage, and new VHS tapes, cassettes, and audio gear while archival footage plays in the background.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["sun"],williamsburg:false},
-  {name:"Brooklyn Public Library's People's Ball",date:"Sun May 3",time:"6pm",venue:"Brooklyn Public Library, 10 Grand Army Plaza",neighborhood:"Prospect Heights",price:"Free",priceType:"free",desc:"Free celebration honoring fashion trailblazers — attendees are invited to walk the runway. A BPL tradition.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["sun"],williamsburg:false},
-  {name:"The Met* Bar Ball",date:"Sun May 3",time:"6–10pm",venue:"Brooklyn (address to attendees)",neighborhood:"Brooklyn",price:"$10",priceType:"cheap",desc:"The Metropolitan (bar) Ball — red carpet, interviews, and a performer TBA. A tongue-in-cheek counter-gala.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"other",days:["sun"],williamsburg:false},
-  {name:"Lip Critic Album Release Party",date:"Sun May 3",time:"9–11pm",venue:"Elsewhere Chatroom, 599 Johnson Ave",neighborhood:"Bushwick",price:"Free",priceType:"free",desc:"Album launch celebration with special guest musicians. Free entry at Elsewhere's intimate Chatroom venue.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com/p/things-to-do-this-week-in-nyc-monday-1a1",category:"music",days:["sun"],williamsburg:false},
-
-  {name:"Gallery Opening: Brian Cotnoir at interrobang11232",date:"Sun May 3",time:"Gallery hours",venue:"interrobang11232",neighborhood:"Bushwick",price:"Free",priceType:"free",desc:"Opening of 'in a dark wood' by Brian Cotnoir at this Bushwick gallery.",source:"Alex Feim Art Map",sourceUrl:"https://alexfeim.substack.com/p/nyc-art-map-and-recs-4272026-532026",category:"art",days:["sun"],williamsburg:false},
-
-  // ── ONGOING ──────────────────────────────────────────────────────
-  {name:"Fleurs de Villes at Hudson Yards",date:"Ongoing",time:"During shopping hours",venue:"Hudson Yards shops",neighborhood:"Midtown West",price:"Free to view",priceType:"free",desc:"15+ NY female designers transform blooms into high-fashion floral mannequins throughout Hudson Yards. A free walk-through art installation. Through May 3.",source:"Time Out NY",sourceUrl:"https://www.timeout.com/newyork/things-to-do/things-to-do-in-new-york-this-week",category:"art",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"CityPickle in Central Park",date:"Ongoing",time:"8am–9pm daily",venue:"Wollman Rink, Central Park",neighborhood:"Midtown",price:"$5 community sessions",priceType:"cheap",desc:"14-court pickleball hub at Wollman Rink. $5 community play sessions include complimentary paddles. Daily open play, clinics, lessons.",source:"Time Out NY",sourceUrl:"https://www.timeout.com/newyork/things-to-do/things-to-do-in-new-york-this-week",category:"outdoors",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"Conductor: Art Fair of the Global Majority",date:"Ongoing",time:"All day",venue:"Powerhouse Arts",neighborhood:"Gowanus",price:"$15",priceType:"mid",desc:"Art fair with 28 gallery exhibitors and 19 installations showcasing artists from Africa, Latin America, Asia, and Indigenous nations. Runs Apr 29 through May 3.",source:"City Happenings / The Skint",sourceUrl:"https://powerhousearts.org/conductor",category:"art",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"PEN World Voices Festival",date:"Ongoing",time:"Various",venue:"Multiple venues",neighborhood:"Citywide",price:"Free–$20",priceType:"free",desc:"140+ writers from 40+ countries. 20+ free events. Code 'penpal26' for 20% off paid events. Runs through May 2.",source:"The Skint",sourceUrl:"https://pen.org/festival",category:"talks",days:["thu","fri","sat"],williamsburg:false},
-  {name:"Out of Silence (Sound Installation)",date:"Ongoing",time:"Hourly",venue:"FDR Four Freedoms State Park",neighborhood:"Roosevelt Island",price:"Free",priceType:"free",desc:"15-minute sound installation by Hans Rosenström featuring recorded vocals — a quiet meditation on silence and listening.",source:"The Skint",sourceUrl:"https://www.fdrfourfreedomspark.org",category:"art",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"100 Years of the Schomburg Center",date:"Ongoing",time:"Library hours",venue:"NYPL Schwarzman Building, 476 5th Ave",neighborhood:"Bryant Park",price:"Free",priceType:"free",desc:"Exhibition of highlights from the Schomburg Center for Research in Black Culture's 100-year collection. Free and open to all through May 3.",source:"Blankman List",sourceUrl:"https://www.blankmanlist.com/p/free-highlights-may-2026-things-to-do-in-nyc",category:"art",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"Andy Warhol: Family Album (Whitney)",date:"Ongoing",time:"Museum hours",venue:"Whitney Museum of American Art",neighborhood:"Meatpacking District",price:"$30 (FREE Fridays 5–10pm)",priceType:"mid",desc:"Hundreds of Warhol's intimate Polaroids from 1972–1973, many never before exhibited. Go on Free Friday to see it for free.",source:"The Skint",sourceUrl:"https://whitney.org",category:"art",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"The Grandmaster: Tony Leung Film Retrospective",date:"Ongoing",time:"Various screenings",venue:"Film at Lincoln Center",neighborhood:"Lincoln Center",price:"$15–18",priceType:"mid",desc:"13-film retrospective of Hong Kong legend Tony Leung: Chungking Express, In the Mood for Love, Happy Together, and more.",source:"The Skint",sourceUrl:"https://www.filmlinc.org",category:"film",days:["thu","fri","sat","sun"],williamsburg:false},
-  {name:"Keith Haring Retrospective (Brant Foundation)",date:"Ongoing",time:"Wed–Fri 11am–6pm, Sat–Sun 11am–5:30pm",venue:"Brant Foundation",neighborhood:"Lower East Side",price:"$20 ($15 students/EV residents)",priceType:"mid",desc:"Major Keith Haring retrospective open through May 31. One of the must-see shows of the year.",source:"No Sleep Club NYC",sourceUrl:"https://nosleepclubnyc.substack.com",category:"art",days:["thu","fri","sat","sun"],williamsburg:false},
+const events=[
+{name:"Biology on Tap",date:"Mon, May 4",time:"7pm",venue:"Pete's Candy Store",neighborhood:"Williamsburg",price:"Free",priceNum:0,desc:"Science talks, trivia, and prizes — first Monday of each month. Bio and beer blend perfectly at this Williamsburg staple.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"talks",days:["mon"],williamsburg:true},
+{name:"The Pet Gala",date:"Mon, May 4",time:"5–7pm",venue:"Bust of Sylvette Plaza, NYU",neighborhood:"Greenwich Village",price:"Free",priceNum:0,desc:"NYC's answer to the Met Gala — for pets. Red carpet, photos by NYC Pet Pawtographer, trick demos, and pet caricatures.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["mon"],williamsburg:false},
+{name:"Mass Reading of Howl",date:"Mon, May 4",time:"5:30pm",venue:"Washington Square Park",neighborhood:"Greenwich Village",price:"Free",priceNum:0,desc:"Collective reading of Allen Ginsberg's Howl with linguist Adam Aleksic. Free copies of the poem distributed to all.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"SVA BFA Fine Arts Open Studios",date:"Mon, May 4",time:"6–9pm",venue:"School of Visual Arts",neighborhood:"Chelsea",price:"Free",priceNum:0,desc:"Senior students open their studios for the public — the last show before graduation. Wide range of mediums and perspectives.",source:"The Skint",sourceUrl:"https://sva.edu",category:"art",days:["mon"],williamsburg:false},
+{name:"Fit + Lit on the High Line",date:"Mon, May 4",time:"6:30pm",venue:"High Line",neighborhood:"Meatpacking District",price:"Free",priceNum:0,desc:"Outdoor dance cardio led by instructor Janeil Mason on the elevated park. RSVP encouraged.",source:"The Skint",sourceUrl:"https://www.thehighline.org/events/fit-lit/",category:"wellness",days:["mon"],williamsburg:false},
+{name:"Living Radio: Radio Drama",date:"Mon, May 4",time:"7pm",venue:"Under St. Marks Theater",neighborhood:"East Village",price:"$7 min PWYC",priceNum:7,desc:"Live performances of five short radio plays. Theater for the ear — intimate and experimental.",source:"The Skint",sourceUrl:"https://livingradionyc.com",category:"other",days:["mon"],williamsburg:false},
+{name:"Miss Manhattan Non-Fiction Reading Series",date:"Mon, May 4",time:"7:30pm",venue:"Niagara Bar",neighborhood:"East Village",price:"Free",priceNum:0,desc:"Monthly non-fiction reading showcase in a classic East Village bar. Writers reading from their own work.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"Turning to Birds: Lili Taylor + Christian Cooper",date:"Mon, May 4",time:"7:30pm",venue:"Greenlight Bookstore (St. Joseph's Univ.)",neighborhood:"Clinton Hill",price:"Free / $20 w/ book",priceNum:0,desc:"Actor Lili Taylor celebrates paperback of her book with birding icon Christian Cooper — the man from that Central Park story.",source:"Greenlight Bookstore",sourceUrl:"https://greenlightbookstore.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"You Are Not Alone: A Show About Depression",date:"Mon, May 4",time:"9pm",venue:"Magnet Theater",neighborhood:"Chelsea",price:"$10",priceNum:10,desc:"Improvisers who battle depression create an uplifting show about the shared experience. Surprisingly funny.",source:"The Skint",sourceUrl:"https://magnettheater.com",category:"comedy",days:["mon"],williamsburg:false},
+{name:"Drunk Texts: Star Wars – Empire Doth Protest",date:"Mon, May 4",time:"8pm",venue:"The Rat NYC",neighborhood:"DUMBO",price:"$12",priceNum:12,desc:"Live performance of the Star Wars saga told through dramatic text message readings. Absurdist theater gold.",source:"The Skint",sourceUrl:"https://www.theskint.com",category:"other",days:["mon"],williamsburg:false},
+{name:"From Theory to Mechanism: Horology Lecture",date:"Mon, May 4",time:"6–9pm",venue:"General Society Library",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"Watchmaker Claude Greisler on the journey from resonance theory to working timepiece mechanism.",source:"Blankman List",sourceUrl:"https://www.blankmanlist.com",category:"learning",days:["mon"],williamsburg:false},
+{name:"Billie Eilish Live in 3D — Advance Screening",date:"Mon, May 4",time:"6pm (screen 7pm)",venue:"AMC Lincoln Square",neighborhood:"Upper West Side",price:"Free (FCFS passes)",priceNum:0,desc:"Advance screening of the James Cameron-directed concert film. Passes don't guarantee admission — arrive very early.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"film",days:["mon"],williamsburg:false},
+{name:"David Lebovitz + Matt Rodbard at Rizzoli",date:"Mon, May 4",time:"6pm",venue:"Rizzoli Bookstore",neighborhood:"NoMad",price:"Free",priceNum:0,desc:"Author conversation at the stunning Rizzoli Bookstore — food writing meets travel.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"Carley Fortune: Our Perfect Storm",date:"Mon, May 4",time:"7pm",venue:"Strand Book Store",neighborhood:"Union Square",price:"Free",priceNum:0,desc:"Author reading and signing at the iconic Strand — 12 miles of books, zero cover charge.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"Morgan Radford + Abby Phillip: Book Talk",date:"Mon, May 4",time:"7pm",venue:"McNally Jackson Seaport",neighborhood:"Seaport",price:"Free",priceNum:0,desc:"Two prominent journalists in conversation at McNally Jackson's beautiful Seaport location.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"Kathryn Stockett: The Calamity Club",date:"Mon, May 4",time:"7pm",venue:"St. Ann Church",neighborhood:"DUMBO",price:"Free",priceNum:0,desc:"The Help author discusses her new novel at a historic Brooklyn venue.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"Xochitl Gonzalez + Jacqueline Woodson",date:"Mon, May 4",time:"7:30pm",venue:"Greenlight Bookstore",neighborhood:"Fort Greene",price:"Free",priceNum:0,desc:"Two celebrated Brooklyn authors in conversation at their neighborhood bookstore.",source:"Greenlight Bookstore",sourceUrl:"https://greenlightbookstore.com",category:"talks",days:["mon"],williamsburg:false},
+{name:"Cinco de Mayo Parade",date:"Tue, May 5",time:"Noon–3pm",venue:"CPW & 96th St → 106th St",neighborhood:"West Harlem",price:"Free",priceNum:0,desc:"Annual Cinco de Mayo parade marching through the Upper West Side into Harlem. Street party energy.",source:"Hello Magazine",sourceUrl:"https://www.hellomagazine.com",category:"outdoors",days:["tue"],williamsburg:false},
+{name:"Cinco de Mayo Guaco Truck",date:"Tue, May 5",time:"1–4pm",venue:"20 Hudson Yards",neighborhood:"Midtown West",price:"Free tastings",priceNum:0,desc:"Actor Diego Boneta serves five guacamole flavors including Mama Boneta's family recipe. No purchase required.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"food",days:["tue"],williamsburg:false},
+{name:"Free Coffee for Teachers — Casita",date:"Tue, May 5",time:"7am–6pm",venue:"Casita (Park Slope, Cobble Hill + more)",neighborhood:"Citywide",price:"Free w/ teacher ID",priceNum:0,desc:"Teacher Appreciation Day — show your educator ID and get a free drip coffee at any Casita location.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"food",days:["tue"],williamsburg:false},
+{name:"Free Coffee for Nurses — Casita",date:"Wed, May 6",time:"7am–6pm",venue:"Casita (Park Slope, Cobble Hill + more)",neighborhood:"Citywide",price:"Free w/ nurse ID",priceNum:0,desc:"Nurses Appreciation Day — show your healthcare ID and get a free drip coffee.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"food",days:["wed"],williamsburg:false},
+{name:"Asian Comedy Festival (Tue–Thu)",date:"Tue May 5 – Thu May 7",time:"7pm nightly",venue:"Sugar Mouse Lounge, 47 3rd Ave",neighborhood:"St. Marks (East Village)",price:"~$15 ticketed",priceNum:15,desc:"7th annual AAPI comedy festival with stand-up, improv, and musical comedy acts. Three nights of laughs.",source:"Time Out NY",sourceUrl:"https://www.timeout.com/newyork",category:"comedy",days:["tue","wed","thu"],williamsburg:false},
+{name:"Douglas Stuart with Ari Shapiro",date:"Tue, May 5",time:"7pm",venue:"Judson Memorial Church",neighborhood:"Greenwich Village",price:"Free",priceNum:0,desc:"Booker Prize winner Douglas Stuart (Shuggie Bain) in conversation with NPR's Ari Shapiro.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["tue"],williamsburg:false},
+{name:"Elizabeth Strout: The Things We Never Say",date:"Tue, May 5",time:"7pm",venue:"Symphony Space",neighborhood:"Upper West Side",price:"Free",priceNum:0,desc:"Beloved novelist Elizabeth Strout discusses her new book. Essential if you love Olive Kitteridge.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["tue"],williamsburg:false},
+{name:"Alexa Brahme + Mira Jacob at Public Records",date:"Tue, May 5",time:"7pm",venue:"Public Records Sound Room",neighborhood:"Gowanus",price:"Free",priceNum:0,desc:"Author event in Public Records' beautiful sound room — a great excuse to visit this stunning venue.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["tue"],williamsburg:false},
+{name:"Nat Cassidy Horror Launch Party",date:"Tue, May 5",time:"7pm",venue:"The Twisted Spine",neighborhood:"Brooklyn",price:"Free",priceNum:0,desc:"Horror author Nat Cassidy with Clay McLeod Chapman and Rachel Harrison at Brooklyn's spooky genre bookshop.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["tue"],williamsburg:false},
+{name:"Hannah Thurman + Olivia Wolfgang-Smith",date:"Tue, May 5",time:"7:30pm",venue:"Greenlight Bookstore",neighborhood:"Fort Greene",price:"Free",priceNum:0,desc:"Author event at Greenlight — Brooklyn's quintessential independent bookstore.",source:"Greenlight Bookstore",sourceUrl:"https://greenlightbookstore.com",category:"talks",days:["tue"],williamsburg:false},
+{name:"Techstars Happy Hour",date:"Tue, May 5",time:"5pm",venue:"Autonomous AI",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"Startup networking happy hour hosted by Techstars — open to founders, investors, and operators.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"networking",days:["tue"],williamsburg:false},
+{name:"FC Founders Run + Coffee",date:"Tue, May 5",time:"7am",venue:"St. George Boulangerie",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"Morning run for tech founders and operators followed by coffee. Start the week right.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"runs",days:["tue"],williamsburg:false},
+{name:"Bryant Park Dance Party: Samba & Bossa Nova",date:"Wed, May 6",time:"6pm lessons · 7–8:30pm live music",venue:"Bryant Park (Fountain Terrace)",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"Free Brazilian dance lessons at 6pm then live samba and bossa nova music. No experience or partner needed.",source:"Bryant Park",sourceUrl:"https://bryantpark.org/activities/dance-party",category:"music",days:["wed"],williamsburg:false},
+{name:"45th Street Fair",date:"Wed, May 6",time:"10am–6pm",venue:"45th St between 3rd & Lex Ave",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"Classic NYC street fair with food vendors, artisans, handmade goods, and the full Midtown sidewalk experience.",source:"search",sourceUrl:"https://www.hellomagazine.com",category:"markets",days:["wed"],williamsburg:false},
+{name:"Cat Chow Therapod",date:"Wed May 6 + Thu May 7",time:"10am–4pm",venue:"Washington Square Park (NYU entrance)",neighborhood:"Greenwich Village",price:"Free",priceNum:0,desc:"Mobile therapy pod with certified therapy cats from Pet Partners + adoptable cats from Meow Squad. Stress relief guaranteed.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"wellness",days:["wed","thu"],williamsburg:false},
+{name:"Pitch & Run – Williamsburg",date:"Wed May 6 + Thu May 7",time:"7:30am",venue:"Williamsburg (location on GM NYC)",neighborhood:"Williamsburg",price:"Free",priceNum:0,desc:"Morning networking run for founders and creatives. Weekly Wednesday and Thursday route through Williamsburg.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"runs",days:["wed","thu"],williamsburg:true},
+{name:"Gen Z Economy: Where Culture Cashes Out",date:"Wed, May 6",time:"5:30–7:30pm",venue:"NYC (TBA)",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"All-Gen Z panel on influence, community commerce, and cultural authenticity. RSVP via Next Stop: IRL.",source:"Next Stop: IRL",sourceUrl:"https://thevisioncatalyst.substack.com/p/next-stop-irl-nyc-events-and-beyond-5e1",category:"networking",days:["wed"],williamsburg:false},
+{name:"Spring Social – Advertising Club",date:"Wed, May 6",time:"5:30–7:30pm",venue:"GSTV NYC",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"Spring networking for advertising, marketing, and media professionals.",source:"Next Stop: IRL",sourceUrl:"https://thevisioncatalyst.substack.com",category:"networking",days:["wed"],williamsburg:false},
+{name:"Orbit 10 Demo Day",date:"Wed, May 6",time:"2pm",venue:"Manhattan",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"Startup demo day — founders pitch to investors and the public. Check GM NYC for venue.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"networking",days:["wed"],williamsburg:false},
+{name:"Passwords: Jawid Mojaddedi on Rumi",date:"Wed, May 6",time:"7–9pm",venue:"Poets House, 10 River Terrace",neighborhood:"Battery Park City",price:"$10 suggested",priceNum:10,desc:"Islamic studies professor and Rumi translator discusses the 13th-century poet's humor and unique narrative style.",source:"Blankman List",sourceUrl:"https://www.blankmanlist.com",category:"talks",days:["wed"],williamsburg:false},
+{name:"Fonda Lee + Victor Manibo: Book Event",date:"Wed, May 6",time:"7pm",venue:"New Design High School",neighborhood:"Lower East Side",price:"Free",priceNum:0,desc:"Sci-fi and thriller authors Fonda Lee and Victor Manibo in conversation on the LES.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["wed"],williamsburg:false},
+{name:"Sarah Dessen + Tamara Fuentes at Strand",date:"Wed, May 6",time:"7pm",venue:"Strand Book Store",neighborhood:"Union Square",price:"Free",priceNum:0,desc:"Two YA powerhouses in conversation at the iconic Strand. Free and open to all.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["wed"],williamsburg:false},
+{name:"Kyle McCarthy + Leslie Jamison",date:"Wed, May 6",time:"7pm",venue:"Center for Fiction",neighborhood:"Fort Greene",price:"Free",priceNum:0,desc:"Author discussion at Brooklyn's Center for Fiction — a dedicated home for literary culture.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["wed"],williamsburg:false},
+{name:"Roddy Bottum + Frank Haines at Greenlight",date:"Wed, May 6",time:"7:30pm",venue:"Greenlight Bookstore",neighborhood:"Fort Greene",price:"Free",priceNum:0,desc:"Author event at Fort Greene's Greenlight. Roddy Bottum is also the keyboardist of Faith No More.",source:"Greenlight Bookstore",sourceUrl:"https://greenlightbookstore.com",category:"talks",days:["wed"],williamsburg:false},
+{name:"Peter V. Brett + Naomi Novik",date:"Wed, May 6",time:"7pm",venue:"Love & Legends Books",neighborhood:"Brooklyn",price:"Free",priceNum:0,desc:"Fantasy heavyweights Brett (Demon Cycle) and Novik (Temeraire) in conversation at Brooklyn's genre bookshop.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["wed"],williamsburg:false},
+{name:"Bryant Park Dance Party: Swing & Rock 'n' Roll",date:"Thu, May 7",time:"6pm lessons · 7–8:30pm live music",venue:"Bryant Park (Fountain Terrace)",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"Free swing dance lessons at 6pm then live rock 'n' roll. No partner or experience needed.",source:"Bryant Park",sourceUrl:"https://bryantpark.org/activities/dance-party",category:"music",days:["thu"],williamsburg:false},
+{name:"Grand Central Food Block Party",date:"Thu, May 7",time:"10am–6pm",venue:"41st St between Lex & 3rd Ave",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"Street food festival outside Grand Central Terminal — trucks, vendors, and plenty of eating options.",source:"search",sourceUrl:"https://www.hellomagazine.com",category:"food",days:["thu"],williamsburg:false},
+{name:"CUNY Jazz Festival",date:"Thu May 7 + Fri May 8",time:"11:30am–8pm",venue:"Multiple CUNY campuses",neighborhood:"Upper West Side / Harlem",price:"Free",priceNum:0,desc:"Annual free jazz festival across CUNY campuses — a full day of live performances. Continues Friday as well.",source:"search",sourceUrl:"https://www.hellomagazine.com",category:"music",days:["thu","fri"],williamsburg:false},
+{name:"Frontiers 2026 Conference at NYU",date:"Thu, May 7",time:"8am",venue:"NYU",neighborhood:"Greenwich Village",price:"Free",priceNum:0,desc:"Free tech and innovation conference at NYU — open registration via GM NYC.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"networking",days:["thu"],williamsburg:false},
+{name:"Civic Advocacy After 9/11: John Feal in Conversation",date:"Thu, May 7",time:"6–7pm",venue:"9/11 Memorial & Museum Auditorium",neighborhood:"Financial District",price:"Free",priceNum:0,desc:"Author John Feal and law professor Rupa Bhattacharyya discuss 9/11 responders who took on Congress to fight for benefits.",source:"Blankman List",sourceUrl:"https://www.blankmanlist.com",category:"talks",days:["thu"],williamsburg:false},
+{name:"Rally Reading Series: Emily Lee Luan + poets",date:"Thu, May 7",time:"7pm",venue:"Pete's Candy Store",neighborhood:"Williamsburg",price:"Free",priceNum:0,desc:"Monthly poetry and fiction reading series at Pete's Candy Store — great writing, cold beer, classic Williamsburg.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["thu"],williamsburg:true},
+{name:"Francine Prose + Michael Cunningham",date:"Thu, May 7",time:"7pm",venue:"McNally Jackson Seaport",neighborhood:"Seaport",price:"Free",priceNum:0,desc:"Two literary giants — Francine Prose and Pulitzer winner Michael Cunningham — in conversation.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["thu"],williamsburg:false},
+{name:"Tracy Clark-Flory + Irin Carmon",date:"Thu, May 7",time:"7pm",venue:"Books Are Magic Montague",neighborhood:"Brooklyn Heights",price:"Free",priceNum:0,desc:"Author event at Emma Straub's Books Are Magic — one of Brooklyn's most beloved indie bookshops.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["thu"],williamsburg:false},
+{name:"Avery Curran NYC Book Launch",date:"Thu, May 7",time:"7pm",venue:"The Twisted Spine",neighborhood:"Brooklyn",price:"Free",priceNum:0,desc:"Book launch celebration at Brooklyn's indie genre bookshop — literary community at its best.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["thu"],williamsburg:false},
+{name:"Khadijah Sharif-Drinkard: Power Reimagined",date:"Thu, May 7",time:"6pm",venue:"Gladys Books & Wine",neighborhood:"Crown Heights",price:"Free",priceNum:0,desc:"Book tour stop at the wine-bar bookshop in Crown Heights — power, leadership, and a glass of wine.",source:"Preoccupied NYC",sourceUrl:"https://preoccupiednyc.substack.com",category:"talks",days:["thu"],williamsburg:false},
+{name:"Irish Music: Kevin Crawford & Cillian Vallely",date:"Thu, May 7",time:"7:30pm",venue:"Symphony Space",neighborhood:"Upper West Side",price:"Discounted w/ code SKINT5",priceNum:15,desc:"Traditional Irish music masters Crawford (flute) and Vallely (uilleann pipes) with Alan Murray. A rare chance.",source:"The Skint",sourceUrl:"https://www.symphonyspace.org",category:"music",days:["thu"],williamsburg:false},
+{name:"Design Chat with Dylan Babbs",date:"Thu, May 7",time:"5pm",venue:"Profound",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"Design talk and networking event. Check GM NYC for location details.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"talks",days:["thu"],williamsburg:false},
+{name:"Openclaw for Startups Networking",date:"Thu, May 7",time:"6pm",venue:"Supermoon",neighborhood:"Manhattan",price:"Free",priceNum:0,desc:"Startup networking event at Supermoon — founders meet investors and operators.",source:"GM NYC",sourceUrl:"https://www.gmnyc.com/p/gm-nyc-e83",category:"networking",days:["thu"],williamsburg:false},
+{name:"Whitney Free Friday: Biennial + Warhol",date:"Fri, May 8",time:"5–10pm",venue:"Whitney Museum",neighborhood:"Meatpacking District",price:"Free",priceNum:0,desc:"Free Friday evening at the Whitney — see the biennial and 732 Warhol Polaroids from 1972–73. Always free under 25.",source:"Whitney Museum",sourceUrl:"https://whitney.org/visit/free-days-and-nights",category:"art",days:["fri"],williamsburg:false},
+{name:"MoMA Free Friday for NY State Residents",date:"Fri, May 8",time:"5:30–8:30pm",venue:"MoMA",neighborhood:"Midtown",price:"Free (NY State residents)",priceNum:0,desc:"Show NY State ID and get free admission to MoMA on Friday evenings. See Frida and Diego: The Last Dream and much more.",source:"MoMA",sourceUrl:"https://visit.moma.org",category:"art",days:["fri"],williamsburg:false},
+{name:"Smorgasburg Williamsburg",date:"Saturdays through October",time:"11am–6pm",venue:"Marsha P. Johnson State Park, 90 Kent Ave",neighborhood:"Williamsburg",price:"Free entry",priceNum:0,desc:"NYC's beloved waterfront food market — 100+ vendors, the iconic Hot Dog Stand DJ Booth. Free to enter, pay per item.",source:"Smorgasburg",sourceUrl:"https://www.smorgasburg.com",category:"food",days:["sat"],williamsburg:true},
+{name:"Greater New York 2026",date:"Ongoing through Aug 17",time:"Thu–Mon noon–6pm",venue:"MoMA PS1",neighborhood:"Long Island City",price:"Free",priceNum:0,desc:"Building-wide survey of 53 artists and 150+ works — the landmark show at NYC's newly free museum. Unmissable.",source:"Time Out NY",sourceUrl:"https://www.momaps1.org/en/calendar",category:"art",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Audible Story House",date:"May 1–31 · Wed–Sun",time:"11am–7pm",venue:"260 Bowery",neighborhood:"NoLita",price:"Free",priceNum:0,desc:"The 'bookless bookstore' — browse audio via story tiles, 7 Dolby Atmos listening spaces, Sony headphones, and pop-up cafe.",source:"No Sleep Club NYC",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Macy's Flower Show 2026",date:"Apr 23 – May 10",time:"10am–9pm",venue:"Macy's Herald Square",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"51st annual show — greenhouse installations, LEGO Spring in Bloom builds, Valentino Beauty Palazzo.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"outdoors",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Spring is Blooming at Rockefeller Center",date:"Apr 22 – May 10",time:"11am–3pm",venue:"744 5th Avenue",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"Live dance performances, storybook readings, poetry, live painting, and photography vignettes daily.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"art",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Club Studio NYC: Free Workout Classes",date:"Through Jun 30",time:"7am–8pm daily",venue:"321 West 37th Street",neighborhood:"Midtown West",price:"Free",priceNum:0,desc:"Free strength, pilates, yoga, and red light therapy classes. Get a 30-day pass to reserve classes.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"wellness",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Backyard at Hudson Yards",date:"May 1 – Aug 23",time:"10am–10pm",venue:"Hudson Yards",neighborhood:"Midtown West",price:"Free programming",priceNum:0,desc:"Free concerts on the Wells Fargo stage (May 13: Aly & AJ), ALO fitness classes, sports watch parties, Carnegie Hall family events.",source:"NYC for FREE",sourceUrl:"https://www.hudsonyardsnewyork.com",category:"outdoors",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Let's Be Frank Exhibition",date:"Through May 31",time:"Gallery hours",venue:"Cycol Gallery",neighborhood:"Lower East Side",price:"Free",priceNum:0,desc:"Artist Brandon Sines' Frank Ape exhibition — vibrant pop art, limited editions, and occasional tattoo events.",source:"The Skint",sourceUrl:"https://frankape.com/pages/lets-be-frank",category:"art",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"PAC-MAN Free Arcade at Macy's",date:"Through Aug 29",time:"2–7pm",venue:"Macy's Herald Square",neighborhood:"Midtown",price:"Free",priceNum:0,desc:"45 years of PAC-MAN — free arcade, World's Largest PAC-MAN, Battle Royale Championship, and photo ops.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["mon","tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"BBG Seasonal Highlights Tour",date:"Tue–Sun through May 24",time:"1–2pm",venue:"Brooklyn Botanic Garden",neighborhood:"Prospect Heights",price:"Free w/ admission ($22)",priceNum:0,desc:"Free guided walk through spring blooms with a BBG docent. Admission required: $22 adults, $16 seniors/students.",source:"Brooklyn Botanic Garden",sourceUrl:"https://www.bbg.org/visit/calendar",category:"outdoors",days:["tue","wed","thu","fri","sat","sun"],williamsburg:false},
+{name:"Lincoln Center Atrium: Community Blood Drive",date:"Mon, May 4",time:"1pm",venue:"David Rubenstein Atrium",neighborhood:"Lincoln Square",price:"Free",priceNum:0,desc:"Help your fellow New Yorkers — sign up to donate blood at the Lincoln Center Atrium.",source:"Lincoln Center",sourceUrl:"https://www.lincolncenter.org/venue/atrium/v/calendar",category:"other",days:["mon"],williamsburg:false},
+{name:"Spring Fling at Columbus Circle",date:"Apr 11 – May 22 (Weekends)",time:"12–4pm",venue:"Shops at Columbus Circle",neighborhood:"Midtown West",price:"Free",priceNum:0,desc:"Creative workshops, live jazz, fitness classes, and complimentary tastings. Runs every weekend through May 22.",source:"NYC for FREE",sourceUrl:"https://www.nycforfree.co/events",category:"other",days:["sat","sun"],williamsburg:false},
 ];
 
-let activeDay='all', activeCat='all', activeSrc='all', searchTerm='';
+// Dedup
+const seen=new Set();
+const evts=events.filter(e=>{const k=e.name+e.days.sort().join('');if(seen.has(k))return false;seen.add(k);return true;});
 
-function init(){
-  buildSourceChips();
-  buildWburgStrip();
-  renderAll();
-}
-
-function buildSourceChips(){
-  const sources=[...new Set(events.map(e=>e.source.split(' / ')[0]))].sort();
-  const container=document.getElementById('srcChips');
-  container.innerHTML='<span class="chip-label">Source:</span>';
-  const allBtn=document.createElement('button');
-  allBtn.className='chip active';allBtn.dataset.src='all';allBtn.textContent='All';
-  allBtn.onclick=()=>toggleSrc(allBtn);container.appendChild(allBtn);
-  sources.forEach(src=>{
-    const btn=document.createElement('button');
-    btn.className='chip';btn.dataset.src=src;btn.textContent=src;
-    btn.onclick=()=>toggleSrc(btn);container.appendChild(btn);
-  });
-}
-
-function buildWburgStrip(){
-  const strip=document.getElementById('wburgStrip');
-  strip.innerHTML='';
-  events.filter(e=>e.williamsburg).forEach(e=>{
-    const card=document.createElement('div');
-    card.className='wburg-card';
-    card.innerHTML=`<div class="wc-name">${e.name}</div><div class="wc-detail">${e.date} · ${e.time}<br>${e.venue} · ${e.price}</div>`;
-    strip.appendChild(card);
-  });
-}
-
-function toggleDay(btn){activeDay=btn.dataset.day;document.querySelectorAll('.day-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilters();}
-function toggleCat(btn){activeCat=btn.dataset.cat;document.querySelectorAll('#catChips .chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilters();}
-function toggleSrc(btn){activeSrc=btn.dataset.src;document.querySelectorAll('#srcChips .chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilters();}
-function clearSearch(){document.getElementById('searchInput').value='';searchTerm='';applyFilters();}
-function clearAll(){
-  activeDay='all';activeCat='all';activeSrc='all';searchTerm='';
-  document.getElementById('searchInput').value='';
-  document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
-  document.querySelector('[data-day="all"]').classList.add('active');
-  document.querySelector('[data-cat="all"]').classList.add('active');
-  document.querySelector('[data-src="all"]').classList.add('active');
-  applyFilters();
-}
+let activeDays=new Set(['all']),activeCats=new Set(['all']),searchTerm='';
 
 function isOngoing(e){return e.days.length>=4;}
 
-function matches(e){
-  if(activeDay!=='all'){
-    if(activeDay==='ongoing'){if(!isOngoing(e))return false;}
-    else{if(!e.days.includes(activeDay))return false;}
-  }
-  if(activeCat!=='all'&&e.category!==activeCat)return false;
-  if(activeSrc!=='all'&&!e.source.includes(activeSrc))return false;
-  if(searchTerm){
-    const q=searchTerm.toLowerCase();
-    if(!`${e.name} ${e.venue} ${e.neighborhood} ${e.desc} ${e.category}`.toLowerCase().includes(q))return false;
-  }
-  return true;
+function matchesFilters(e){
+  const q=searchTerm.toLowerCase();
+  if(q&&![e.name,e.venue,e.neighborhood,e.desc,e.category].join(' ').toLowerCase().includes(q))return false;
+  if(!activeCats.has('all')&&!activeCats.has(e.category))return false;
+  if(activeDays.has('all'))return true;
+  if(activeDays.has('ongoing')&&isOngoing(e))return true;
+  for(const d of e.days)if(activeDays.has(d))return true;
+  return false;
 }
 
-function applyFilters(){searchTerm=document.getElementById('searchInput').value;renderAll();}
-
-function renderAll(){
-  const container=document.getElementById('mainGrid');
-  container.innerHTML='';
-  const filtered=events.filter(matches);
-  document.getElementById('eventCount').textContent=`${filtered.length} event${filtered.length!==1?'s':''}`;
-
-  const dayOrder=[
-    {key:'thu',label:'Thursday',date:'Apr 30'},
-    {key:'fri',label:'Friday',date:'May 1'},
-    {key:'sat',label:'Saturday',date:'May 2'},
-    {key:'sun',label:'Sunday',date:'May 3'},
-  ];
-
-  dayOrder.forEach(({key,label,date})=>{
-    if(activeDay==='ongoing')return;
-    const dayEvents=filtered.filter(e=>{
-      if(isOngoing(e))return false;
-      if(activeDay!=='all'&&activeDay!==key)return false;
-      return e.days[0]===key||(e.days.includes(key)&&!dayOrder.slice(0,dayOrder.findIndex(d=>d.key===key)).some(d=>e.days[0]===d.key));
-    });
-    if(dayEvents.length===0)return;
-    const section=document.createElement('div');
-    section.className='day-section';
-    section.innerHTML=`<div class="day-header"><span class="dh-name">${label}</span><span class="dh-date">${date}</span><span class="dh-count">${dayEvents.length}</span></div><div class="day-grid"></div>`;
-    container.appendChild(section);
-    const grid=section.querySelector('.day-grid');
-    dayEvents.forEach(e=>grid.appendChild(makeCard(e)));
-  });
-
-  const ongoing=filtered.filter(e=>isOngoing(e));
-  if(ongoing.length>0&&activeDay!=='thu'&&activeDay!=='fri'&&activeDay!=='sat'&&activeDay!=='sun'){
-    const section=document.createElement('div');
-    section.className='day-section';
-    section.innerHTML=`<div class="day-header ongoing"><span class="dh-name">Ongoing</span><span class="dh-date">Through the week</span><span class="dh-count">${ongoing.length}</span></div><div class="day-grid"></div>`;
-    container.appendChild(section);
-    ongoing.forEach(e=>section.querySelector('.day-grid').appendChild(makeCard(e)));
-  }
+function priceBadge(e){
+  if(e.priceNum===0)return`<span class="price-badge price-free">${e.price}</span>`;
+  if(e.priceNum<=10)return`<span class="price-badge price-low">${e.price}</span>`;
+  return`<span class="price-badge price-mid">${e.price}</span>`;
 }
 
-function makeCard(e){
-  const card=document.createElement('div');
-  card.className='event-card';
-  const priceClass=e.priceType==='free'?'badge-free':e.priceType==='cheap'?'badge-cheap':'badge-mid';
-  const catColor=CAT_COLORS[e.category]||'#64748b';
-  card.innerHTML=`
-    <div class="ec-name">${e.name}</div>
-    <div class="ec-datetime">${e.date} · ${e.time}</div>
-    <div class="ec-venue">${e.venue}${e.neighborhood?' · '+e.neighborhood:''}</div>
-    <div class="ec-badges">
-      <span class="badge-price ${priceClass}">${e.price}</span>
-      ${e.williamsburg?'<span class="badge-wburg">★ Wburg</span>':''}
-      <span class="badge-cat" style="background:${catColor}">${e.category}</span>
-    </div>
-    <div class="ec-desc">${e.desc}</div>
-    <div class="ec-source">via <a href="${e.sourceUrl}" target="_blank" rel="noopener">${e.source}</a></div>
-  `;
-  return card;
+function cardHtml(e){
+  return`<div class="card"><div class="card-header"><div class="card-name">${e.name}</div>${e.williamsburg?'<span class="wburg-badge">&#9733; Wburg</span>':''}</div><div class="card-meta">${e.date} &middot; ${e.time}</div><div class="card-venue">${e.venue} &middot; ${e.neighborhood}</div>${priceBadge(e)}<div class="card-desc">${e.desc}</div><div class="card-footer"><span class="cat-chip cat-${e.category}">${e.category}</span><a class="source-link" href="${e.sourceUrl}" target="_blank">${e.source}</a></div></div>`;
+}
+
+function render(){
+  const filtered=evts.filter(matchesFilters);
+  // Wburg strip
+  const wb=filtered.filter(e=>e.williamsburg);
+  const stripEl=document.getElementById('wburgStrip');
+  if(!wb.length){stripEl.style.display='none';}
+  else{stripEl.style.display='block';document.getElementById('wburgCards').innerHTML=wb.map(e=>`<div class="wburg-mini"><div class="wm-name">${e.name}</div><div class="wm-meta">${e.date} &middot; ${e.time} &middot; ${e.price}</div></div>`).join('');}
+  // Day groups
+  const dayDefs=[{k:'mon',l:'Monday',d:'May 4'},{k:'tue',l:'Tuesday',d:'May 5'},{k:'wed',l:'Wednesday',d:'May 6'},{k:'thu',l:'Thursday',d:'May 7'},{k:'fri',l:'Friday',d:'May 8'},{k:'sat',l:'Saturday',d:'May 9'},{k:'sun',l:'Sunday',d:'May 10'}];
+  let html='',total=0;
+  for(const dd of dayDefs){
+    const showDay=activeDays.has('all')||activeDays.has(dd.k);
+    if(!showDay)continue;
+    const de=filtered.filter(e=>!isOngoing(e)&&e.days.includes(dd.k));
+    if(!de.length)continue;
+    total+=de.length;
+    html+=`<div class="day-section"><div class="day-header"><span class="dh-name">${dd.l}</span><span class="dh-date">${dd.d}</span><span class="dh-count">${de.length} events</span></div><div class="day-grid">${de.map(cardHtml).join('')}</div></div>`;
+  }
+  const ong=filtered.filter(e=>isOngoing(e));
+  if(ong.length){
+    const showOng=activeDays.has('all')||activeDays.has('ongoing');
+    if(showOng){total+=ong.length;html+=`<div class="day-section"><div class="day-header ongoing"><span class="dh-name">Ongoing</span><span class="dh-date">Multi-day</span><span class="dh-count">${ong.length} events</span></div><div class="day-grid">${ong.map(cardHtml).join('')}</div></div>`;}
+  }
+  document.getElementById('mainContent').innerHTML=html||'<p style="color:#475569;padding:24px">No events match.</p>';
+  document.getElementById('eventCount').textContent=`${total} event${total!==1?'s':''}`;
+}
+
+function toggleDay(el){
+  const d=el.dataset.day;
+  if(d==='all'){activeDays=new Set(['all']);}
+  else{activeDays.delete('all');if(activeDays.has(d))activeDays.delete(d);else activeDays.add(d);if(!activeDays.size)activeDays.add('all');}
+  document.querySelectorAll('#dayChips .chip').forEach(c=>c.classList.toggle('active',activeDays.has(c.dataset.day)));
+  render();
+}
+
+function toggleCat(el){
+  const c=el.dataset.cat;
+  if(c==='all'){activeCats=new Set(['all']);}
+  else{activeCats.delete('all');if(activeCats.has(c))activeCats.delete(c);else activeCats.add(c);if(!activeCats.size)activeCats.add('all');}
+  document.querySelectorAll('#catChips .chip').forEach(ch=>ch.classList.toggle('active',activeCats.has(ch.dataset.cat)));
+  render();
+}
+
+function applyFilters(){searchTerm=document.getElementById('searchBox').value;render();}
+
+function clearAll(){
+  searchTerm='';activeDays=new Set(['all']);activeCats=new Set(['all']);
+  document.getElementById('searchBox').value='';
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  document.querySelector('[data-day="all"]').classList.add('active');
+  document.querySelector('[data-cat="all"]').classList.add('active');
+  render();
 }
 
 function triggerUpdate(){
   window.location.href='claude-digest://update';
-  const toast=document.getElementById('toast');
-  toast.textContent='Launching updater… a terminal window will open and refresh the digest (5–10 min). Then reload this page.';
-  toast.style.display='block';
-  setTimeout(()=>{toast.style.display='none';},6000);
+  const t=document.getElementById('toast');
+  t.textContent='Launching updater… a terminal window will open and refresh the digest (5–10 min). Then reload this page.';
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',6000);
 }
 
-init();
+render();
 </script>
 </body>
 </html>
