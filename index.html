@@ -73,6 +73,17 @@ a{color:#a78bfa;text-decoration:none}a:hover{text-decoration:underline}
 .footer{background:#0a0a12;border-top:1px solid #1e1e35;padding:20px 16px}
 .footer h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#475569;margin-bottom:8px}
 .footer ul,.footer p{font-size:.72rem;color:#475569;line-height:1.8;list-style:none}
+/* Price slider */
+.price-slider-wrap{display:flex;flex-direction:column;gap:2px;min-width:160px}
+#priceSlider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:linear-gradient(to right,#7c3aed 0%,#7c3aed var(--fill,100%),#2a2a4a var(--fill,100%),#2a2a4a 100%);outline:none;cursor:pointer}
+#priceSlider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#a78bfa;border:2px solid #1e1b4b;cursor:pointer}
+#priceSlider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#a78bfa;border:2px solid #1e1b4b;cursor:pointer;box-sizing:border-box}
+.price-ticks{display:flex;justify-content:space-between;padding:0 1px}
+.price-ticks span{font-size:.6rem;color:#475569;white-space:nowrap}
+.price-val{font-size:.72rem;color:#c4b5fd;font-weight:600;white-space:nowrap;align-self:center;margin-left:2px}
+/* Calendar link */
+.cal-link{font-size:.65rem;color:#475569;text-decoration:none;border:1px solid #2a2a4a;border-radius:4px;padding:1px 6px;transition:all .15s;white-space:nowrap}
+.cal-link:hover{color:#c4b5fd;border-color:#7c3aed;background:#1e1b4b;text-decoration:none}
 </style>
 </head>
 <body>
@@ -120,6 +131,14 @@ a{color:#a78bfa;text-decoration:none}a:hover{text-decoration:underline}
   </div>
   <div class="filter-row" id="neighborhoodChips">
     <span class="filter-label">Location</span>
+  </div>
+  <div class="filter-row" id="priceRow">
+    <span class="filter-label">Price</span>
+    <div class="price-slider-wrap">
+      <input type="range" id="priceSlider" min="0" max="3" step="1" value="3" oninput="updatePrice(this)">
+      <div class="price-ticks"><span>Free</span><span>≤$10</span><span>≤$25</span><span>Any</span></div>
+    </div>
+    <span class="price-val" id="priceVal">Any price</span>
   </div>
 </div>
 
@@ -252,7 +271,7 @@ const events=[
 const seen=new Set();
 const evts=events.filter(e=>{const k=e.name+e.days.sort().join('');if(seen.has(k))return false;seen.add(k);return true;});
 
-let activeDays=new Set(['all']),activeCats=new Set(['all']),activeNeighborhoods=new Set(['all']),searchTerm='';
+let activeDays=new Set(['all']),activeCats=new Set(['all']),activeNeighborhoods=new Set(['all']),searchTerm='',maxPrice=999;
 
 function isOngoing(e){return e.days.length>=4;}
 
@@ -261,6 +280,7 @@ function matchesFilters(e){
   if(q&&![e.name,e.venue,e.neighborhood,e.desc,e.category].join(' ').toLowerCase().includes(q))return false;
   if(!activeCats.has('all')&&!activeCats.has(e.category))return false;
   if(!activeNeighborhoods.has('all')&&!activeNeighborhoods.has(e.neighborhood))return false;
+  if(e.priceNum>maxPrice)return false;
   if(activeDays.has('all'))return true;
   if(activeDays.has('ongoing')&&isOngoing(e))return true;
   for(const d of e.days)if(activeDays.has(d))return true;
@@ -274,7 +294,7 @@ function priceBadge(e){
 }
 
 function cardHtml(e){
-  return`<div class="card"><div class="card-header"><div class="card-name">${e.name}</div>${e.williamsburg?'<span class="wburg-badge">&#9733; Wburg</span>':''}</div><div class="card-meta">${e.date} &middot; ${e.time}</div><div class="card-venue">${e.venue} &middot; ${e.neighborhood}</div>${priceBadge(e)}<div class="card-desc">${e.desc}</div><div class="card-footer"><span class="cat-chip cat-${e.category}">${e.category}</span><a class="source-link" href="${e.sourceUrl}" target="_blank">${e.source}</a></div></div>`;
+  return`<div class="card"><div class="card-header"><div class="card-name">${e.name}</div>${e.williamsburg?'<span class="wburg-badge">&#9733; Wburg</span>':''}</div><div class="card-meta">${e.date} &middot; ${e.time}</div><div class="card-venue">${e.venue} &middot; ${e.neighborhood}</div>${priceBadge(e)}<div class="card-desc">${e.desc}</div><div class="card-footer"><span class="cat-chip cat-${e.category}">${e.category}</span><a class="source-link" href="${e.sourceUrl}" target="_blank">${e.source}</a><a class="cal-link" href="${calendarUrl(e)}" target="_blank" title="Add to Google Calendar">+ Cal</a></div></div>`;
 }
 
 function render(){
@@ -338,13 +358,69 @@ function buildNeighborhoodChips(){
 
 function applyFilters(){searchTerm=document.getElementById('searchBox').value;render();}
 
+// Price slider
+const PRICE_STEPS=[0,10,25,999];
+const PRICE_LABELS=['Free only','≤ $10','≤ $25','Any price'];
+function updatePrice(el){
+  const v=parseInt(el.value);
+  maxPrice=PRICE_STEPS[v];
+  document.getElementById('priceVal').textContent=PRICE_LABELS[v];
+  const pct=(v/3)*100;
+  el.style.setProperty('--fill',pct+'%');
+  render();
+}
+
+// Google Calendar URL builder
+function fmt2(n){return String(n).padStart(2,'0');}
+function parseEventTimes(timeStr){
+  if(!timeStr)return null;
+  const t=timeStr.toLowerCase().trim();
+  // Range: "7–9pm", "1–2pm", "12:30–2pm", "7:30–10:30pm"
+  const rng=t.match(/^(\d+)(?::(\d+))?\s*[–\-]\s*(\d+)(?::(\d+))?\s*(am|pm)/);
+  if(rng){
+    let eh=parseInt(rng[3]),em=rng[4]?parseInt(rng[4]):0;
+    const ap=rng[5];
+    if(ap==='pm'&&eh!==12)eh+=12;
+    let sh=parseInt(rng[1]),sm=rng[2]?parseInt(rng[2]):0;
+    if(ap==='pm'&&sh!==12&&sh<eh-12)sh+=12;
+    else if(ap==='pm'&&sh!==12&&sh<12)sh+=12;
+    return{s:`T${fmt2(sh)}${fmt2(sm)}00`,e:`T${fmt2(eh)}${fmt2(em)}00`};
+  }
+  // Single: "7pm", "7:30pm", "noon"
+  if(t==='noon')return{s:'T120000',e:'T140000'};
+  const sg=t.match(/^(\d+)(?::(\d+))?\s*(am|pm)/);
+  if(sg){
+    let h=parseInt(sg[1]),m=sg[2]?parseInt(sg[2]):0;
+    if(sg[3]==='pm'&&h!==12)h+=12;
+    if(sg[3]==='am'&&h===12)h=0;
+    return{s:`T${fmt2(h)}${fmt2(m)}00`,e:`T${fmt2(Math.min(h+2,23))}${fmt2(m)}00`};
+  }
+  return null;
+}
+const DAY_DATES={mon:'20260504',tue:'20260505',wed:'20260506',thu:'20260507',fri:'20260508',sat:'20260509',sun:'20260510'};
+function calendarUrl(e){
+  const base='https://calendar.google.com/calendar/render?action=TEMPLATE';
+  const p=s=>encodeURIComponent(s||'');
+  let dates='';
+  if(!isOngoing(e)&&e.days&&e.days.length){
+    const d=DAY_DATES[e.days[0]];
+    if(d){
+      const t=parseEventTimes(e.time);
+      dates=t?`&dates=${d}${t.s}/${d}${t.e}`:`&dates=${d}/${d}`;
+    }
+  }
+  return `${base}&text=${p(e.name)}${dates}&location=${p(e.venue+', '+e.neighborhood)}&details=${p(e.desc+'\n\nSource: '+e.sourceUrl)}`;
+}
+
 function clearAll(){
-  searchTerm='';activeDays=new Set(['all']);activeCats=new Set(['all']);activeNeighborhoods=new Set(['all']);
+  searchTerm='';activeDays=new Set(['all']);activeCats=new Set(['all']);activeNeighborhoods=new Set(['all']);maxPrice=999;
   document.getElementById('searchBox').value='';
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
   document.querySelector('[data-day="all"]').classList.add('active');
   document.querySelector('[data-cat="all"]').classList.add('active');
   document.querySelector('[data-neighborhood="all"]').classList.add('active');
+  const sl=document.getElementById('priceSlider');sl.value=3;sl.style.setProperty('--fill','100%');
+  document.getElementById('priceVal').textContent='Any price';
   render();
 }
 
@@ -356,6 +432,7 @@ function triggerUpdate(){
   setTimeout(()=>t.style.display='none',6000);
 }
 
+document.getElementById('priceSlider').style.setProperty('--fill','100%');
 buildNeighborhoodChips();
 render();
 </script>
