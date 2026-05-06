@@ -118,6 +118,9 @@ a{color:#a78bfa;text-decoration:none}a:hover{text-decoration:underline}
     <span class="chip" data-cat="wellness" onclick="toggleCat(this)">Wellness</span>
     <span class="chip" data-cat="other" onclick="toggleCat(this)">Other</span>
   </div>
+  <div class="filter-row" id="neighborhoodChips">
+    <span class="filter-label">Location</span>
+  </div>
 </div>
 
 <div class="wburg-section" id="wburgStrip">
@@ -249,7 +252,7 @@ const events=[
 const seen=new Set();
 const evts=events.filter(e=>{const k=e.name+e.days.sort().join('');if(seen.has(k))return false;seen.add(k);return true;});
 
-let activeDays=new Set(['all']),activeCats=new Set(['all']),searchTerm='';
+let activeDays=new Set(['all']),activeCats=new Set(['all']),activeNeighborhoods=new Set(['all']),searchTerm='';
 
 function isOngoing(e){return e.days.length>=4;}
 
@@ -257,6 +260,7 @@ function matchesFilters(e){
   const q=searchTerm.toLowerCase();
   if(q&&![e.name,e.venue,e.neighborhood,e.desc,e.category].join(' ').toLowerCase().includes(q))return false;
   if(!activeCats.has('all')&&!activeCats.has(e.category))return false;
+  if(!activeNeighborhoods.has('all')&&!activeNeighborhoods.has(e.neighborhood))return false;
   if(activeDays.has('all'))return true;
   if(activeDays.has('ongoing')&&isOngoing(e))return true;
   for(const d of e.days)if(activeDays.has(d))return true;
@@ -316,14 +320,31 @@ function toggleCat(el){
   render();
 }
 
+function toggleNeighborhood(el){
+  const n=el.dataset.neighborhood;
+  if(n==='all'){activeNeighborhoods=new Set(['all']);}
+  else{activeNeighborhoods.delete('all');if(activeNeighborhoods.has(n))activeNeighborhoods.delete(n);else activeNeighborhoods.add(n);if(!activeNeighborhoods.size)activeNeighborhoods.add('all');}
+  document.querySelectorAll('#neighborhoodChips .chip').forEach(ch=>ch.classList.toggle('active',activeNeighborhoods.has(ch.dataset.neighborhood)));
+  render();
+}
+
+function buildNeighborhoodChips(){
+  const hoods=[...new Set(evts.map(e=>e.neighborhood).filter(Boolean))].sort();
+  const container=document.getElementById('neighborhoodChips');
+  container.innerHTML='<span class="filter-label">Location</span>'
+    +'<span class="chip active" data-neighborhood="all" onclick="toggleNeighborhood(this)">All</span>'
+    +hoods.map(h=>`<span class="chip" data-neighborhood="${h}" onclick="toggleNeighborhood(this)">${h}</span>`).join('');
+}
+
 function applyFilters(){searchTerm=document.getElementById('searchBox').value;render();}
 
 function clearAll(){
-  searchTerm='';activeDays=new Set(['all']);activeCats=new Set(['all']);
+  searchTerm='';activeDays=new Set(['all']);activeCats=new Set(['all']);activeNeighborhoods=new Set(['all']);
   document.getElementById('searchBox').value='';
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
   document.querySelector('[data-day="all"]').classList.add('active');
   document.querySelector('[data-cat="all"]').classList.add('active');
+  document.querySelector('[data-neighborhood="all"]').classList.add('active');
   render();
 }
 
@@ -335,6 +356,7 @@ function triggerUpdate(){
   setTimeout(()=>t.style.display='none',6000);
 }
 
+buildNeighborhoodChips();
 render();
 </script>
 </body>
