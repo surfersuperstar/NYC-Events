@@ -1466,6 +1466,25 @@
             });
         }
 
+        // Parse a messy time string into minutes-since-midnight for sorting.
+        // All-day events sort first; unparseable times sort last.
+        function timeToMinutes(t) {
+            if (!t) return 1439;
+            const s = t.toLowerCase();
+            if (/(all day|full day|during day|various|multiple|daily)/.test(s)) return 0;
+            const m = s.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/);
+            if (m) {
+                let h = parseInt(m[1], 10) % 12;
+                if (m[3] === 'pm') h += 12;
+                return h * 60 + (m[2] ? parseInt(m[2], 10) : 0);
+            }
+            if (s.includes('morning')) return 9 * 60;
+            if (s.includes('afternoon')) return 14 * 60;
+            if (s.includes('evening')) return 19 * 60;
+            if (s.includes('sunset')) return 20 * 60;
+            return 1439;
+        }
+
         function displayEvents(eventsToDisplay) {
             const container = document.getElementById('eventsContainer');
 
@@ -1489,7 +1508,7 @@
 
             dayOrder.forEach(day => {
                 if (groupedByDay[day]) {
-                    const dayEvents = groupedByDay[day];
+                    const dayEvents = groupedByDay[day].slice().sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
                     html += `
                         <div class="day-section">
                             <div class="day-header">
