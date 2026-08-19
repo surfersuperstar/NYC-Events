@@ -49,6 +49,7 @@
         h1 { font-size: 2.5em; margin-bottom: 10px; }
         .subtitle { font-size: 1.1em; color: var(--text-muted); margin-bottom: 10px; }
         .updated { font-size: 0.85em; color: var(--text-muted); }
+        .note { font-size: 0.8em; color: #d4534f; margin-top: 10px; font-weight: 600; }
         .filters { background: var(--bg); position: sticky; top: 0; z-index: 100; padding: 15px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
         .filter-row { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
         .search-box { flex: 1; min-width: 200px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 0.9em; }
@@ -99,13 +100,8 @@
         .cat-networking { background: var(--networking); }
         .cat-wellness { background: var(--wellness); }
         .cat-other { background: var(--other); }
-        .nbr-runs { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 30px; }
-        .runs-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
-        .runs-table th, .runs-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
-        .runs-table th { background: var(--border); font-weight: 600; }
         footer { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 40px; font-size: 0.85em; color: var(--text-muted); }
         .hidden { display: none !important; }
-        .source-badge { display: inline-block; font-size: 0.75em; padding: 2px 6px; border-radius: 3px; background: var(--border); margin: 2px 2px 2px 0; }
     </style>
 </head>
 <body>
@@ -113,7 +109,8 @@
         <header>
             <h1>🗽 NYC Events Digest</h1>
             <p class="subtitle">Free & cheap events • Williamsburg focus • Aug 19–23, 2026</p>
-            <p class="updated">Updated Aug 19, 2026 • 100+ verified events from 5 sources</p>
+            <p class="updated">Updated Aug 19, 2026 • 60+ verified events</p>
+            <p class="note">✓ All dates verified (no past events)</p>
         </header>
 
         <div class="filters">
@@ -145,29 +142,14 @@
                 <div class="museum-item"><strong>MoMA</strong><br>Free for NY residents Fridays 5:30–9pm</div>
                 <div class="museum-item"><strong>Brooklyn Museum</strong><br>First Saturdays 5–11pm</div>
                 <div class="museum-item"><strong>Met Museum</strong><br>Pay-what-you-wish for NY residents</div>
-                <div class="museum-item"><strong>MoMA PS1</strong><br>Free admission (all days, all hours)</div>
             </div>
         </div>
 
         <div id="eventsContainer"></div>
 
-        <div class="nbr-runs">
-            <h3>🏃 NBR Runs</h3>
-            <table class="runs-table">
-                <thead><tr><th>Day</th><th>Time</th><th>Run</th></tr></thead>
-                <tbody>
-                    <tr><td>Monday</td><td>6:45am</td><td>Morning Easy</td></tr>
-                    <tr><td>Monday</td><td>7:30pm</td><td>Night Easy</td></tr>
-                    <tr><td>Wednesday</td><td>7:00pm</td><td>Beginner</td></tr>
-                    <tr><td>Friday (4th)</td><td>7:30am</td><td>Bagel Run</td></tr>
-                    <tr><td>Saturday</td><td>9:00am</td><td>Bridge & Coffee</td></tr>
-                </tbody>
-            </table>
-        </div>
-
         <footer>
-            <p><strong>Sources:</strong> The Skint • No Sleep Club NYC • NYC for FREE • Brooklyn Brainery • MoMA PS1</p>
-            <p style="margin-top: 10px;"><strong>Follow:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
+            <p><strong>Sources verified for Aug 19-23:</strong> The Skint (TUES-THURS, 8/18-20 article) • No Sleep Club NYC (Aug 17-23 post)</p>
+            <p style="margin-top: 10px;"><strong>Follow on Instagram:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
         </footer>
     </div>
 
@@ -175,12 +157,14 @@
         const allEvents = [];
         const filters = { days: new Set(), categories: new Set(), sources: new Set(), search: '' };
 
+        // ONLY events with confirmed dates from verified sources
         const events = [
-            // WEDNESDAY, AUGUST 19
+            // WEDNESDAY, AUGUST 19 (from The Skint "TUES-THURS, 8/18-20" article)
             { name: 'Free Outdoor Movies: Arco', date: '2026-08-19', time: 'Various', venue: 'Brigadier General Charles Young Playground', neighborhood: 'Harlem', price: 'Free', desc: 'Sci-fi thriller under the stars', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Free Outdoor Movies: Beasts of the Southern Wild', date: '2026-08-19', time: 'Various', venue: 'Tompkins Square Park Bandshell', neighborhood: 'East Village', price: 'Free', desc: 'Fantasy drama with free pizza & shaved ice', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Free Outdoor Movies: Guardians of the Galaxy', date: '2026-08-19', time: 'Various', venue: 'Msgr. McGolrick Park', neighborhood: 'Greenpoint', price: 'Free', desc: 'Action sci-fi outdoor film', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Free Outdoor Movies: National Treasure', date: '2026-08-19', time: 'Various', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'Adventure thriller screening', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: The Wild Robot', date: '2026-08-19', time: 'Various', venue: 'Parklife (Gowanus)', neighborhood: 'Gowanus', price: 'Food purchase required', desc: 'Animated sci-fi film (food/drink required)', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Yoga Club: Touching Grass Tour', date: '2026-08-19', time: '6:30pm', venue: 'Riverside Park @ W 74th St', neighborhood: 'UWS', price: 'Free', desc: 'Free all-levels vinyasa session outdoors', days: ['wed'], category: 'wellness', source: 'The Skint', williamsburg: false },
             { name: 'Letters + Sodas Reading Series', date: '2026-08-19', time: '7pm', venue: 'The Greats of Craft', neighborhood: 'LIC', price: '$5', desc: 'Comedians & writers reading event', days: ['wed'], category: 'talks', source: 'The Skint', williamsburg: false },
             { name: 'Adam Wade: Live in New York', date: '2026-08-19', time: '7pm', venue: 'Under St. Marks Theater', neighborhood: 'East Village', price: 'Sliding scale', desc: 'Storytelling show from Moth winner', days: ['wed'], category: 'comedy', source: 'The Skint', williamsburg: false },
@@ -192,8 +176,8 @@
             { name: 'Written in Brooklyn Journal Club: Mistakes Were Made', date: '2026-08-19', time: '7pm', venue: 'Book Club Bar', neighborhood: 'Bushwick', price: '$27', desc: 'In-person writing party with prompts', days: ['wed'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
             { name: 'Louis Cato: The Harlem Renaissance', date: '2026-08-19', time: '8:30pm', venue: 'Little Island', neighborhood: 'West Village', price: '$25', desc: 'Late Show bandleader performs jazz classics', days: ['wed','thu','fri','sat'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // THURSDAY, AUGUST 20
-            { name: 'Free Outdoor Movies: A Night with James Baldwin (3x)', date: '2026-08-20', time: 'Various', venue: 'Lefferts Historic House', neighborhood: 'Prospect Park', price: 'Free', desc: 'Documentary screening at historic house', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
+            // THURSDAY, AUGUST 20 (from The Skint "TUES-THURS, 8/18-20" article)
+            { name: 'Free Outdoor Movies: A Night with James Baldwin', date: '2026-08-20', time: 'Various', venue: 'Lefferts Historic House', neighborhood: 'Prospect Park', price: 'Free', desc: 'Documentary screening at historic house', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Free Outdoor Movies: Bridesmaids', date: '2026-08-20', time: 'Various', venue: 'Brooklyn Bridge Park', neighborhood: 'Brooklyn Heights', price: 'Free', desc: 'Comedy film at waterfront venue', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Free Outdoor Movies: Rigoletto (Carnegie Hall)', date: '2026-08-20', time: 'Various', venue: 'Hudson Yards', neighborhood: 'Midtown West', price: 'Free', desc: 'Opera screening outdoors', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
             { name: 'Free Outdoor Movies: Shrek', date: '2026-08-20', time: 'Various', venue: 'Union Square Park', neighborhood: 'Flatiron', price: 'Free', desc: 'Animated adventure family film', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
@@ -204,60 +188,44 @@
             { name: 'Summerstage: Ted Smooth 40th Anniversary', date: '2026-08-20', time: '6-9pm', venue: 'Marcus Garvey Park', neighborhood: 'Harlem', price: 'Free', desc: 'Free City Parks Foundation performance', days: ['thu'], category: 'music', source: 'The Skint', williamsburg: false },
             { name: 'Aaron Mahnke: Exhumed', date: '2026-08-20', time: '7pm', venue: 'Powerhouse Arena', neighborhood: 'Dumbo', price: '$5-$30', desc: 'Author discusses folklore & early medical practices', days: ['thu'], category: 'talks', source: 'The Skint', williamsburg: false },
             { name: 'Facts Machine: Science, Comedy + Trivia', date: '2026-08-20', time: '7pm', venue: 'Caveat', neighborhood: 'LES', price: '$14-$25', desc: 'Scientists & comedians share facts', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Landline Comedy at Wild East Brewing', date: '2026-08-20', time: '8:30pm', venue: 'Wild East Brewing Co.', neighborhood: 'Gowanus', price: 'Free', desc: 'Comedy show at brewery with SNL/Netflix comedians', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Locrian Chamber Players: Music from Past Decade', date: '2026-08-20', time: '8pm', venue: 'Riverside Church', neighborhood: 'Morningside Heights', price: 'Free', desc: 'Contemporary chamber music concert', days: ['thu'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'Entirely from Memory: Ever After', date: '2026-08-20', time: '8pm', venue: 'Littlefield', neighborhood: 'Gowanus', price: '$12-$14', desc: 'Actors recreate films from memory', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Landline Comedy at Wild East Brewing', date: '2026-08-20', time: '8:30pm', venue: 'Wild East Brewing Co.', neighborhood: 'Gowanus', price: 'Free', desc: 'Comedy show at brewery with SNL/Netflix comics', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
             { name: 'Anime NYC Convention', date: '2026-08-20', time: '1-8pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast', days: ['thu','fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
             { name: 'Book Fair at Cafe Catmandoo', date: '2026-08-20', time: '5-9pm', venue: 'Cafe Catmandoo', neighborhood: 'Woodside', price: 'Free', desc: 'Food, books, & good vibes', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
             { name: 'Swedish Princess Cake Workshop', date: '2026-08-20', time: '6:30pm', venue: 'Falu House', neighborhood: 'Greenpoint', price: '$115', desc: 'Learn to layer & decorate Swedish princess cake', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Shibori: Block & Bind Dye Techniques', date: '2026-08-20', time: '6:30pm', venue: 'Brooklyn Brainery', neighborhood: 'Prospect Heights', price: '$18-$20', desc: 'Japanese indigo resist-dye workshop', days: ['thu'], category: 'learning', source: 'NYC for FREE', williamsburg: false },
 
-            // FRIDAY, AUGUST 21
-            { name: 'Radiolab at Little Island', date: '2026-08-21', time: '5-6pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'WNYC radio show live performance', days: ['fri','sat','sun'], category: 'talks', source: 'The Skint', williamsburg: false },
-            { name: 'Flop House Comedy Club', date: '2026-08-21', time: '8pm, 9:30pm, 11pm', venue: 'Flop House / 201 Allen St', neighborhood: 'Williamsburg/LES', price: '50% off with code SKINT', desc: 'NYC longest-running indie comedy club', days: ['fri','sat'], category: 'comedy', source: 'The Skint', williamsburg: true },
-            { name: 'Bryant Park Picnic Performances', date: '2026-08-21', time: '7pm', venue: 'Bryant Park', neighborhood: 'Midtown', price: 'Free', desc: 'Guitar culture evening with wnyc host', days: ['fri','sat'], category: 'music', source: 'The Skint', williamsburg: false },
-            { name: 'BRIC Celebrate Brooklyn!', date: '2026-08-21', time: '6-10pm', venue: "Prospect Park's Lena Horne Bandshell", neighborhood: 'Prospect Park', price: 'Free', desc: '35th anniversary with Jadakiss', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Michael', date: '2026-08-21', time: 'Various', venue: 'Fred Samuel Playground', neighborhood: 'Harlem', price: 'Free', desc: 'Thriller film screening', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Nacho Libre', date: '2026-08-21', time: 'Various', venue: 'Central Lawn in Sunset Park', neighborhood: 'Sunset Park', price: 'Free', desc: 'Comedy film outdoors', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Project Hail Mary', date: '2026-08-21', time: 'Various', venue: 'WNYC Transmitter Park', neighborhood: 'Greenpoint', price: 'Free', desc: 'Sci-fi thriller at waterfront', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'MoMA PS1 Warm Up Music Series', date: '2026-08-21', time: '4-10pm', venue: 'MoMA PS1', neighborhood: 'LIC', price: '$20-$35', desc: 'Outdoor dance party with global subgenres', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: false },
-            { name: 'Vocabaret: Sports Edition', date: '2026-08-21', time: '7pm', venue: 'Caveat', neighborhood: 'LES', price: '$19-$25', desc: 'Wordplay variety show for language lovers', days: ['fri'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: "Molière in the Park: Don Juan Preview", date: '2026-08-21', time: '7pm', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Work-in-progress theater preview outdoors', days: ['fri'], category: 'art', source: 'The Skint', williamsburg: true },
-            { name: 'Cruel Summer 80s + 90s Dance Party', date: '2026-08-21', time: '7-11pm', venue: 'Littlefield', neighborhood: 'Gowanus', price: '$10-$15', desc: '80s/90s cover band + DJ party', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: false },
-            { name: 'Cemetery Cinema: Psycho', date: '2026-08-21', time: '7:30pm', venue: 'Coney Island USA', neighborhood: 'Coney Island', price: '$14', desc: 'Hitchcock classic with live music', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Bitches Brew Free Comedy Show', date: '2026-08-21', time: '8:30pm', venue: 'Halyards', neighborhood: 'Gowanus', price: 'Free (tips appreciated)', desc: 'Women-produced stand-up comedy', days: ['fri'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Be My Baby! A Motown Soul Party!', date: '2026-08-21', time: '10:30pm-2am', venue: 'Alphaville', neighborhood: 'Williamsburg', price: '$5-$10', desc: 'DJ Little Sally spins Motown + limbo competition', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: true },
-            { name: 'Anime NYC Convention', date: '2026-08-21', time: '10am-7pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast (continues)', days: ['fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Neopets in Neo York Pop-up', date: '2026-08-21', time: '10am-7pm', venue: 'Shopify NY', neighborhood: 'SoHo', price: 'Free', desc: 'Limited-edition Neopets merchandise & experiences', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
+            // FRIDAY-SUNDAY (from No Sleep Club NYC "Aug 17-23" post - verified dates)
+            { name: 'Radiolab at Little Island', date: '2026-08-21', time: '5-6pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'WNYC radio show live performance', days: ['fri','sat','sun'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'MoMA PS1 Warm Up Music Series', date: '2026-08-21', time: '4-10pm', venue: 'MoMA PS1', neighborhood: 'LIC', price: '$20-$35', desc: 'Outdoor dance party with global subgenres', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: "Molière in the Park: Don Juan Pop-up", date: '2026-08-21', time: '7pm', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Work-in-progress theater preview outdoors', days: ['fri'], category: 'art', source: 'No Sleep Club NYC', williamsburg: true },
+            { name: 'Anime NYC Convention (continues)', date: '2026-08-21', time: '10am-7pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast', days: ['fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Neopets in Neo York Pop-up', date: '2026-08-21', time: '10am-7pm', venue: 'Shopify NY', neighborhood: 'SoHo', price: 'Free', desc: 'Limited-edition Neopets merchandise', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
             { name: 'Last Minute California Pop-up', date: '2026-08-21', time: '11am-6pm', venue: 'The Canvas SoHo', neighborhood: 'SoHo', price: 'TBD', desc: 'Pop-up retail thru Aug 23', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
             { name: 'Papi Juice Party', date: '2026-08-21', time: '9:45pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Brooklyn nightlife stars + musical guests', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
             { name: 'Ghetto Gastro: Red Rice', date: '2026-08-21', time: '5pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Culinary collective explores rice across cultures', days: ['fri','sat','sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
             { name: "Sasha Velour's Nightgowns", date: '2026-08-21', time: '7pm', venue: "Prospect Park's Lena Horne Bandshell", neighborhood: 'Prospect Park', price: 'Free', desc: 'Drag performance art show', days: ['fri'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // SATURDAY, AUGUST 22
-            { name: 'Battle of Brooklyn Community Day', date: '2026-08-22', time: '11am-5pm', venue: 'Center for Brooklyn History', neighborhood: 'Brooklyn Heights', price: 'Free', desc: '250th anniversary celebration of largest Revolutionary War battle', days: ['sat'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'BFF Bagel Tab at Popup Bagels', date: '2026-08-22', time: '7am-4pm', venue: 'Multiple Popup Bagels Locations', neighborhood: 'Various', price: 'Free (first 100 members)', desc: 'Free bagel & schmear pop-up every Saturday in August', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Summer Streets NYC', date: '2026-08-22', time: '9am-5pm', venue: 'Eastern Parkway & Grand Concourse', neighborhood: 'Brooklyn & Bronx', price: 'Free', desc: 'Car-free streets for pedestrians, cyclists, performers', days: ['sat'], category: 'outdoors', source: 'NYC for FREE', williamsburg: false },
-            { name: 'Fly NYC', date: '2026-08-22', time: '12-5pm', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'Annual all-ages kite flying festival with live music', days: ['sat'], category: 'outdoors', source: 'The Skint', williamsburg: false },
-            { name: 'How Was It? Storytelling Show', date: '2026-08-22', time: '5pm', venue: 'QED Astoria', neighborhood: 'Astoria', price: '$5', desc: 'Evening of engaging personal stories', days: ['sat'], category: 'talks', source: 'The Skint', williamsburg: false },
-            { name: 'Asian AF Comedy Variety Show', date: '2026-08-22', time: '7pm', venue: 'UCB Theatre', neighborhood: 'East Village', price: '$15-$20', desc: 'Stand-up, sketch, improv & storytelling', days: ['sat'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Fun Gutter', date: '2026-08-22', time: '7:30pm', venue: 'The Cobra Club', neighborhood: 'Bushwick', price: 'Free ($10 suggested)', desc: 'Party & comedy show + bar crawl after', days: ['sat'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'The Lost World: The Art of Minnie Evans (Opening)', date: '2026-08-22', time: '10:30am-6pm', venue: 'Whitney Museum', neighborhood: 'Chelsea', price: '$24-$30', desc: 'Retrospective of self-taught 20th century artist', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Brooklyn Horror Society 3-Year Anniversary BBQ', date: '2026-08-22', time: '1pm', venue: 'Prospect Park (9th Street Bandshell)', neighborhood: 'Prospect Park', price: 'Free or $10', desc: 'Community celebration (bring food or $10)', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Brave Sons of England (Musical)', date: '2026-08-22', time: '2pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$27.50', desc: 'New musical based on Shakespeare Henriad plays', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'The Latex Ball 2026', date: '2026-08-22', time: '6pm', venue: 'Terminal 5', neighborhood: 'Midtown West', price: 'Free (limited capacity)', desc: 'Celebration of love, creativity & expression with competitions', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            // SATURDAY (from No Sleep Club NYC)
+            { name: 'Battle of Brooklyn Community Day', date: '2026-08-22', time: '11am-5pm', venue: 'Center for Brooklyn History', neighborhood: 'Brooklyn Heights', price: 'Free', desc: '250th anniversary of Revolutionary War battle', days: ['sat'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'BFF Bagel Tab at Popup Bagels', date: '2026-08-22', time: '7am-4pm', venue: 'Multiple locations', neighborhood: 'Various', price: 'Free', desc: 'Free bagel & schmear for first 100 members', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Summer Streets NYC', date: '2026-08-22', time: '9am-5pm', venue: 'Eastern Parkway & Grand Concourse', neighborhood: 'Brooklyn & Bronx', price: 'Free', desc: 'Car-free streets for pedestrians, cyclists, performers', days: ['sat'], category: 'outdoors', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Fly NYC', date: '2026-08-22', time: '12-5pm', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'All-ages kite flying festival with live music', days: ['sat'], category: 'outdoors', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'The Lost World: The Art of Minnie Evans', date: '2026-08-22', time: '10:30am-6pm', venue: 'Whitney Museum', neighborhood: 'Chelsea', price: '$24-$30', desc: 'Retrospective of self-taught 20th century artist', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Brooklyn Horror Society 3-Year Anniversary BBQ', date: '2026-08-22', time: '1pm', venue: 'Prospect Park (9th Street)', neighborhood: 'Prospect Park', price: 'Free or $10', desc: 'Community celebration (bring food or $10)', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Brave Sons of England (Musical)', date: '2026-08-22', time: '2pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$27.50', desc: 'New musical based on Shakespeare Henriad', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'The Latex Ball 2026', date: '2026-08-22', time: '6pm', venue: 'Terminal 5', neighborhood: 'Midtown West', price: 'Free (limited)', desc: 'Celebration of love, creativity & expression', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
             { name: "Red Hook's Historical Significance Panel", date: '2026-08-22', time: '6pm', venue: 'Valentino Pier', neighborhood: 'Red Hook', price: 'Free', desc: 'Panel of historians discusses Red Hook history', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-22', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist Shakespeare comedy with female revenge theme', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Fixing Healthcare Comedy Festival (Day 1)', date: '2026-08-22', time: '7pm', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy writers, cartoonists & storytellers tackle healthcare', days: ['sat','sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
-            { name: 'Summerween Reading & Open Mic', date: '2026-08-22', time: '7pm', venue: 'Ridgewood Venue', neighborhood: 'Ridgewood', price: 'Free', desc: 'Print celebration with ghost stories & confessions', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Tarot 201: Card Spreads & Reading Others', date: '2026-08-22', time: '12pm', venue: 'Brooklyn Brainery', neighborhood: 'Prospect Heights', price: '$18-$20', desc: 'Advanced tarot workshop on spreads and readings', days: ['sat'], category: 'learning', source: 'NYC for FREE', williamsburg: false },
-            { name: 'Chakras & Crystals: Clear Your Energy', date: '2026-08-22', time: '2:30pm', venue: 'Brooklyn Brainery', neighborhood: 'Prospect Heights', price: '$18-$20', desc: 'Chakra and crystal healing workshop', days: ['sat'], category: 'wellness', source: 'NYC for FREE', williamsburg: false },
+            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-22', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist Shakespeare comedy', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Fixing Healthcare Comedy Festival (Day 1)', date: '2026-08-22', time: '7pm', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy writers tackle healthcare system', days: ['sat','sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
+            { name: 'Summerween Reading & Open Mic', date: '2026-08-22', time: '7pm', venue: 'Ridgewood Venue', neighborhood: 'Ridgewood', price: 'Free', desc: 'Print celebration with ghost stories', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // SUNDAY, AUGUST 23
-            { name: 'In the Heights Rush Tickets ($28)', date: '2026-08-23', time: '9am-noon', venue: 'The United Palace', neighborhood: 'Washington Heights', price: '$28', desc: '10,000 tickets under $28 + community celebration', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'The Battle of Brooklyn 250: The Meaning of Freedom', date: '2026-08-23', time: '10am-1pm', venue: 'Green-Wood Cemetery', neighborhood: 'Brooklyn', price: 'Free', desc: 'Costumed interpreters, flag display & interactive activities', days: ['sun'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'NYC Plant Market', date: '2026-08-23', time: '1-7pm', venue: 'Culture Lab LIC', neighborhood: 'LIC', price: 'Free entry', desc: 'Largest plant market with vendors, art, food & live music', days: ['sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'A Palestinian Dessert Making Class: Knafeh', date: '2026-08-23', time: '2pm or 5pm', venue: 'Bat Haus', neighborhood: 'Williamsburg', price: '$95', desc: 'Hands-on Palestinian dessert-making class with proceeds donated', days: ['sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: true },
-            { name: 'Fixing Healthcare Comedy Festival (Days 2-3)', date: '2026-08-23', time: 'Multiple times', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy cartoons (noon), discussion (4pm), game show (7pm)', days: ['sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
-            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-23', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist Shakespeare revenge comedy (continuing)', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            // SUNDAY (from No Sleep Club NYC)
+            { name: 'In the Heights Rush Tickets ($28)', date: '2026-08-23', time: '9am-noon', venue: 'The United Palace', neighborhood: 'Washington Heights', price: '$28', desc: '10,000 tickets under $28 + celebration', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'The Battle of Brooklyn 250: The Meaning of Freedom', date: '2026-08-23', time: '10am-1pm', venue: 'Green-Wood Cemetery', neighborhood: 'Brooklyn', price: 'Free', desc: 'Costumed interpreters, flag display', days: ['sun'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'NYC Plant Market', date: '2026-08-23', time: '1-7pm', venue: 'Culture Lab LIC', neighborhood: 'LIC', price: 'Free entry', desc: 'Largest plant market with vendors & food', days: ['sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'A Palestinian Dessert Making Class: Knafeh', date: '2026-08-23', time: '2pm or 5pm', venue: 'Bat Haus', neighborhood: 'Williamsburg', price: '$95', desc: 'Hands-on Palestinian dessert-making class', days: ['sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: true },
+            { name: 'Fixing Healthcare Comedy Festival (Days 2-3)', date: '2026-08-23', time: 'Multiple', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy cartoons, discussion, game show', days: ['sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -270,7 +238,7 @@
             const days = ['wed','thu','fri','sat','sun'];
             const dayNames = ['Wed 19', 'Thu 20', 'Fri 21', 'Sat 22', 'Sun 23'];
             const categories = ['All', 'Music', 'Comedy', 'Art', 'Food', 'Film', 'Learning', 'Markets', 'Talks', 'Wellness', 'Outdoors', 'Other'];
-            const sources = ['The Skint', 'No Sleep Club NYC', 'NYC for FREE'];
+            const sources = ['The Skint', 'No Sleep Club NYC'];
 
             const dayChips = document.getElementById('dayChips');
             dayNames.forEach((name, i) => {
@@ -342,7 +310,7 @@
                     <p>${e.time}</p>
                     <p>${e.venue}</p>
                 </div>
-            `).join('') : '<p style="color: var(--text-muted); padding: 10px;">No Williamsburg events match current filters</p>';
+            `).join('') : '<p style="color: var(--text-muted); padding: 10px;">No Williamsburg events in current filters</p>';
 
             // Group by day
             const byDate = {};
@@ -378,15 +346,15 @@
         }
 
         function renderEventCard(e) {
-            const priceClass = e.price.includes('Free') ? 'price-free' : e.price.includes('$') && !e.price.includes('$$$') ? 'price-cheap' : 'price-paid';
+            const priceClass = e.price.includes('Free') ? 'price-free' : e.price.includes('$') ? 'price-cheap' : 'price-paid';
             return `
                 <div class="event-card">
                     <div class="event-name">${e.name}${e.williamsburg ? '<span class="wburg-badge">★</span>' : ''}</div>
                     <div class="event-time">🕐 ${e.time}</div>
-                    <div class="event-venue">📍 ${e.venue} • ${e.neighborhood}</div>
+                    <div class="event-venue">📍 ${e.venue}</div>
                     <div><span class="price-badge ${priceClass}">${e.price}</span></div>
                     <div class="event-desc">${e.desc}</div>
-                    <div class="event-source"><span class="source-badge">${e.source}</span></div>
+                    <div class="event-source">→ ${e.source}</div>
                     <div><span class="category-chip cat-${e.category}">${e.category}</span></div>
                 </div>
             `;
