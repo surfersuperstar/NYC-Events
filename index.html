@@ -214,22 +214,27 @@
         }
 
         .events-list {
-            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 20px;
         }
 
         .event-item {
+            display: flex;
+            flex-direction: column;
             padding: 20px;
-            border-bottom: 1px solid #eee;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
             transition: all 0.3s ease;
         }
 
-        .event-item:last-child {
-            border-bottom: none;
-        }
-
         .event-item:hover {
-            background: #f9f9f9;
-            padding-left: 25px;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
         }
 
         .event-title {
@@ -241,10 +246,10 @@
 
         .event-meta {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            flex-direction: column;
+            gap: 6px;
             margin-bottom: 10px;
-            font-size: 0.95em;
+            font-size: 0.9em;
             color: #666;
         }
 
@@ -316,11 +321,10 @@
 
         .event-description {
             color: #666;
-            line-height: 1.6;
-            margin-top: 10px;
-            padding: 10px 0;
-            border-left: 3px solid #e0e0e0;
-            padding-left: 15px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-top: auto;
+            padding-top: 10px;
         }
 
         .museum-section {
