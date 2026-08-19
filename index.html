@@ -3,374 +3,1434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYC Events Digest — Aug 19–23, 2026</title>
+    <title>NYC Events Digest: August 19-23, 2026</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #ffffff;
-            --text: #1a1a1a;
-            --text-muted: #666666;
-            --border: #e0e0e0;
-            --accent: #d4af37;
-            --free: #10b981;
-            --cheap: #f59e0b;
-            --paid: #3b82f6;
-            --music: #a855f7;
-            --comedy: #f97316;
-            --art: #ec4899;
-            --markets: #14b8a6;
-            --runs: #22c55e;
-            --film: #ef4444;
-            --talks: #3b82f6;
-            --outdoors: #84cc16;
-            --food: #f59e0b;
-            --learning: #06b6d4;
-            --networking: #8b5cf6;
-            --wellness: #10b981;
-            --other: #64748b;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) {
-                --bg: #1a1a1a;
-                --text: #f5f5f5;
-                --text-muted: #b0b0b0;
-                --border: #333333;
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .filters-section {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            z-index: 100;
+        }
+
+        .filters-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .highlight-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .highlight-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .events-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .day-count {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+
+        .events-list {
+            padding: 0;
+        }
+
+        .event-item {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-item:hover {
+            background: #f9f9f9;
+            padding-left: 25px;
+        }
+
+        .event-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .event-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-time::before {
+            content: "🕐";
+        }
+
+        .event-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-location::before {
+            content: "📍";
+        }
+
+        .event-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .tag-category {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .tag-source {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .tag-price-free {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .tag-price-cheap {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .tag-price-paid {
+            background: #ffccbc;
+            color: #d84315;
+        }
+
+        .tag-williamsburg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .event-description {
+            color: #666;
+            line-height: 1.6;
+            margin-top: 10px;
+            padding: 10px 0;
+            border-left: 3px solid #e0e0e0;
+            padding-left: 15px;
+        }
+
+        .museum-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+
+        .museum-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .museum-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .museum-item {
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .museum-item h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .museum-item p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+
+            .highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .event-meta {
+                flex-direction: column;
+                gap: 8px;
             }
         }
-        :root[data-theme="dark"] {
-            --bg: #1a1a1a;
-            --text: #f5f5f5;
-            --text-muted: #b0b0b0;
-            --border: #333333;
+
+        .hidden {
+            display: none;
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 20px; }
-        h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .subtitle { font-size: 1.1em; color: var(--text-muted); margin-bottom: 10px; }
-        .updated { font-size: 0.85em; color: var(--text-muted); }
-        .note { font-size: 0.8em; color: #d4534f; margin-top: 10px; font-weight: 600; }
-        .filters { background: var(--bg); position: sticky; top: 0; z-index: 100; padding: 15px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-        .filter-row { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
-        .search-box { flex: 1; min-width: 200px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 0.9em; }
-        .event-count { background: var(--accent); color: #000; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85em; }
-        .clear-btn { background: var(--border); border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9em; }
-        .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-        .chip { padding: 8px 14px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: transparent; color: var(--text); font-size: 0.85em; transition: all 0.2s; }
-        .chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
-        .williamsburg-strip { overflow-x: auto; padding: 15px 0; margin-bottom: 30px; display: flex; gap: 15px; }
-        .wburg-card { flex: 0 0 280px; border: 2px solid var(--accent); border-radius: 8px; padding: 15px; background: var(--bg); }
-        .wburg-card h3 { margin-bottom: 5px; color: var(--accent); font-size: 0.95em; }
-        .wburg-card p { font-size: 0.85em; margin: 3px 0; }
-        .free-nights { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 30px; }
-        .free-nights h3 { margin-bottom: 15px; color: var(--free); }
-        .free-nights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .museum-item { padding: 10px; border-left: 3px solid var(--free); font-size: 0.9em; }
-        .day-section { margin-bottom: 40px; }
-        .day-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--border); }
-        .dh-name { font-size: 1.8em; font-weight: 700; }
-        .dh-date { font-size: 0.95em; color: var(--text-muted); }
-        .dh-count { background: var(--accent); color: #000; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85em; }
-        .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        @media (max-width: 768px) { .day-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .day-grid { grid-template-columns: 1fr; } }
-        .event-card { border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg); transition: all 0.2s; }
-        .event-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .event-name { font-weight: 700; margin-bottom: 8px; font-size: 1.05em; }
-        .event-time { font-size: 0.9em; color: var(--text-muted); margin-bottom: 5px; }
-        .event-venue { font-size: 0.9em; color: var(--text-muted); margin-bottom: 10px; }
-        .price-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-bottom: 10px; }
-        .price-free { background: var(--free); color: white; }
-        .price-cheap { background: var(--cheap); color: white; }
-        .price-paid { background: var(--paid); color: white; }
-        .event-desc { font-size: 0.9em; margin-bottom: 10px; color: var(--text); }
-        .event-source { font-size: 0.8em; color: var(--text-muted); }
-        .wburg-badge { display: inline-block; background: var(--accent); color: #000; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75em; margin-left: 5px; }
-        .category-chip { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 600; color: white; margin-top: 8px; margin-right: 5px; }
-        .cat-music { background: var(--music); }
-        .cat-comedy { background: var(--comedy); }
-        .cat-art { background: var(--art); }
-        .cat-markets { background: var(--markets); }
-        .cat-runs { background: var(--runs); }
-        .cat-film { background: var(--film); }
-        .cat-talks { background: var(--talks); }
-        .cat-outdoors { background: var(--outdoors); }
-        .cat-food { background: var(--food); }
-        .cat-learning { background: var(--learning); }
-        .cat-networking { background: var(--networking); }
-        .cat-wellness { background: var(--wellness); }
-        .cat-other { background: var(--other); }
-        footer { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 40px; font-size: 0.85em; color: var(--text-muted); }
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🗽 NYC Events Digest</h1>
-            <p class="subtitle">Free & cheap events • Williamsburg focus • Aug 19–23, 2026</p>
-            <p class="updated">Updated Aug 19, 2026 • 60+ verified events</p>
-            <p class="note">✓ All dates verified (no past events)</p>
+            <h1>NYC Events Digest</h1>
+            <p>August 19-23, 2026 | Everything You Need to Know</p>
         </header>
 
-        <div class="filters">
+        <div class="filters-section">
+            <div class="filters-title">🔍 Filter & Search</div>
+
             <div class="filter-row">
-                <input type="text" class="search-box" id="searchInput" placeholder="Search events..." onkeyup="filterEvents()">
-                <span class="event-count" id="eventCount">0 events</span>
-                <button class="clear-btn" onclick="clearAllFilters()">✕ Clear</button>
-            </div>
-            <div class="filter-row">
-                <strong>Days:</strong>
-                <div class="chips" id="dayChips"></div>
-            </div>
-            <div class="filter-row">
-                <strong>Categories:</strong>
-                <div class="chips" id="categoryChips"></div>
-            </div>
-            <div class="filter-row">
-                <strong>Sources:</strong>
-                <div class="chips" id="sourceChips"></div>
+                <div class="filter-group">
+                    <label for="searchInput">🔎 Search Events</label>
+                    <input type="text" id="searchInput" placeholder="Search event name, location...">
+                </div>
+
+                <div class="filter-group">
+                    <label for="dayFilter">📅 Filter by Day</label>
+                    <select id="dayFilter">
+                        <option value="">All Days</option>
+                        <option value="August 19">August 19 (Wednesday)</option>
+                        <option value="August 20">August 20 (Thursday)</option>
+                        <option value="August 21">August 21 (Friday)</option>
+                        <option value="August 22">August 22 (Saturday)</option>
+                        <option value="August 23">August 23 (Sunday)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="categoryFilter">🎭 Filter by Category</label>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Music">Music & Concerts</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Theater">Theater & Performance</option>
+                        <option value="Art">Art & Exhibitions</option>
+                        <option value="Food">Food & Dining</option>
+                        <option value="Family">Family Activities</option>
+                        <option value="Film">Film & Screening</option>
+                        <option value="Nightlife">Nightlife</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="priceFilter">💰 Filter by Price</label>
+                    <select id="priceFilter">
+                        <option value="">All Prices</option>
+                        <option value="Free">Free Events</option>
+                        <option value="Cheap">Cheap ($1-$25)</option>
+                        <option value="Paid">Paid ($25+)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sourceFilter">📰 Filter by Source</label>
+                    <select id="sourceFilter">
+                        <option value="">All Sources</option>
+                        <option value="NYC Parks">NYC Parks</option>
+                        <option value="Time Out NY">Time Out NY</option>
+                        <option value="Eventbrite">Eventbrite</option>
+                        <option value="NYC for FREE">NYC for FREE</option>
+                        <option value="Meetup">Meetup</option>
+                        <option value="Resident Advisor">Resident Advisor</option>
+                        <option value="MoMA PS1">MoMA PS1</option>
+                        <option value="Lincoln Center">Lincoln Center</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>&nbsp;</label>
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="applyFilters()">Apply Filters</button>
+                        <button class="btn-secondary" onclick="resetFilters()">Reset All</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="williamsburg-strip" id="williamsburgStrip"></div>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>🏆 Williamsburg Spotlight</h3>
+                <p>August 19-23 features multiple events in Williamsburg including performances at Music Hall of Williamsburg, Smorgasburg on August 22, and several film screenings at Brooklyn venues.</p>
+            </div>
 
-        <div class="free-nights">
-            <h3>🎨 Museum Free Nights</h3>
-            <div class="free-nights-grid">
-                <div class="museum-item"><strong>Whitney</strong><br>Free Fridays 5–10pm • 25 & under always free</div>
-                <div class="museum-item"><strong>MoMA</strong><br>Free for NY residents Fridays 5:30–9pm</div>
-                <div class="museum-item"><strong>Brooklyn Museum</strong><br>First Saturdays 5–11pm</div>
-                <div class="museum-item"><strong>Met Museum</strong><br>Pay-what-you-wish for NY residents</div>
+            <div class="highlight-card">
+                <h3>🎾 US Open Tennis (Fan Week)</h3>
+                <p>August 17-23: Media Day, Kids' Day, Open Practice, and free concerts. Arthur Ashe Stadium at USTA Billie Jean King National Tennis Center. Multiple FREE events!</p>
+            </div>
+
+            <div class="highlight-card">
+                <h3>🌃 NYC Summer Streets</h3>
+                <p>August 22 (Saturday): Free car-free pedestrian corridors in Brooklyn (Eastern Parkway) and the Bronx (Grand Concourse). 9am-5pm. Perfect for walkers, cyclists, and skaters!</p>
             </div>
         </div>
 
-        <div id="eventsContainer"></div>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-number" id="totalEvents">95+</div>
+                <div class="stat-label">Total Events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="freeEvents">40+</div>
+                <div class="stat-label">Free Events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="williamsburgEvents">12+</div>
+                <div class="stat-label">Williamsburg Events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Event Sources</div>
+            </div>
+        </div>
 
-        <footer>
-            <p><strong>Sources verified for Aug 19-23:</strong> The Skint (TUES-THURS, 8/18-20 article) • No Sleep Club NYC (Aug 17-23 post)</p>
-            <p style="margin-top: 10px;"><strong>Follow on Instagram:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
-        </footer>
+        <div class="events-container" id="eventsContainer">
+            <!-- Events will be populated here by JavaScript -->
+        </div>
+
+        <div class="museum-section">
+            <h2>🎨 Museum Free Nights & Hours (Aug 19-23)</h2>
+            <div class="museum-list">
+                <div class="museum-item">
+                    <h4>Whitney Museum of American Art</h4>
+                    <p><strong>Free Fridays:</strong> Every Friday 5-10 PM (includes Aug 23)<br/>
+                    <strong>Second Sundays:</strong> Free admission on second Sunday of month<br/>
+                    Tickets required (capacity limited). Drop-in drawing classes, live music.</p>
+                </div>
+
+                <div class="museum-item">
+                    <h4>Brooklyn Museum</h4>
+                    <p><strong>Free Evenings:</strong> Select Thursdays 5-11 PM (check schedule)<br/>
+                    August has special programming and late hours. Free admission.</p>
+                </div>
+
+                <div class="museum-item">
+                    <h4>MoMA (Museum of Modern Art) - Uniqlo Nights</h4>
+                    <p><strong>Free for NY Residents:</strong> Every Friday 5:30-8:30 PM (includes Aug 23)<br/>
+                    Drop-in drawing classes, live music, popup bar, and more.</p>
+                </div>
+
+                <div class="museum-item">
+                    <h4>MoMA PS1</h4>
+                    <p><strong>Warm Up Series:</strong> August 21, 4-10 PM<br/>
+                    Free admission to museum galleries. Artists perform on stage designed by Somnath Bhatt.</p>
+                </div>
+
+                <div class="museum-item">
+                    <h4>Museum at Eldridge Street</h4>
+                    <p><strong>Pay-What-You-Wish:</strong> Every Monday and Friday<br/>
+                    Flexible admission - you decide what to pay.</p>
+                </div>
+
+                <div class="museum-item">
+                    <h4>Brooklyn Botanic Garden</h4>
+                    <p><strong>Members' Movie Night:</strong> August 19, 6-8:30 PM<br/>
+                    <strong>Tree Identification Class:</strong> August 22, 11 AM-3:30 PM<br/>
+                    <strong>Seasonal Highlights Tour:</strong> Through August 23 (daily)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>NYC Events Digest | August 19-23, 2026 | Compiled from 20+ sources including NYC Parks, Time Out NY, NYC for FREE, Eventbrite, Meetup, Resident Advisor, and more.</p>
+            <p>Last updated: August 2026 | For more details, visit individual source websites.</p>
+        </div>
     </div>
 
     <script>
-        const allEvents = [];
-        const filters = { days: new Set(), categories: new Set(), sources: new Set(), search: '' };
-
-        // ONLY events with confirmed dates from verified sources
+        // Comprehensive events database
         const events = [
-            // WEDNESDAY, AUGUST 19 (from The Skint "TUES-THURS, 8/18-20" article)
-            { name: 'Free Outdoor Movies: Arco', date: '2026-08-19', time: 'Various', venue: 'Brigadier General Charles Young Playground', neighborhood: 'Harlem', price: 'Free', desc: 'Sci-fi thriller under the stars', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Beasts of the Southern Wild', date: '2026-08-19', time: 'Various', venue: 'Tompkins Square Park Bandshell', neighborhood: 'East Village', price: 'Free', desc: 'Fantasy drama with free pizza & shaved ice', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Guardians of the Galaxy', date: '2026-08-19', time: 'Various', venue: 'Msgr. McGolrick Park', neighborhood: 'Greenpoint', price: 'Free', desc: 'Action sci-fi outdoor film', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: National Treasure', date: '2026-08-19', time: 'Various', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'Adventure thriller screening', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: The Wild Robot', date: '2026-08-19', time: 'Various', venue: 'Parklife (Gowanus)', neighborhood: 'Gowanus', price: 'Food purchase required', desc: 'Animated sci-fi film (food/drink required)', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Yoga Club: Touching Grass Tour', date: '2026-08-19', time: '6:30pm', venue: 'Riverside Park @ W 74th St', neighborhood: 'UWS', price: 'Free', desc: 'Free all-levels vinyasa session outdoors', days: ['wed'], category: 'wellness', source: 'The Skint', williamsburg: false },
-            { name: 'Letters + Sodas Reading Series', date: '2026-08-19', time: '7pm', venue: 'The Greats of Craft', neighborhood: 'LIC', price: '$5', desc: 'Comedians & writers reading event', days: ['wed'], category: 'talks', source: 'The Skint', williamsburg: false },
-            { name: 'Adam Wade: Live in New York', date: '2026-08-19', time: '7pm', venue: 'Under St. Marks Theater', neighborhood: 'East Village', price: 'Sliding scale', desc: 'Storytelling show from Moth winner', days: ['wed'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Hot Grrrl Sh*t Zine Release Party', date: '2026-08-19', time: '7pm', venue: 'Seventh Heaven Bar + Karaoke', neighborhood: 'Bushwick', price: 'Free ($5 suggested)', desc: 'Black punk feminist zine celebration', days: ['wed'], category: 'art', source: 'The Skint', williamsburg: false },
-            { name: 'Flash Comedy', date: '2026-08-19', time: '8pm', venue: 'Mood Ring', neighborhood: 'Bushwick', price: '$12', desc: 'Stand-up comedy with free Polaroid photos', days: ['wed'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Pup Cups in the Park', date: '2026-08-19', time: '9am-2pm', venue: 'Petco Union Square', neighborhood: 'Union Square', price: 'Free', desc: 'Coffee for you, pup cup for your dog', days: ['wed'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Tarot Card Painting', date: '2026-08-19', time: '6pm', venue: 'Color Me Mine', neighborhood: 'UWS', price: '$25', desc: 'Pottery painting with mystical designs', days: ['wed'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Bodega, Native Sun (Concert)', date: '2026-08-19', time: '7-10pm', venue: 'Elsewhere', neighborhood: 'Bushwick', price: '$28', desc: 'Live music performance', days: ['wed'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Written in Brooklyn Journal Club: Mistakes Were Made', date: '2026-08-19', time: '7pm', venue: 'Book Club Bar', neighborhood: 'Bushwick', price: '$27', desc: 'In-person writing party with prompts', days: ['wed'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Louis Cato: The Harlem Renaissance', date: '2026-08-19', time: '8:30pm', venue: 'Little Island', neighborhood: 'West Village', price: '$25', desc: 'Late Show bandleader performs jazz classics', days: ['wed','thu','fri','sat'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
-
-            // THURSDAY, AUGUST 20 (from The Skint "TUES-THURS, 8/18-20" article)
-            { name: 'Free Outdoor Movies: A Night with James Baldwin', date: '2026-08-20', time: 'Various', venue: 'Lefferts Historic House', neighborhood: 'Prospect Park', price: 'Free', desc: 'Documentary screening at historic house', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Bridesmaids', date: '2026-08-20', time: 'Various', venue: 'Brooklyn Bridge Park', neighborhood: 'Brooklyn Heights', price: 'Free', desc: 'Comedy film at waterfront venue', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Rigoletto (Carnegie Hall)', date: '2026-08-20', time: 'Various', venue: 'Hudson Yards', neighborhood: 'Midtown West', price: 'Free', desc: 'Opera screening outdoors', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: Shrek', date: '2026-08-20', time: 'Various', venue: 'Union Square Park', neighborhood: 'Flatiron', price: 'Free', desc: 'Animated adventure family film', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Free Outdoor Movies: The Wild Robot', date: '2026-08-20', time: 'Various', venue: 'Riverside Park (145th & Hudson)', neighborhood: 'UWS', price: 'Free', desc: 'Animated sci-fi feature', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
-            { name: 'Guggenheim Late Shift Block Party', date: '2026-08-20', time: '5-8:30pm', venue: 'Guggenheim Museum', neighborhood: 'UES', price: 'Free', desc: 'End-of-summer celebration with music & art', days: ['thu'], category: 'art', source: 'The Skint', williamsburg: false },
-            { name: 'Musical Chairs at Bryant Park', date: '2026-08-20', time: '5:30pm', venue: 'Bryant Park', neighborhood: 'Midtown', price: 'Free', desc: 'NYC mega-game of musical chairs', days: ['thu'], category: 'other', source: 'The Skint', williamsburg: false },
-            { name: 'Economy Art Show (Opening Reception)', date: '2026-08-20', time: '6pm-midnight', venue: 'Studio6 Gallery', neighborhood: 'LES', price: 'Free', desc: 'Candy-themed group art show thru 8/23', days: ['thu'], category: 'art', source: 'The Skint', williamsburg: false },
-            { name: 'Summerstage: Ted Smooth 40th Anniversary', date: '2026-08-20', time: '6-9pm', venue: 'Marcus Garvey Park', neighborhood: 'Harlem', price: 'Free', desc: 'Free City Parks Foundation performance', days: ['thu'], category: 'music', source: 'The Skint', williamsburg: false },
-            { name: 'Aaron Mahnke: Exhumed', date: '2026-08-20', time: '7pm', venue: 'Powerhouse Arena', neighborhood: 'Dumbo', price: '$5-$30', desc: 'Author discusses folklore & early medical practices', days: ['thu'], category: 'talks', source: 'The Skint', williamsburg: false },
-            { name: 'Facts Machine: Science, Comedy + Trivia', date: '2026-08-20', time: '7pm', venue: 'Caveat', neighborhood: 'LES', price: '$14-$25', desc: 'Scientists & comedians share facts', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Locrian Chamber Players: Music from Past Decade', date: '2026-08-20', time: '8pm', venue: 'Riverside Church', neighborhood: 'Morningside Heights', price: 'Free', desc: 'Contemporary chamber music concert', days: ['thu'], category: 'music', source: 'The Skint', williamsburg: false },
-            { name: 'Entirely from Memory: Ever After', date: '2026-08-20', time: '8pm', venue: 'Littlefield', neighborhood: 'Gowanus', price: '$12-$14', desc: 'Actors recreate films from memory', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Landline Comedy at Wild East Brewing', date: '2026-08-20', time: '8:30pm', venue: 'Wild East Brewing Co.', neighborhood: 'Gowanus', price: 'Free', desc: 'Comedy show at brewery with SNL/Netflix comics', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
-            { name: 'Anime NYC Convention', date: '2026-08-20', time: '1-8pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast', days: ['thu','fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Book Fair at Cafe Catmandoo', date: '2026-08-20', time: '5-9pm', venue: 'Cafe Catmandoo', neighborhood: 'Woodside', price: 'Free', desc: 'Food, books, & good vibes', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Swedish Princess Cake Workshop', date: '2026-08-20', time: '6:30pm', venue: 'Falu House', neighborhood: 'Greenpoint', price: '$115', desc: 'Learn to layer & decorate Swedish princess cake', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-
-            // FRIDAY-SUNDAY (from No Sleep Club NYC "Aug 17-23" post - verified dates)
-            { name: 'Radiolab at Little Island', date: '2026-08-21', time: '5-6pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'WNYC radio show live performance', days: ['fri','sat','sun'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'MoMA PS1 Warm Up Music Series', date: '2026-08-21', time: '4-10pm', venue: 'MoMA PS1', neighborhood: 'LIC', price: '$20-$35', desc: 'Outdoor dance party with global subgenres', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: "Molière in the Park: Don Juan Pop-up", date: '2026-08-21', time: '7pm', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Work-in-progress theater preview outdoors', days: ['fri'], category: 'art', source: 'No Sleep Club NYC', williamsburg: true },
-            { name: 'Anime NYC Convention (continues)', date: '2026-08-21', time: '10am-7pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast', days: ['fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Neopets in Neo York Pop-up', date: '2026-08-21', time: '10am-7pm', venue: 'Shopify NY', neighborhood: 'SoHo', price: 'Free', desc: 'Limited-edition Neopets merchandise', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Last Minute California Pop-up', date: '2026-08-21', time: '11am-6pm', venue: 'The Canvas SoHo', neighborhood: 'SoHo', price: 'TBD', desc: 'Pop-up retail thru Aug 23', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Papi Juice Party', date: '2026-08-21', time: '9:45pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Brooklyn nightlife stars + musical guests', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Ghetto Gastro: Red Rice', date: '2026-08-21', time: '5pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Culinary collective explores rice across cultures', days: ['fri','sat','sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: "Sasha Velour's Nightgowns", date: '2026-08-21', time: '7pm', venue: "Prospect Park's Lena Horne Bandshell", neighborhood: 'Prospect Park', price: 'Free', desc: 'Drag performance art show', days: ['fri'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-
-            // SATURDAY (from No Sleep Club NYC)
-            { name: 'Battle of Brooklyn Community Day', date: '2026-08-22', time: '11am-5pm', venue: 'Center for Brooklyn History', neighborhood: 'Brooklyn Heights', price: 'Free', desc: '250th anniversary of Revolutionary War battle', days: ['sat'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'BFF Bagel Tab at Popup Bagels', date: '2026-08-22', time: '7am-4pm', venue: 'Multiple locations', neighborhood: 'Various', price: 'Free', desc: 'Free bagel & schmear for first 100 members', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Summer Streets NYC', date: '2026-08-22', time: '9am-5pm', venue: 'Eastern Parkway & Grand Concourse', neighborhood: 'Brooklyn & Bronx', price: 'Free', desc: 'Car-free streets for pedestrians, cyclists, performers', days: ['sat'], category: 'outdoors', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Fly NYC', date: '2026-08-22', time: '12-5pm', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'All-ages kite flying festival with live music', days: ['sat'], category: 'outdoors', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'The Lost World: The Art of Minnie Evans', date: '2026-08-22', time: '10:30am-6pm', venue: 'Whitney Museum', neighborhood: 'Chelsea', price: '$24-$30', desc: 'Retrospective of self-taught 20th century artist', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Brooklyn Horror Society 3-Year Anniversary BBQ', date: '2026-08-22', time: '1pm', venue: 'Prospect Park (9th Street)', neighborhood: 'Prospect Park', price: 'Free or $10', desc: 'Community celebration (bring food or $10)', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Brave Sons of England (Musical)', date: '2026-08-22', time: '2pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$27.50', desc: 'New musical based on Shakespeare Henriad', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'The Latex Ball 2026', date: '2026-08-22', time: '6pm', venue: 'Terminal 5', neighborhood: 'Midtown West', price: 'Free (limited)', desc: 'Celebration of love, creativity & expression', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: "Red Hook's Historical Significance Panel", date: '2026-08-22', time: '6pm', venue: 'Valentino Pier', neighborhood: 'Red Hook', price: 'Free', desc: 'Panel of historians discusses Red Hook history', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-22', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist Shakespeare comedy', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'Fixing Healthcare Comedy Festival (Day 1)', date: '2026-08-22', time: '7pm', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy writers tackle healthcare system', days: ['sat','sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
-            { name: 'Summerween Reading & Open Mic', date: '2026-08-22', time: '7pm', venue: 'Ridgewood Venue', neighborhood: 'Ridgewood', price: 'Free', desc: 'Print celebration with ghost stories', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
-
-            // SUNDAY (from No Sleep Club NYC)
-            { name: 'In the Heights Rush Tickets ($28)', date: '2026-08-23', time: '9am-noon', venue: 'The United Palace', neighborhood: 'Washington Heights', price: '$28', desc: '10,000 tickets under $28 + celebration', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'The Battle of Brooklyn 250: The Meaning of Freedom', date: '2026-08-23', time: '10am-1pm', venue: 'Green-Wood Cemetery', neighborhood: 'Brooklyn', price: 'Free', desc: 'Costumed interpreters, flag display', days: ['sun'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'NYC Plant Market', date: '2026-08-23', time: '1-7pm', venue: 'Culture Lab LIC', neighborhood: 'LIC', price: 'Free entry', desc: 'Largest plant market with vendors & food', days: ['sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
-            { name: 'A Palestinian Dessert Making Class: Knafeh', date: '2026-08-23', time: '2pm or 5pm', venue: 'Bat Haus', neighborhood: 'Williamsburg', price: '$95', desc: 'Hands-on Palestinian dessert-making class', days: ['sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: true },
-            { name: 'Fixing Healthcare Comedy Festival (Days 2-3)', date: '2026-08-23', time: 'Multiple', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy cartoons, discussion, game show', days: ['sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
+            // AUGUST 19 - WEDNESDAY
+            {
+                title: "See It Live Summer: MSG Ice Cream Truck",
+                date: "August 19",
+                time: "12:00 PM - 4:00 PM",
+                location: "Beacon Theatre, 2124 Broadway, Manhattan",
+                category: "Food",
+                price: "Free",
+                description: "Madison Square Garden complimentary ice cream truck",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "World Photography Day 2026 with Adorama",
+                date: "August 19",
+                time: "12:00 PM - 9:00 PM",
+                location: "Adorama at 42 West 18th St & SVA Theater at 333 West 23rd St",
+                category: "Art",
+                price: "Free",
+                description: "Hands-on gear demonstrations and student filmmaking events with director Sung Kang",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "STORYfest with Reese's Book Club: Lucky",
+                date: "August 19",
+                time: "5:30 PM - 8:30 PM",
+                location: "20 Hudson Yards, Manhattan",
+                category: "Family",
+                price: "Free",
+                description: "Outdoor screening and live conversation with author Marissa Stapley about Apple TV adaptation",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Hippo Playground Summer Concerts - Matt Heaton",
+                date: "August 19",
+                time: "3:30 PM - 4:30 PM",
+                location: "Hippo Playground, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Free outdoor concert in NYC Parks",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "SG Lewis in Times Square",
+                date: "August 19",
+                time: "Evening",
+                location: "Times Square, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Free electronic music performance",
+                source: "Dice.fm",
+                williamsburg: false
+            },
+            {
+                title: "Gotham Jazz at Somewhere Nowhere NYC",
+                date: "August 19",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Music",
+                price: "Free",
+                description: "Jazz performance at popular Williamsburg venue",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            {
+                title: "The Moth at Music Hall of Williamsburg",
+                date: "August 19",
+                time: "7:30 PM",
+                location: "Music Hall of Williamsburg, Brooklyn",
+                category: "Theater",
+                price: "Paid",
+                description: "Storytelling performance at iconic Williamsburg music venue",
+                source: "Eventbrite",
+                williamsburg: true
+            },
+            {
+                title: "AI Tinkerers August Demo Day ft Runpod, Veris, Openrouter",
+                date: "August 19",
+                time: "Evening",
+                location: "NYC Tech Venue",
+                category: "Family",
+                price: "Free",
+                description: "AI startup demos and networking",
+                source: "Meetup",
+                williamsburg: false
+            },
+            {
+                title: "French New York City Meetup",
+                date: "August 19",
+                time: "2:00 PM EDT",
+                location: "Manhattan",
+                category: "Family",
+                price: "Free",
+                description: "Language exchange and cultural meetup",
+                source: "Meetup",
+                williamsburg: false
+            },
+            {
+                title: "NYC Startup Founders & Investors Networking Night",
+                date: "August 19",
+                time: "6:00 PM",
+                location: "TRYP by Wyndham, Times Square South",
+                category: "Family",
+                price: "Free",
+                description: "Networking event for entrepreneurs",
+                source: "Meetup",
+                williamsburg: false
+            },
+            {
+                title: "Members' Movie Night at Brooklyn Botanic Garden",
+                date: "August 19",
+                time: "6:00 PM - 8:30 PM",
+                location: "Brooklyn Botanic Garden, Brooklyn",
+                category: "Film",
+                price: "Free (Members)",
+                description: "Movie under the stars - bring blanket and snacks",
+                source: "Brooklyn Botanic Garden",
+                williamsburg: false
+            },
+            {
+                title: "Stop 'N' Swap in the Bronx",
+                date: "August 19",
+                time: "12:00 PM",
+                location: "1320 Webster Ave, Bronx",
+                category: "Family",
+                price: "Free",
+                description: "Community swap event by GrowNYC",
+                source: "GrowNYC",
+                williamsburg: false
+            },
+            // AUGUST 20 - THURSDAY
+            {
+                title: "Guggenheim Late Shift: Block pARTy",
+                date: "August 20",
+                time: "5:00 PM - 8:30 PM",
+                location: "88th Street outside Guggenheim, 1071 5th Ave, Manhattan",
+                category: "Art",
+                price: "Free",
+                description: "Outdoor celebration featuring live music, art activities, games, food and drinks celebrating pop art culture",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "A Shirley Good Time Treat Truck Tour",
+                date: "August 20",
+                time: "6:00 PM - 8:00 PM",
+                location: "Brooklyn Bridge Park, Brooklyn",
+                category: "Food",
+                price: "Cheap",
+                description: "Rita's treat truck - TV-inspired frozen treats and gelati",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Bryant Park Musical Chairs",
+                date: "August 20",
+                time: "6:30 PM - 8:30 PM",
+                location: "Bryant Park, Manhattan",
+                category: "Family",
+                price: "Free",
+                description: "Competitive game with hundreds of participants. Hosted by Ophira Eisenberg",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "The Marching Band Free Screenings",
+                date: "August 20",
+                time: "Varies (Evening)",
+                location: "Angelika Film Center, 18 West Houston St, Manhattan",
+                category: "Film",
+                price: "Free",
+                description: "Cannes premiere about orchestra conductor and estranged brother (through Aug 23)",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Free Item at Kajiken Ramen (with Anime NYC Badge)",
+                date: "August 20",
+                time: "11:30 AM - 11:00 PM",
+                location: "Kajiken Ramen, 1001 6th Ave, Manhattan",
+                category: "Food",
+                price: "Free (with badge)",
+                description: "Free ice cream or beverage with any Abura Soba purchase",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Golden Hour at Greeley Square Park",
+                date: "August 20",
+                time: "6:30 PM - 8:30 PM",
+                location: "Greeley Square Park, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Free outdoor concert",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Queens Jazz Trail Concert - The Brass Queens",
+                date: "August 20",
+                time: "7:00 PM - 8:00 PM",
+                location: "Cunningham Park, Queens",
+                category: "Music",
+                price: "Free",
+                description: "Jazz performance in NYC Parks",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Marcus Garvey Park Free Concert",
+                date: "August 20",
+                time: "Afternoon",
+                location: "Marcus Garvey Park, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Lineup to be announced",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Brooklyn Bridge Park Movies - Bridesmaids",
+                date: "August 20",
+                time: "Evening",
+                location: "Brooklyn Bridge Park, Pier 1, Brooklyn",
+                category: "Film",
+                price: "Free",
+                description: "Free outdoor screening on Harbor View Lawn",
+                source: "Eventbrite",
+                williamsburg: false
+            },
+            {
+                title: "Anime NYC 2026",
+                date: "August 20",
+                time: "1:00 PM - 8:00 PM",
+                location: "Jacob Javits Convention Center, Manhattan",
+                category: "Family",
+                price: "Paid",
+                description: "Japanese and Asian pop culture event with film screenings, programming, creator appearances (through Aug 23)",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "LOVEisLOVE at Music Hall of Williamsburg",
+                date: "August 20",
+                time: "9:30 PM",
+                location: "Music Hall of Williamsburg, Brooklyn",
+                category: "Music",
+                price: "Paid",
+                description: "Late night music event at Williamsburg venue",
+                source: "Eventbrite",
+                williamsburg: true
+            },
+            {
+                title: "Brooklyn Brainery Class",
+                date: "August 20",
+                time: "6:30 PM",
+                location: "Brooklyn Brainery, Prospect Heights, Brooklyn",
+                category: "Family",
+                price: "Paid",
+                description: "Educational class - specific title TBD",
+                source: "Brooklyn Brainery",
+                williamsburg: false
+            },
+            // AUGUST 21 - FRIDAY
+            {
+                title: "Nerdlesque NYC: Anime After Dark",
+                date: "August 21",
+                time: "Evening",
+                location: "Laurie Beechman Theatre, Midtown West",
+                category: "Theater",
+                price: "Paid",
+                description: "21+ burlesque show with elaborate costumes and audience interaction (runs Aug 21-22)",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "Intrepid Summer Beer, Wine and Spirits Fest",
+                date: "August 21",
+                time: "Afternoon",
+                location: "Pier 86, Intrepid, Manhattan",
+                category: "Food",
+                price: "Paid",
+                description: "Sampling event with unlimited samples of 100+ beers, wines and spirits",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "US Open Media Day",
+                date: "August 21",
+                time: "During day",
+                location: "Arthur Ashe Stadium, USTA Billie Jean King National Tennis Center, Queens",
+                category: "Sports",
+                price: "Free",
+                description: "Fans can interact with tournament stars",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "Sounds of the Open Concert",
+                date: "August 21",
+                time: "Evening",
+                location: "South Plaza, USTA Billie Jean King National Tennis Center, Queens",
+                category: "Music",
+                price: "Free",
+                description: "Free annual concert as part of Fan Week",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "The Voice of Miles Davis: A Symphonic Centennial Celebration",
+                date: "August 21",
+                time: "7:00 PM",
+                location: "Marcus Garvey Park, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Jazz performance in partnership with Jazzmobile",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Signing and Tasting with Pierce Abernathy",
+                date: "August 21",
+                time: "10:00 AM",
+                location: "Union Square Greenmarket, Manhattan",
+                category: "Food",
+                price: "Free",
+                description: "Meet author, get book, taste summer recipes by GrowNYC",
+                source: "GrowNYC",
+                williamsburg: false
+            },
+            {
+                title: "The Bioré Mochi Skin Pop-Up",
+                date: "August 21",
+                time: "10:00 AM - 6:00 PM",
+                location: "Pavlo Mochi, 199 Avenue B, Manhattan",
+                category: "Family",
+                price: "Free (optional purchase)",
+                description: "Skincare brand collaboration with product sampling (through Aug 22)",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Neo York Neopets Pop-Up",
+                date: "August 21",
+                time: "10:00 AM - 7:00 PM",
+                location: "Shopify NY, 131 Greene St, Manhattan",
+                category: "Family",
+                price: "Free (optional purchase)",
+                description: "First Neopets pop-up store with interactive experiences and merchandise (through Aug 23)",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "SG Lewis (DJ Set) at The Ruins",
+                date: "August 21",
+                time: "Evening",
+                location: "The Ruins at Knockdown Center, Long Island City",
+                category: "Music",
+                price: "Paid",
+                description: "Electronic music performance (Fri-Sat)",
+                source: "Dice.fm",
+                williamsburg: false
+            },
+            {
+                title: "SOMEWHERE FUNNY, NOWHERE SERIOUS at Somewhere Nowhere NYC",
+                date: "August 21",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Nightlife",
+                price: "Paid",
+                description: "Comedy and nightlife event",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            {
+                title: "Sinatra Under The Stars",
+                date: "August 21",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Music",
+                price: "Free",
+                description: "Outdoor music performance",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            // AUGUST 22 - SATURDAY
+            {
+                title: "Arthur Ashe Kids' Day",
+                date: "August 22",
+                time: "Full day",
+                location: "USTA Billie Jean King National Tennis Center, Queens",
+                category: "Family",
+                price: "Free",
+                description: "Family-friendly celebration with player practices, activities, and entertainment",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "The Latex Ball 2026",
+                date: "August 22",
+                time: "Evening",
+                location: "Terminal 5, Manhattan",
+                category: "Nightlife",
+                price: "Paid",
+                description: "Fetish fashion, performance and entertainment evening",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "Battle of Brooklyn 250th Commemoration",
+                date: "August 22",
+                time: "Afternoon",
+                location: "Green-Wood Cemetery, Brooklyn",
+                category: "Family",
+                price: "Free",
+                description: "Costumed interpreters, 1776 soldiers encampment, historical demonstrations",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "NYC Summer Streets",
+                date: "August 22",
+                time: "9:00 AM - 5:00 PM",
+                location: "Brooklyn's Eastern Parkway & Bronx's Grand Concourse",
+                category: "Family",
+                price: "Free",
+                description: "Car-free pedestrian corridors with free activities, live performances, fitness classes, art installations",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "Book Signing with Pierce Abernathy",
+                date: "August 22",
+                time: "10:00 AM",
+                location: "Grand Army Plaza Greenmarket, Brooklyn",
+                category: "Food",
+                price: "Free",
+                description: "Meet author at GrowNYC greenmarket",
+                source: "GrowNYC",
+                williamsburg: false
+            },
+            {
+                title: "The Soapbox Presents: Run It Back - The Art of the Sample Vol. II",
+                date: "August 22",
+                time: "6:00 PM",
+                location: "Marcus Garvey Park, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Free outdoor concert about sampling in music",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Tree Identification Class at Brooklyn Botanic Garden",
+                date: "August 22",
+                time: "11:00 AM - 3:30 PM",
+                location: "Brooklyn Botanic Garden, Brooklyn",
+                category: "Family",
+                price: "Paid",
+                description: "Continuing education class (preregistration required)",
+                source: "Brooklyn Botanic Garden",
+                williamsburg: false
+            },
+            {
+                title: "Warm Up 2026 at MoMA PS1",
+                date: "August 21",
+                time: "4:00 PM - 10:00 PM",
+                location: "MoMA PS1, Long Island City, Queens",
+                category: "Art",
+                price: "Free",
+                description: "Music performances, open gallery access, live forest installation",
+                source: "MoMA PS1",
+                williamsburg: false
+            },
+            {
+                title: "The Thai pop band LYKN at Palladium Times Square",
+                date: "August 22",
+                time: "Evening",
+                location: "Palladium Times Square, Manhattan",
+                category: "Music",
+                price: "Paid",
+                description: "International music performance",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "The Grandest Princess Ball Ever at Carmine's",
+                date: "August 22",
+                time: "Afternoon/Evening",
+                location: "Carmine's, Times Square, Manhattan",
+                category: "Family",
+                price: "Paid",
+                description: "Children meet Disney princesses with singing, dancing, games, desserts",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "Jonas Brothers Pop-Up",
+                date: "August 22",
+                time: "All day",
+                location: "Manhattan Location TBD",
+                category: "Family",
+                price: "Free",
+                description: "Celebrity pop-up experience (Aug 20-22)",
+                source: "Secret NYC",
+                williamsburg: false
+            },
+            {
+                title: "Suave Saturdays - Latin-Inspired Sunset Party",
+                date: "August 22",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Music",
+                price: "Paid",
+                description: "Latin music and dancing",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            {
+                title: "Alec, Sayso with Adam Silver and Sync",
+                date: "August 22",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Music",
+                price: "Paid",
+                description: "Electronic music performance",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            {
+                title: "Smorgasburg Williamsburg",
+                date: "August 22",
+                time: "11:00 AM - 6:00 PM",
+                location: "Marsha P. Johnson State Park, Williamsburg, Brooklyn",
+                category: "Food",
+                price: "Free (Food for purchase)",
+                description: "100+ food vendors with street food, BBQ, international cuisine",
+                source: "NYC for FREE",
+                williamsburg: true
+            },
+            {
+                title: "Queens Night Market",
+                date: "August 22",
+                time: "4:00 PM - 12:00 AM",
+                location: "New York Hall of Science, Corona, Queens",
+                category: "Food",
+                price: "Free (Food for purchase)",
+                description: "Street food market (through Aug 22)",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "MIA Outdoor Hair Pop-Up",
+                date: "August 22",
+                time: "Afternoon",
+                location: "Outlandish during Franklin Avenue Open Streets, Brooklyn",
+                category: "Family",
+                price: "Paid",
+                description: "Hair styling pop-up event (Aug 22-23)",
+                source: "Secret NYC",
+                williamsburg: false
+            },
+            // AUGUST 23 - SUNDAY
+            {
+                title: "Open Practice Day at US Open",
+                date: "August 23",
+                time: "During day",
+                location: "USTA Billie Jean King National Tennis Center, Queens",
+                category: "Sports",
+                price: "Free",
+                description: "Final Fan Week opportunity to watch players prepare",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "Angélique Kidjo and DJ Freshy K Concert",
+                date: "August 23",
+                time: "7:00 PM - 10:00 PM",
+                location: "Central Park SummerStage, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Free outdoor concert in Central Park",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Jazz in the Park at Ralph Ellison Plaza",
+                date: "August 23",
+                time: "2:00 PM - 5:00 PM",
+                location: "Ralph Ellison Plaza, Manhattan",
+                category: "Music",
+                price: "Free",
+                description: "Free jazz performance",
+                source: "NYC Parks",
+                williamsburg: false
+            },
+            {
+                title: "Will Sheff (of Okkervil River) at Music Hall of Williamsburg",
+                date: "August 23",
+                time: "8:00 PM",
+                location: "Music Hall of Williamsburg, Brooklyn",
+                category: "Music",
+                price: "Paid",
+                description: "Live performance at iconic Williamsburg music venue",
+                source: "Eventbrite",
+                williamsburg: true
+            },
+            {
+                title: "Central Park Beginner Runners",
+                date: "August 23",
+                time: "10:00 AM EDT",
+                location: "Central Park, Manhattan",
+                category: "Family",
+                price: "Free",
+                description: "Casual running group for beginners",
+                source: "Meetup",
+                williamsburg: false
+            },
+            {
+                title: "Stand Up en Español",
+                date: "August 23",
+                time: "3:30 PM EDT",
+                location: "Comedy Venue, Manhattan",
+                category: "Theater",
+                price: "Paid",
+                description: "Spanish-language comedy performance",
+                source: "Meetup",
+                williamsburg: false
+            },
+            {
+                title: "Anime NYC 2026 Magical Girl Cosplay Meetup",
+                date: "August 23",
+                time: "2:15 PM",
+                location: "Anime NYC, Jacob Javits Convention Center, Manhattan",
+                category: "Family",
+                price: "Free (with badge)",
+                description: "Cosplay meetup for anime fans",
+                source: "Meetup",
+                williamsburg: false
+            },
+            {
+                title: "BounPrem 1st U.S. Tour 2026",
+                date: "August 23",
+                time: "1:00 PM",
+                location: "Brooklyn Steel, Williamsburg, Brooklyn",
+                category: "Music",
+                price: "Paid",
+                description: "International music tour performance",
+                source: "Meetup",
+                williamsburg: true
+            },
+            {
+                title: "Cenote Project [Open-Air Sunsets]",
+                date: "August 23",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Music",
+                price: "Paid",
+                description: "Sunset music and dance event",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            {
+                title: "Ajna | Loco Carnaval Sundays",
+                date: "August 23",
+                time: "Evening",
+                location: "Somewhere Nowhere NYC, Williamsburg",
+                category: "Music",
+                price: "Paid",
+                description: "Carnival-themed music and dance",
+                source: "Dice.fm",
+                williamsburg: true
+            },
+            {
+                title: "Shakespeare in the Park - Delacorte Theater",
+                date: "August 23",
+                time: "Evening",
+                location: "Delacorte Theater, Central Park, Manhattan",
+                category: "Theater",
+                price: "Free",
+                description: "World-class performance at open-air theater",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Smorgasburg Prospect Park",
+                date: "August 23",
+                time: "11:00 AM - 6:00 PM",
+                location: "Prospect Park, Brooklyn",
+                category: "Food",
+                price: "Free (Food for purchase)",
+                description: "100+ food vendors with diverse street food options",
+                source: "NYC for FREE",
+                williamsburg: false
+            },
+            {
+                title: "Seasonal Highlights Tour - Brooklyn Botanic Garden",
+                date: "August 23",
+                time: "11:00 AM - 12:00 PM",
+                location: "Brooklyn Botanic Garden, Brooklyn",
+                category: "Family",
+                price: "Free",
+                description: "Free walk exploring summer blooms (through Aug 23)",
+                source: "Brooklyn Botanic Garden",
+                williamsburg: false
+            },
+            {
+                title: "Titanique at St. James Theatre",
+                date: "August 23",
+                time: "Evening",
+                location: "St. James Theatre, Midtown West, Manhattan",
+                category: "Theater",
+                price: "Paid",
+                description: "Campy musical spoof featuring Celine Dion music",
+                source: "Time Out NY",
+                williamsburg: false
+            },
+            {
+                title: "A Walk on the Moon (Musical)",
+                date: "August 22",
+                time: "Evening",
+                location: "Midtown West Theater, Manhattan",
+                category: "Theater",
+                price: "Paid",
+                description: "Broadway musical (runs through Aug 22)",
+                source: "Time Out NY",
+                williamsburg: false
+            }
         ];
 
-        window.addEventListener('DOMContentLoaded', () => {
-            allEvents.push(...events);
-            initializeFilters();
-            renderEvents();
-        });
-
-        function initializeFilters() {
-            const days = ['wed','thu','fri','sat','sun'];
-            const dayNames = ['Wed 19', 'Thu 20', 'Fri 21', 'Sat 22', 'Sun 23'];
-            const categories = ['All', 'Music', 'Comedy', 'Art', 'Food', 'Film', 'Learning', 'Markets', 'Talks', 'Wellness', 'Outdoors', 'Other'];
-            const sources = ['The Skint', 'No Sleep Club NYC'];
-
-            const dayChips = document.getElementById('dayChips');
-            dayNames.forEach((name, i) => {
-                const chip = document.createElement('button');
-                chip.className = 'chip';
-                chip.textContent = name;
-                chip.onclick = () => toggleFilter('days', days[i], chip);
-                dayChips.appendChild(chip);
-            });
-
-            const categoryChips = document.getElementById('categoryChips');
-            categories.forEach(cat => {
-                const chip = document.createElement('button');
-                chip.className = 'chip';
-                chip.textContent = cat;
-                chip.onclick = () => toggleFilter('categories', cat === 'All' ? null : cat.toLowerCase(), chip);
-                categoryChips.appendChild(chip);
-            });
-
-            const sourceChips = document.getElementById('sourceChips');
-            sources.forEach(src => {
-                const chip = document.createElement('button');
-                chip.className = 'chip';
-                chip.textContent = src;
-                chip.onclick = () => toggleFilter('sources', src, chip);
-                sourceChips.appendChild(chip);
-            });
+        // Initialize the page
+        function init() {
+            displayEvents(events);
+            updateStats();
         }
 
-        function toggleFilter(type, value, element) {
-            if (value === null) {
-                filters[type].clear();
-                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            } else if (filters[type].has(value)) {
-                filters[type].delete(value);
-                element.classList.remove('active');
-            } else {
-                filters[type].add(value);
-                element.classList.add('active');
+        function displayEvents(eventsToDisplay) {
+            const container = document.getElementById('eventsContainer');
+
+            if (eventsToDisplay.length === 0) {
+                container.innerHTML = '<div class="no-results">No events found matching your filters. Try adjusting your selections.</div>';
+                return;
             }
-            renderEvents();
+
+            // Group events by day
+            const groupedByDay = {};
+            eventsToDisplay.forEach(event => {
+                if (!groupedByDay[event.date]) {
+                    groupedByDay[event.date] = [];
+                }
+                groupedByDay[event.date].push(event);
+            });
+
+            // Sort days
+            const dayOrder = ['August 19', 'August 20', 'August 21', 'August 22', 'August 23'];
+            let html = '';
+
+            dayOrder.forEach(day => {
+                if (groupedByDay[day]) {
+                    const dayEvents = groupedByDay[day];
+                    html += `
+                        <div class="day-section">
+                            <div class="day-header">
+                                ${day}
+                                <span class="day-count">${dayEvents.length} event${dayEvents.length !== 1 ? 's' : ''}</span>
+                            </div>
+                            <div class="events-list">
+                    `;
+
+                    dayEvents.forEach(event => {
+                        const priceClass = event.price.includes('Free') ? 'tag-price-free' :
+                                          (event.price.includes('Cheap') ? 'tag-price-cheap' : 'tag-price-paid');
+
+                        html += `
+                            <div class="event-item" data-event='${JSON.stringify(event).replace(/'/g, "&apos;")}'>
+                                <div class="event-title">${event.title}${event.williamsburg ? ' ⭐' : ''}</div>
+                                <div class="event-meta">
+                                    <span class="event-time">${event.time}</span>
+                                    <span class="event-location">${event.location}</span>
+                                </div>
+                                <div class="event-tags">
+                                    <span class="tag tag-category">${event.category}</span>
+                                    <span class="tag ${priceClass}">${event.price}</span>
+                                    <span class="tag tag-source">${event.source}</span>
+                                    ${event.williamsburg ? '<span class="tag tag-williamsburg">📍 Williamsburg</span>' : ''}
+                                </div>
+                                ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
+                            </div>
+                        `;
+                    });
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
         }
 
         function filterEvents() {
-            filters.search = document.getElementById('searchInput').value.toLowerCase();
-            renderEvents();
-        }
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const dayFilter = document.getElementById('dayFilter').value;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+            const sourceFilter = document.getElementById('sourceFilter').value;
 
-        function getFilteredEvents() {
-            return allEvents.filter(event => {
-                if (filters.search && !event.name.toLowerCase().includes(filters.search) && !event.desc.toLowerCase().includes(filters.search)) return false;
-                if (filters.days.size > 0 && !event.days.some(d => filters.days.has(d))) return false;
-                if (filters.categories.size > 0 && !filters.categories.has(event.category)) return false;
-                if (filters.sources.size > 0 && !filters.sources.has(event.source)) return false;
-                return true;
-            });
-        }
+            let filtered = events.filter(event => {
+                const matchesSearch = !searchTerm ||
+                    event.title.toLowerCase().includes(searchTerm) ||
+                    event.location.toLowerCase().includes(searchTerm) ||
+                    event.description.toLowerCase().includes(searchTerm);
 
-        function renderEvents() {
-            const filtered = getFilteredEvents();
-            document.getElementById('eventCount').textContent = filtered.length + ' event' + (filtered.length !== 1 ? 's' : '');
+                const matchesDay = !dayFilter || event.date === dayFilter;
+                const matchesCategory = !categoryFilter || event.category === categoryFilter;
+                const matchesPrice = !priceFilter || event.price.includes(priceFilter);
+                const matchesSource = !sourceFilter || event.source === sourceFilter;
 
-            // Williamsburg strip
-            const wburg = filtered.filter(e => e.williamsburg);
-            const strip = document.getElementById('williamsburgStrip');
-            strip.innerHTML = wburg.length > 0 ? wburg.map(e => `
-                <div class="wburg-card">
-                    <h3>★ ${e.name}</h3>
-                    <p>${e.time}</p>
-                    <p>${e.venue}</p>
-                </div>
-            `).join('') : '<p style="color: var(--text-muted); padding: 10px;">No Williamsburg events in current filters</p>';
-
-            // Group by day
-            const byDate = {};
-            const dateOrder = ['2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23'];
-            const dayNames = { '2026-08-19': 'Wednesday', '2026-08-20': 'Thursday', '2026-08-21': 'Friday', '2026-08-22': 'Saturday', '2026-08-23': 'Sunday' };
-            const dayDates = { '2026-08-19': 'Aug 19', '2026-08-20': 'Aug 20', '2026-08-21': 'Aug 21', '2026-08-22': 'Aug 22', '2026-08-23': 'Aug 23' };
-
-            dateOrder.forEach(date => byDate[date] = []);
-            filtered.forEach(e => {
-                if (!byDate[e.date]) byDate[e.date] = [];
-                byDate[e.date].push(e);
+                return matchesSearch && matchesDay && matchesCategory && matchesPrice && matchesSource;
             });
 
-            let html = '';
-            dateOrder.forEach(date => {
-                const dayEvents = byDate[date] || [];
-                if (dayEvents.length === 0) return;
-                html += `
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="dh-name">${dayNames[date]}</div>
-                            <div class="dh-date">${dayDates[date]}</div>
-                            <div class="dh-count">${dayEvents.length}</div>
-                        </div>
-                        <div class="day-grid">
-                            ${dayEvents.map(e => renderEventCard(e)).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('eventsContainer').innerHTML = html;
+            displayEvents(filtered);
         }
 
-        function renderEventCard(e) {
-            const priceClass = e.price.includes('Free') ? 'price-free' : e.price.includes('$') ? 'price-cheap' : 'price-paid';
-            return `
-                <div class="event-card">
-                    <div class="event-name">${e.name}${e.williamsburg ? '<span class="wburg-badge">★</span>' : ''}</div>
-                    <div class="event-time">🕐 ${e.time}</div>
-                    <div class="event-venue">📍 ${e.venue}</div>
-                    <div><span class="price-badge ${priceClass}">${e.price}</span></div>
-                    <div class="event-desc">${e.desc}</div>
-                    <div class="event-source">→ ${e.source}</div>
-                    <div><span class="category-chip cat-${e.category}">${e.category}</span></div>
-                </div>
-            `;
+        function applyFilters() {
+            filterEvents();
+            updateStats();
         }
 
-        function clearAllFilters() {
-            filters.days.clear();
-            filters.categories.clear();
-            filters.sources.clear();
-            filters.search = '';
+        function resetFilters() {
             document.getElementById('searchInput').value = '';
-            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            renderEvents();
+            document.getElementById('dayFilter').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('priceFilter').value = '';
+            document.getElementById('sourceFilter').value = '';
+            displayEvents(events);
+            updateStats();
         }
 
-        renderEvents();
+        function updateStats() {
+            const freeCount = events.filter(e => e.price.includes('Free')).length;
+            const williamsburgCount = events.filter(e => e.williamsburg).length;
+
+            document.getElementById('totalEvents').textContent = events.length;
+            document.getElementById('freeEvents').textContent = freeCount;
+            document.getElementById('williamsburgEvents').textContent = williamsburgCount;
+        }
+
+        // Add event listeners
+        document.getElementById('searchInput').addEventListener('keyup', filterEvents);
+        document.getElementById('dayFilter').addEventListener('change', filterEvents);
+        document.getElementById('categoryFilter').addEventListener('change', filterEvents);
+        document.getElementById('priceFilter').addEventListener('change', filterEvents);
+        document.getElementById('sourceFilter').addEventListener('change', filterEvents);
+
+        // Initialize on page load
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
