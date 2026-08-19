@@ -215,7 +215,7 @@
 
         .events-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             padding: 20px;
         }
@@ -231,10 +231,21 @@
             transition: all 0.3s ease;
         }
 
+        .event-item {
+            cursor: pointer;
+        }
+
         .event-item:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
             border-color: #667eea;
+        }
+
+        .event-link-hint {
+            margin-top: 8px;
+            font-size: 0.8em;
+            color: #667eea;
+            font-weight: 600;
         }
 
         .event-title {
@@ -479,6 +490,8 @@
                         <option value="Marked">Marked</option>
                         <option value="GM NYC">GM NYC</option>
                         <option value="Luma">Luma</option>
+                        <option value="The Skint">The Skint</option>
+                        <option value="No Sleep Club NYC">No Sleep Club NYC</option>
                     </select>
                 </div>
 
@@ -797,13 +810,13 @@
                 williamsburg: false
             },
             {
-                title: "Marcus Garvey Park Free Concert",
+                title: "Summerstage: Ted Smooth 40th Anniversary",
                 date: "August 20",
-                time: "Afternoon",
+                time: "6:00 PM - 9:00 PM",
                 location: "Marcus Garvey Park, Manhattan",
                 category: "Music",
                 price: "Free",
-                description: "Lineup to be announced",
+                description: "Free City Parks Foundation performance celebrating DJ Ted Smooth's 40th anniversary",
                 source: "NYC Parks",
                 williamsburg: false
             },
@@ -1393,13 +1406,64 @@
             { title: "Jeffrey Swann: All-Beethoven Piano Sonatas", date: "August 23", time: "2:00 PM", location: "Waterfront venue, NYC", category: "Music", price: "Free", description: "Free all-Beethoven program of four piano sonatas.", source: "Club Free Time", williamsburg: false },
             { title: "Mister Sunday: DJ Nobu House Set x Eamon Harkin", date: "August 23", time: "3:00 PM", location: "Nowadays, Ridgewood, Queens", category: "Nightlife", price: "Paid", description: "Long-running outdoor Sunday dance party with a rare DJ Nobu house set.", source: "GM NYC", williamsburg: false },
             { title: "The Nursery: Gerd Janson x Ron Like Hell", date: "August 23", time: "3:00 PM", location: "Public Records, Gowanus", category: "Nightlife", price: "Paid", description: "Daytime-into-evening dance party in Public Records' garden.", source: "GM NYC", williamsburg: false },
-            { title: "Boat Party: Danny Krivit x Joe Claussell", date: "August 23", time: "6:00 PM", location: "Departs Manhattan", category: "Nightlife", price: "Paid", description: "Sunset boat party with two NYC house/disco legends.", source: "GM NYC", williamsburg: false }
+            { title: "Boat Party: Danny Krivit x Joe Claussell", date: "August 23", time: "6:00 PM", location: "Departs Manhattan", category: "Nightlife", price: "Paid", description: "Sunset boat party with two NYC house/disco legends.", source: "GM NYC", williamsburg: false },
+            // ===== RESTORED: The Skint & No Sleep Club NYC (from original verified digest) =====
+            // AUGUST 19 - WEDNESDAY
+            { title: "Free Outdoor Movies: Arco", date: "August 19", time: "Sunset", location: "Brigadier General Charles Young Playground, Harlem", category: "Film", price: "Free", description: "Sci-fi thriller under the stars.", source: "The Skint", williamsburg: false },
+            { title: "Free Outdoor Movies: Guardians of the Galaxy", date: "August 19", time: "Sunset", location: "Msgr. McGolrick Park, Greenpoint, Brooklyn", category: "Film", price: "Free", description: "Action sci-fi outdoor film, a short walk from Williamsburg.", source: "The Skint", williamsburg: false },
+            { title: "Yoga Club: Touching Grass Tour", date: "August 19", time: "6:30 PM", location: "Riverside Park @ W 74th St, UWS", category: "Sports", price: "Free", description: "Free all-levels vinyasa session outdoors.", source: "The Skint", williamsburg: false },
+            { title: "Letters + Sodas Reading Series", date: "August 19", time: "7:00 PM", location: "The Greats of Craft, Long Island City", category: "Art", price: "Cheap · $5", description: "Comedians & writers reading event.", source: "The Skint", williamsburg: false },
+            { title: "Adam Wade: Live in New York", date: "August 19", time: "7:00 PM", location: "Under St. Marks Theater, East Village", category: "Theater", price: "Cheap (sliding scale)", description: "Storytelling show from a Moth GrandSLAM winner.", source: "The Skint", williamsburg: false },
+            { title: "Hot Grrrl Sh*t Zine Release Party", date: "August 19", time: "7:00 PM", location: "Seventh Heaven Bar + Karaoke, Bushwick", category: "Art", price: "Free ($5 suggested)", description: "Black punk feminist zine celebration.", source: "The Skint", williamsburg: false },
+            { title: "Flash Comedy", date: "August 19", time: "8:00 PM", location: "Mood Ring, Bushwick", category: "Theater", price: "Cheap · $12", description: "Stand-up comedy with free Polaroid photos.", source: "The Skint", williamsburg: false },
+            { title: "Pup Cups in the Park", date: "August 19", time: "9:00 AM - 2:00 PM", location: "Petco Union Square, Manhattan", category: "Food", price: "Free", description: "Coffee for you, pup cup for your dog.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Tarot Card Painting", date: "August 19", time: "6:00 PM", location: "Color Me Mine, UWS", category: "Art", price: "Cheap · $25", description: "Pottery painting with mystical designs.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Bodega, Native Sun (Concert)", date: "August 19", time: "7:00 PM - 10:00 PM", location: "Elsewhere, Bushwick", category: "Music", price: "Paid · $28", description: "Live music performance.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Written in Brooklyn Journal Club: Mistakes Were Made", date: "August 19", time: "7:00 PM", location: "Book Club Bar, Bushwick", category: "Art", price: "Paid · $27", description: "In-person writing party with prompts.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Louis Cato: The Harlem Renaissance", date: "August 19", time: "8:30 PM", location: "Little Island, West Village", category: "Music", price: "Cheap · $25", description: "Late Show bandleader performs jazz classics; runs nightly Aug 19-22.", source: "No Sleep Club NYC", williamsburg: false },
+            // AUGUST 20 - THURSDAY
+            { title: "Free Outdoor Movies: A Night with James Baldwin", date: "August 20", time: "Sunset", location: "Lefferts Historic House, Prospect Park", category: "Film", price: "Free", description: "Documentary screening at historic house.", source: "The Skint", williamsburg: false },
+            { title: "Free Outdoor Movies: The Wild Robot", date: "August 20", time: "Sunset", location: "Riverside Park (145th & Hudson), Manhattan", category: "Film", price: "Free", description: "Animated sci-fi feature.", source: "The Skint", williamsburg: false },
+            { title: "Economy Art Show (Opening Reception)", date: "August 20", time: "6:00 PM - Midnight", location: "Studio6 Gallery, Lower East Side", category: "Art", price: "Free", description: "Candy-themed group art show; on view through Aug 23.", source: "The Skint", williamsburg: false },
+            { title: "Aaron Mahnke: Exhumed", date: "August 20", time: "7:00 PM", location: "Powerhouse Arena, Dumbo, Brooklyn", category: "Art", price: "Cheap · $5-$30", description: "Lore podcast author discusses folklore & early medical practices.", source: "The Skint", williamsburg: false },
+            { title: "Facts Machine: Science, Comedy + Trivia", date: "August 20", time: "7:00 PM", location: "Caveat, Lower East Side", category: "Theater", price: "Cheap · $14-$25", description: "Scientists & comedians share facts.", source: "The Skint", williamsburg: false },
+            { title: "Locrian Chamber Players: Music from the Past Decade", date: "August 20", time: "8:00 PM", location: "Riverside Church, Morningside Heights", category: "Music", price: "Free", description: "Contemporary chamber music concert.", source: "The Skint", williamsburg: false },
+            { title: "Entirely from Memory: Ever After", date: "August 20", time: "8:00 PM", location: "Littlefield, Gowanus, Brooklyn", category: "Theater", price: "Cheap · $12-$14", description: "Actors recreate films entirely from memory.", source: "The Skint", williamsburg: false },
+            { title: "Landline Comedy at Wild East Brewing", date: "August 20", time: "8:30 PM", location: "Wild East Brewing Co., Gowanus, Brooklyn", category: "Theater", price: "Free", description: "Comedy show at brewery with SNL/Netflix comics.", source: "The Skint", williamsburg: false },
+            { title: "Book Fair at Cafe Catmandoo", date: "August 20", time: "5:00 PM - 9:00 PM", location: "Cafe Catmandoo, Woodside, Queens", category: "Food", price: "Free", description: "Food, books, & good vibes.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Swedish Princess Cake Workshop", date: "August 20", time: "6:30 PM", location: "Falu House, Greenpoint, Brooklyn", category: "Food", price: "Paid · $115", description: "Learn to layer & decorate a Swedish princess cake.", source: "No Sleep Club NYC", williamsburg: false },
+            // AUGUST 21 - FRIDAY
+            { title: "Radiolab at Little Island", date: "August 21", time: "5:00 PM - 6:00 PM", location: "Little Island, West Village", category: "Art", price: "Free", description: "WNYC radio show live performance; also Aug 22-23.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Molière in the Park: Don Juan Pop-up", date: "August 21", time: "7:00 PM", location: "Domino Park, Williamsburg, Brooklyn", category: "Theater", price: "Free", description: "Work-in-progress theater preview outdoors on the Williamsburg waterfront.", source: "No Sleep Club NYC", williamsburg: true },
+            { title: "Papi Juice Party", date: "August 21", time: "9:45 PM", location: "Little Island, West Village", category: "Nightlife", price: "Free", description: "Brooklyn nightlife stars + musical guests.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Ghetto Gastro: Red Rice", date: "August 21", time: "5:00 PM", location: "Little Island, West Village", category: "Food", price: "Free", description: "Culinary collective explores rice across cultures; also Aug 22-23.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Last Minute California Pop-up", date: "August 21", time: "11:00 AM - 6:00 PM", location: "The Canvas SoHo, Manhattan", category: "Family", price: "Free entry", description: "Pop-up retail experience, through Aug 23.", source: "No Sleep Club NYC", williamsburg: false },
+            // AUGUST 22 - SATURDAY
+            { title: "Battle of Brooklyn Community Day", date: "August 22", time: "11:00 AM - 5:00 PM", location: "Center for Brooklyn History, Brooklyn Heights", category: "Family", price: "Free", description: "250th anniversary of the Revolutionary War battle.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "BFF Bagel Tab at Popup Bagels", date: "August 22", time: "7:00 AM - 4:00 PM", location: "Multiple Popup Bagels locations", category: "Food", price: "Free", description: "Free bagel & schmear for the first 100 members at each location.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Fly NYC Kite Festival", date: "August 22", time: "12:00 PM - 5:00 PM", location: "Pier I, Riverside Park South, UWS", category: "Family", price: "Free", description: "All-ages kite flying festival with live music.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "The Lost World: The Art of Minnie Evans", date: "August 22", time: "10:30 AM - 6:00 PM", location: "Whitney Museum, Chelsea", category: "Art", price: "Paid · $24-$30", description: "Retrospective of the self-taught 20th century artist (free Friday nights 5-10pm).", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Brooklyn Horror Society 3-Year Anniversary BBQ", date: "August 22", time: "1:00 PM", location: "Prospect Park (9th Street entrance), Brooklyn", category: "Food", price: "Free or $10", description: "Community celebration — bring food to share or $10.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Brave Sons of England (Musical)", date: "August 22", time: "2:00 PM", location: "Under St. Marks, East Village", category: "Theater", price: "Paid · $27.50", description: "New musical based on Shakespeare's Henriad.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Red Hook's Historical Significance Panel", date: "August 22", time: "6:00 PM", location: "Valentino Pier, Red Hook, Brooklyn", category: "Art", price: "Free", description: "Panel of historians discusses Red Hook history.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Raging of the Shrews: A Revenge Play", date: "August 22", time: "7:00 PM", location: "Under St. Marks, East Village", category: "Theater", price: "Cheap · $20", description: "Revisionist Shakespeare comedy; also plays Aug 23.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Summerween Reading & Open Mic", date: "August 22", time: "7:00 PM", location: "Ridgewood, Queens", category: "Art", price: "Free", description: "Print celebration with ghost stories.", source: "No Sleep Club NYC", williamsburg: false },
+            // AUGUST 23 - SUNDAY
+            { title: "In the Heights Rush Tickets", date: "August 23", time: "9:00 AM - 12:00 PM", location: "The United Palace, Washington Heights", category: "Theater", price: "Paid · $28", description: "10,000 tickets under $28 + neighborhood celebration.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "Battle of Brooklyn 250: The Meaning of Freedom", date: "August 23", time: "10:00 AM - 1:00 PM", location: "Green-Wood Cemetery, Brooklyn", category: "Family", price: "Free", description: "Costumed interpreters and flag display for the 250th anniversary.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "NYC Plant Market", date: "August 23", time: "1:00 PM - 7:00 PM", location: "Culture Lab LIC, Long Island City", category: "Family", price: "Free entry", description: "Largest plant market with vendors & food.", source: "No Sleep Club NYC", williamsburg: false },
+            { title: "A Palestinian Dessert Making Class: Knafeh", date: "August 23", time: "2:00 PM or 5:00 PM", location: "Bat Haus, Williamsburg/Bushwick border, Brooklyn", category: "Food", price: "Paid · $95", description: "Hands-on Palestinian dessert-making class.", source: "No Sleep Club NYC", williamsburg: true },
+            { title: "Fixing the American Healthcare System (Day 2)", date: "August 23", time: "Multiple shows", location: "Brooklyn Art Haus, 24 Marcy Ave, Williamsburg", category: "Theater", price: "Free", description: "Day 2: comedy cartoons, discussion, and a healthcare-themed game show.", source: "No Sleep Club NYC", williamsburg: true }
         ];
 
         // Initialize the page
         function init() {
             displayEvents(events);
             updateStats();
+            document.getElementById('eventsContainer').addEventListener('click', function(e) {
+                const item = e.target.closest('.event-item');
+                if (item && item.dataset.url) window.open(item.dataset.url, '_blank');
+            });
         }
 
         function displayEvents(eventsToDisplay) {
@@ -1439,8 +1503,16 @@
                         const priceClass = event.price.includes('Free') ? 'tag-price-free' :
                                           (event.price.includes('Cheap') ? 'tag-price-cheap' : 'tag-price-paid');
 
+                        let priceLabel = event.price;
+                        if (!priceLabel.includes('$') && !priceLabel.includes('Free')) {
+                            const amt = (event.description || '').match(/\$\d+(?:\.\d{2})?(?:\s?[-–]\s?\$?\d+)?/);
+                            if (amt) priceLabel += ' · ' + amt[0];
+                        }
+
+                        const link = event.url || ('https://www.google.com/search?q=' + encodeURIComponent(event.title + ' ' + event.location.split(',')[0] + ' NYC'));
+
                         html += `
-                            <div class="event-item" data-event='${JSON.stringify(event).replace(/'/g, "&apos;")}'>
+                            <div class="event-item" data-url="${link.replace(/"/g, '&quot;')}">
                                 <div class="event-title">${event.title}${event.williamsburg ? ' ⭐' : ''}</div>
                                 <div class="event-meta">
                                     <span class="event-time">${event.time}</span>
@@ -1448,11 +1520,12 @@
                                 </div>
                                 <div class="event-tags">
                                     <span class="tag tag-category">${event.category}</span>
-                                    <span class="tag ${priceClass}">${event.price}</span>
+                                    <span class="tag ${priceClass}">${priceLabel}</span>
                                     <span class="tag tag-source">${event.source}</span>
                                     ${event.williamsburg ? '<span class="tag tag-williamsburg">📍 Williamsburg</span>' : ''}
                                 </div>
                                 ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
+                                <div class="event-link-hint">${event.url ? '🔗 Open event page ↗' : '🔎 Find this event ↗'}</div>
                             </div>
                         `;
                     });
