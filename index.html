@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYC Events Digest — Aug 18–21</title>
+    <title>NYC Events Digest — Aug 19–23, 2026</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -43,200 +43,50 @@
             --text-muted: #b0b0b0;
             --border: #333333;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 20px;
-        }
+        header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 20px; }
         h1 { font-size: 2.5em; margin-bottom: 10px; }
         .subtitle { font-size: 1.1em; color: var(--text-muted); margin-bottom: 10px; }
         .updated { font-size: 0.85em; color: var(--text-muted); }
-        .update-btn {
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-        .filters {
-            background: var(--bg);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 20px;
-        }
-        .filter-row {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 0.9em;
-        }
-        .event-count {
-            background: var(--accent);
-            color: #000;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85em;
-        }
-        .clear-filters {
-            background: var(--border);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-        .chips {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .chip {
-            padding: 8px 14px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            cursor: pointer;
-            background: transparent;
-            color: var(--text);
-            font-size: 0.85em;
-            transition: all 0.2s;
-        }
-        .chip.active {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-        }
-        .williamsburg-strip {
-            overflow-x: auto;
-            padding: 15px 0;
-            margin-bottom: 30px;
-            display: flex;
-            gap: 15px;
-        }
-        .wburg-card {
-            flex: 0 0 280px;
-            border: 2px solid var(--accent);
-            border-radius: 8px;
-            padding: 15px;
-            background: var(--bg);
-        }
-        .wburg-card h3 { margin-bottom: 5px; color: var(--accent); }
-        .free-nights {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
+        .filters { background: var(--bg); position: sticky; top: 0; z-index: 100; padding: 15px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .filter-row { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
+        .search-box { flex: 1; min-width: 200px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 0.9em; }
+        .event-count { background: var(--accent); color: #000; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85em; }
+        .clear-btn { background: var(--border); border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9em; }
+        .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .chip { padding: 8px 14px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: transparent; color: var(--text); font-size: 0.85em; transition: all 0.2s; }
+        .chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
+        .williamsburg-strip { overflow-x: auto; padding: 15px 0; margin-bottom: 30px; display: flex; gap: 15px; }
+        .wburg-card { flex: 0 0 280px; border: 2px solid var(--accent); border-radius: 8px; padding: 15px; background: var(--bg); }
+        .wburg-card h3 { margin-bottom: 5px; color: var(--accent); font-size: 0.95em; }
+        .wburg-card p { font-size: 0.85em; margin: 3px 0; }
+        .free-nights { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 30px; }
         .free-nights h3 { margin-bottom: 15px; color: var(--free); }
-        .free-nights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        .museum-item { padding: 10px; border-left: 3px solid var(--free); }
+        .free-nights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .museum-item { padding: 10px; border-left: 3px solid var(--free); font-size: 0.9em; }
         .day-section { margin-bottom: 40px; }
-        .day-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border);
-        }
+        .day-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--border); }
         .dh-name { font-size: 1.8em; font-weight: 700; }
         .dh-date { font-size: 0.95em; color: var(--text-muted); }
-        .dh-count {
-            background: var(--accent);
-            color: #000;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85em;
-        }
-        .day-header.ongoing .dh-name { color: var(--accent); }
-        .day-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .day-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 480px) {
-            .day-grid { grid-template-columns: 1fr; }
-        }
-        .event-card {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 15px;
-            background: var(--bg);
-            transition: all 0.2s;
-        }
+        .dh-count { background: var(--accent); color: #000; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85em; }
+        .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        @media (max-width: 768px) { .day-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .day-grid { grid-template-columns: 1fr; } }
+        .event-card { border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: var(--bg); transition: all 0.2s; }
         .event-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .event-name { font-weight: 700; margin-bottom: 8px; font-size: 1.05em; }
         .event-time { font-size: 0.9em; color: var(--text-muted); margin-bottom: 5px; }
         .event-venue { font-size: 0.9em; color: var(--text-muted); margin-bottom: 10px; }
-        .price-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+        .price-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-bottom: 10px; }
         .price-free { background: var(--free); color: white; }
         .price-cheap { background: var(--cheap); color: white; }
         .price-paid { background: var(--paid); color: white; }
         .event-desc { font-size: 0.9em; margin-bottom: 10px; color: var(--text); }
         .event-source { font-size: 0.8em; color: var(--text-muted); }
         .event-source a { color: var(--accent); text-decoration: none; }
-        .event-source a:hover { text-decoration: underline; }
-        .wburg-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: #000;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.75em;
-            margin-left: 5px;
-        }
-        .category-chip {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: 600;
-            color: white;
-            margin-top: 8px;
-            margin-right: 5px;
-        }
+        .wburg-badge { display: inline-block; background: var(--accent); color: #000; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75em; margin-left: 5px; }
+        .category-chip { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 600; color: white; margin-top: 8px; margin-right: 5px; }
         .cat-music { background: var(--music); }
         .cat-comedy { background: var(--comedy); }
         .cat-art { background: var(--art); }
@@ -250,29 +100,11 @@
         .cat-networking { background: var(--networking); }
         .cat-wellness { background: var(--wellness); }
         .cat-other { background: var(--other); }
-        .nbr-runs {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        .nbr-runs h3 { margin-bottom: 15px; }
-        .runs-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9em;
-        }
+        .nbr-runs { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 30px; }
+        .runs-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
         .runs-table th, .runs-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
         .runs-table th { background: var(--border); font-weight: 600; }
-        .runs-table tr.active td { background: rgba(34, 197, 94, 0.1); }
-        footer {
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-            margin-top: 40px;
-            font-size: 0.85em;
-            color: var(--text-muted);
-        }
+        footer { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 40px; font-size: 0.85em; color: var(--text-muted); }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -280,16 +112,15 @@
     <div class="container">
         <header>
             <h1>🗽 NYC Events Digest</h1>
-            <p class="subtitle">Free & cheap events • Williamsburg focus • Aug 18–21</p>
-            <button class="update-btn" onclick="launchUpdater()">↺ Update</button>
-            <p class="updated">Updated Aug 18, 2026</p>
+            <p class="subtitle">Free & cheap events • Williamsburg focus • Aug 19–23, 2026</p>
+            <p class="updated">Updated Aug 19, 2026 • 80+ events</p>
         </header>
 
         <div class="filters">
             <div class="filter-row">
                 <input type="text" class="search-box" id="searchInput" placeholder="Search events..." onkeyup="filterEvents()">
                 <span class="event-count" id="eventCount">0 events</span>
-                <button class="clear-filters" onclick="clearAllFilters()">✕ Clear filters</button>
+                <button class="clear-btn" onclick="clearAllFilters()">✕ Clear</button>
             </div>
             <div class="filter-row">
                 <strong>Days:</strong>
@@ -310,75 +141,31 @@
         <div class="free-nights">
             <h3>🎨 Museum Free Nights</h3>
             <div class="free-nights-grid">
-                <div class="museum-item">
-                    <strong>Whitney Museum</strong><br>
-                    Free Fridays 5–10pm • Ages 25 & under always free
-                </div>
-                <div class="museum-item">
-                    <strong>MoMA</strong><br>
-                    Free for NY State residents Fridays 5:30–9pm
-                </div>
-                <div class="museum-item">
-                    <strong>Brooklyn Museum</strong><br>
-                    First Saturdays 5–11pm (pay-what-you-wish)
-                </div>
-                <div class="museum-item">
-                    <strong>Met Museum</strong><br>
-                    Pay-what-you-wish for NY residents anytime
-                </div>
+                <div class="museum-item"><strong>Whitney</strong><br>Free Fridays 5–10pm • 25 & under always free</div>
+                <div class="museum-item"><strong>MoMA</strong><br>Free for NY residents Fridays 5:30–9pm</div>
+                <div class="museum-item"><strong>Brooklyn Museum</strong><br>First Saturdays 5–11pm</div>
+                <div class="museum-item"><strong>Met Museum</strong><br>Pay-what-you-wish for NY residents</div>
             </div>
         </div>
 
         <div id="eventsContainer"></div>
 
         <div class="nbr-runs">
-            <h3>🏃 NBR Runs This Week</h3>
+            <h3>🏃 NBR Runs</h3>
             <table class="runs-table">
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Time</th>
-                        <th>Run</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Day</th><th>Time</th><th>Run</th></tr></thead>
                 <tbody>
-                    <tr>
-                        <td>Monday</td>
-                        <td>6:45am</td>
-                        <td>Morning Easy</td>
-                        <td>Classic start-of-week run</td>
-                    </tr>
-                    <tr>
-                        <td>Monday</td>
-                        <td>7:30pm</td>
-                        <td>Night Easy</td>
-                        <td>Evening pace</td>
-                    </tr>
-                    <tr>
-                        <td>Wednesday</td>
-                        <td>7:00pm</td>
-                        <td>Beginner</td>
-                        <td>Great for new runners</td>
-                    </tr>
-                    <tr>
-                        <td>Friday (4th)</td>
-                        <td>7:30am</td>
-                        <td>Bagel Run</td>
-                        <td>Bagels after!</td>
-                    </tr>
-                    <tr>
-                        <td>Saturday</td>
-                        <td>9:00am</td>
-                        <td>Bridge & Coffee</td>
-                        <td>Social run</td>
-                    </tr>
+                    <tr><td>Monday</td><td>6:45am</td><td>Morning Easy</td></tr>
+                    <tr><td>Monday</td><td>7:30pm</td><td>Night Easy</td></tr>
+                    <tr><td>Wednesday</td><td>7:00pm</td><td>Beginner</td></tr>
+                    <tr><td>Friday (4th)</td><td>7:30am</td><td>Bagel Run</td></tr>
+                    <tr><td>Saturday</td><td>9:00am</td><td>Bridge & Coffee</td></tr>
                 </tbody>
             </table>
         </div>
 
         <footer>
-            <p><strong>Inaccessible sources:</strong> Nonsense NYC (email only) • Found NY (paywalled) • Bite The Apple (paywalled) • The Underground (SF-focused)</p>
+            <p><strong>Paywalled/Inaccessible:</strong> Bite The Apple (paywalled) • Found NY (paywalled) • Nonsense NYC (email only) • The Underground (SF-focused)</p>
             <p style="margin-top: 10px;"><strong>Follow on Instagram:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
         </footer>
     </div>
@@ -387,98 +174,102 @@
         const allEvents = [];
         const filters = { days: new Set(), categories: new Set(), sources: new Set(), search: '' };
 
-        // Event data compiled from The Skint, No Sleep Club NYC, and other sources
         const events = [
-            // Tuesday, August 18
-            { name: 'Free Outdoor Movies: Honey, I Shrunk the Kids', date: '2026-08-18', time: 'Various', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Classic family film under the stars', days: ['tue'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: true },
-            { name: 'Free Outdoor Movies: Before Sunrise', date: '2026-08-18', time: 'Various', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Romantic drama screening outdoors', days: ['tue'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: true },
-            { name: 'Free Outdoor Movies: Crazy Rich Asians', date: '2026-08-18', time: 'Various', venue: 'Heineken Riverdeck at Pier 17', neighborhood: 'Seaport', price: 'Free', desc: 'Comedy-drama at waterfront venue', days: ['tue'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: '2-for-1 Broadway Week Tickets', date: '2026-08-18', time: '10am', venue: 'NYC Broadway Theaters', neighborhood: 'Various', price: '$20-60', desc: 'Limited-time Broadway promotion', days: ['tue'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: "'80s Rock Night with Authors Tony Fletcher & Ira Robbins", date: '2026-08-18', time: '6:30pm', venue: 'PT Knitwear', neighborhood: 'Various', price: 'Free', desc: 'Discussion on punk and rock history books', days: ['tue'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'One in Five: Book Discussion with Dr. Elizabeth Letourneau & Luke Malone', date: '2026-08-18', time: '7pm', venue: 'Strand Book Store', neighborhood: 'Lower Manhattan', price: '$15', desc: 'Authors discuss public health and abuse', days: ['tue'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Brooklyn Books + Booze', date: '2026-08-18', time: '7pm', venue: 'Various', neighborhood: 'Brooklyn', price: 'Free', desc: 'Monthly author reading event', days: ['tue'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Astronomy on Tap: In a Galaxy Far, Far Away Edition', date: '2026-08-18', time: '7pm', venue: 'Various', neighborhood: 'Various', price: 'Free', desc: 'Astronomy enthusiasts sharing knowledge', days: ['tue'], category: 'learning', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Story-oke: Sing and Tell', date: '2026-08-18', time: '9:30pm', venue: 'Caveat', neighborhood: 'Lower East Side', price: '$15', desc: 'Part karaoke, part confessional comedy', days: ['tue'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'All Aboard Yelp NYC', date: '2026-08-18', time: '5-8pm', venue: 'NYC Ferry', neighborhood: 'Various', price: 'Free', desc: 'Ferry experience with food and drinks', days: ['tue'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
+            // WEDNESDAY, AUGUST 19
+            { name: 'Free Outdoor Movies: Arco', date: '2026-08-19', time: 'Various', venue: 'Brigadier General Charles Young Playground', neighborhood: 'Harlem', price: 'Free', desc: 'Sci-fi thriller under the stars', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Beasts of the Southern Wild', date: '2026-08-19', time: 'Various', venue: 'Tompkins Square Park Bandshell', neighborhood: 'East Village', price: 'Free', desc: 'Fantasy drama with free pizza & shaved ice', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Guardians of the Galaxy', date: '2026-08-19', time: 'Various', venue: 'Msgr. McGolrick Park', neighborhood: 'Greenpoint', price: 'Free', desc: 'Action sci-fi outdoor film', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: National Treasure', date: '2026-08-19', time: 'Various', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'Adventure thriller screening', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: The Wild Robot', date: '2026-08-19', time: 'Various', venue: 'Parklife (Gowanus)', neighborhood: 'Gowanus', price: 'Food purchase required', desc: 'Animated sci-fi film (food/drink required)', days: ['wed'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Yoga Club: Touching Grass Tour', date: '2026-08-19', time: '6:30pm', venue: 'Riverside Park @ W 74th St', neighborhood: 'UWS', price: 'Free', desc: 'Free all-levels vinyasa session outdoors', days: ['wed'], category: 'wellness', source: 'The Skint', williamsburg: false },
+            { name: 'Letters + Sodas Reading Series', date: '2026-08-19', time: '7pm', venue: 'The Greats of Craft', neighborhood: 'LIC', price: '$5', desc: 'Comedians & writers reading event', days: ['wed'], category: 'talks', source: 'The Skint', williamsburg: false },
+            { name: 'Adam Wade: Live in New York', date: '2026-08-19', time: '7pm', venue: 'Under St. Marks Theater', neighborhood: 'East Village', price: 'Sliding scale', desc: 'Storytelling show from Moth winner', days: ['wed'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Hot Grrrl Sh*t Zine Release Party', date: '2026-08-19', time: '7pm', venue: 'Seventh Heaven Bar + Karaoke', neighborhood: 'Bushwick', price: 'Free ($5 suggested)', desc: 'Black punk feminist zine celebration', days: ['wed'], category: 'art', source: 'The Skint', williamsburg: false },
+            { name: 'Flash Comedy', date: '2026-08-19', time: '8pm', venue: 'Mood Ring', neighborhood: 'Bushwick', price: '$12', desc: 'Stand-up comedy with free Polaroid photos', days: ['wed'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Pup Cups in the Park', date: '2026-08-19', time: '9am-2pm', venue: 'Petco Union Square', neighborhood: 'Union Square', price: 'Free', desc: 'Coffee for you, pup cup for your dog', days: ['wed'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Hav & Friends: Chef Dinner Series', date: '2026-08-19', time: '5pm', venue: 'Hav & Mar', neighborhood: 'Chelsea', price: '$$$', desc: 'Guest chef dinner with Dominican cuisine', days: ['wed'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Fabric as Narrative: Batik + Natural Dye Workshop', date: '2026-08-19', time: '5:30pm', venue: "The People's Forum", neighborhood: 'Midtown', price: '$44-$49', desc: 'Learn traditional batik techniques', days: ['wed'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Tarot Card Painting', date: '2026-08-19', time: '6pm', venue: 'Color Me Mine', neighborhood: 'UWS', price: '$25', desc: 'Pottery painting with mystical designs', days: ['wed'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Bodega, Native Sun (Concert)', date: '2026-08-19', time: '7-10pm', venue: 'Elsewhere', neighborhood: 'Bushwick', price: '$28', desc: 'Live music performance', days: ['wed'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Written in Brooklyn Journal Club: Mistakes Were Made', date: '2026-08-19', time: '7pm', venue: 'Book Club Bar', neighborhood: 'Bushwick', price: '$27', desc: 'In-person writing party with prompts', days: ['wed'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Louis Cato: The Harlem Renaissance', date: '2026-08-19', time: '8:30pm', venue: 'Little Island', neighborhood: 'West Village', price: '$25', desc: 'Late Show bandleader performs jazz classics', days: ['wed','thu','fri','sat'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // Wednesday, August 19
-            { name: 'Free Outdoor Movies: Beasts of the Southern Wild', date: '2026-08-19', time: 'Various', venue: 'Tompkins Square Park Bandshell', neighborhood: 'East Village', price: 'Free', desc: 'Fantasy drama with free pizza & shaved ice', days: ['wed'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Free Outdoor Movies: Guardians of the Galaxy', date: '2026-08-19', time: 'Various', venue: 'Msgr. McGolrick Park', neighborhood: 'Greenpoint', price: 'Free', desc: 'Action sci-fi outdoor screening', days: ['wed'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Yoga Club: Touching Grass Tour', date: '2026-08-19', time: '6:30pm', venue: 'Various Parks', neighborhood: 'NYC Parks', price: 'Free', desc: 'Outdoor yoga in NYC parks', days: ['wed'], category: 'wellness', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Letters + Sodas Reading Series', date: '2026-08-19', time: '7pm', venue: 'LIC Venue', neighborhood: 'Long Island City', price: '$5', desc: 'Literary reading event', days: ['wed'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Adam Wade: Live in New York', date: '2026-08-19', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$15', desc: 'Comedy from Moth story slam winner', days: ['wed'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Hot Grrrl Sh*t Zine Release Party', date: '2026-08-19', time: '7pm', venue: 'Seventh Heaven Bar Karaoke', neighborhood: 'Various', price: '$10', desc: 'Black punk feminist zine celebration', days: ['wed'], category: 'art', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Flash Comedy', date: '2026-08-19', time: '8pm', venue: 'Various', neighborhood: 'Various', price: '$15', desc: 'Improv and stand-up comedy', days: ['wed'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Pup Cups in the Park', date: '2026-08-19', time: '9am-2pm', venue: 'Petco Union Square', neighborhood: 'Union Square', price: 'Free', desc: 'Coffee pop-up for you & your pup', days: ['wed'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Fabric as Narrative: Batik + Natural Dye Workshop', date: '2026-08-19', time: '5:30pm', venue: "The People's Forum", neighborhood: 'Midtown', price: '$45', desc: 'Learn traditional batik techniques', days: ['wed'], category: 'learning', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Tarot Card Painting', date: '2026-08-19', time: '6pm', venue: 'Color Me Mine', neighborhood: 'Upper West Side', price: '$25', desc: 'Pottery painting with mystical theme', days: ['wed'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Bodega, Native Sun (Concert)', date: '2026-08-19', time: '7-10pm', venue: 'Elsewhere', neighborhood: 'Bushwick', price: '$28', desc: 'Music performances at Bushwick venue', days: ['wed'], category: 'music', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Written in Brooklyn Journal Club: Mistakes Were Made', date: '2026-08-19', time: '7pm', venue: 'Book Club Bar', neighborhood: 'Bushwick', price: '$27', desc: 'In-person writing party', days: ['wed'], category: 'learning', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Louis Cato: The Harlem Renaissance', date: '2026-08-19', time: '8:30pm', venue: 'Little Island', neighborhood: 'West Village', price: '$25', desc: 'Bandleader performs Studio Ghibli classics', days: ['wed','thu','fri','sat'], category: 'music', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
+            // THURSDAY, AUGUST 20
+            { name: 'Free Outdoor Movies: A Night with James Baldwin (3x)', date: '2026-08-20', time: 'Various', venue: 'Lefferts Historic House', neighborhood: 'Prospect Park', price: 'Free', desc: 'Documentary screening at historic house', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Bridesmaids', date: '2026-08-20', time: 'Various', venue: 'Brooklyn Bridge Park', neighborhood: 'Brooklyn Heights', price: 'Free', desc: 'Comedy film at waterfront venue', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Rigoletto (Carnegie Hall Presents)', date: '2026-08-20', time: 'Various', venue: 'Hudson Yards', neighborhood: 'Midtown West', price: 'Free', desc: 'Opera screening outdoors', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Shrek', date: '2026-08-20', time: 'Various', venue: 'Union Square Park', neighborhood: 'Flatiron', price: 'Free', desc: 'Animated adventure family film', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: The Wild Robot', date: '2026-08-20', time: 'Various', venue: 'Riverside Park (145th & Hudson)', neighborhood: 'UWS', price: 'Free', desc: 'Animated sci-fi feature', days: ['thu'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Guggenheim Late Shift Block Party', date: '2026-08-20', time: '5-8:30pm', venue: 'Guggenheim Museum', neighborhood: 'UES', price: 'Free', desc: 'End-of-summer celebration with music & art', days: ['thu'], category: 'art', source: 'The Skint', williamsburg: false },
+            { name: 'Musical Chairs at Bryant Park', date: '2026-08-20', time: '5:30pm', venue: 'Bryant Park', neighborhood: 'Midtown', price: 'Free', desc: 'NYC mega-game of musical chairs', days: ['thu'], category: 'other', source: 'The Skint', williamsburg: false },
+            { name: 'Economy Art Show (Opening Reception)', date: '2026-08-20', time: '6pm-midnight', venue: 'Studio6 Gallery', neighborhood: 'LES', price: 'Free', desc: 'Candy-themed group art show thru 8/23', days: ['thu'], category: 'art', source: 'The Skint', williamsburg: false },
+            { name: 'Summerstage: Ted Smooth 40th Anniversary Old School Jam', date: '2026-08-20', time: '6-9pm', venue: 'Marcus Garvey Park', neighborhood: 'Harlem', price: 'Free', desc: 'Free City Parks Foundation performance', days: ['thu'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'Aaron Mahnke: Exhumed', date: '2026-08-20', time: '7pm', venue: 'Powerhouse Arena', neighborhood: 'Dumbo', price: '$5-$30', desc: 'Author discusses folklore & early medical practices', days: ['thu'], category: 'talks', source: 'The Skint', williamsburg: false },
+            { name: 'Facts Machine: Science, Comedy + Trivia', date: '2026-08-20', time: '7pm', venue: 'Caveat', neighborhood: 'LES', price: '$14-$25', desc: 'Scientists & comedians share facts', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Locrian Chamber Players: Music from the Past Decade', date: '2026-08-20', time: '8pm', venue: 'Riverside Church', neighborhood: 'Morningside Heights', price: 'Free', desc: 'Contemporary chamber music concert', days: ['thu'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'Entirely from Memory: Ever After', date: '2026-08-20', time: '8pm', venue: 'Littlefield', neighborhood: 'Gowanus', price: '$12-$14', desc: 'Actors recreate films from memory', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Landline Comedy at Wild East Brewing Co.', date: '2026-08-20', time: '8:30pm', venue: 'Wild East Brewing Co.', neighborhood: 'Gowanus', price: 'Free', desc: 'Comedy show at brewery with SNL/Netflix comedians', days: ['thu'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Anime NYC Convention', date: '2026-08-20', time: '1-8pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast', days: ['thu','fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Book Fair at Cafe Catmandoo', date: '2026-08-20', time: '5-9pm', venue: 'Cafe Catmandoo', neighborhood: 'Woodside', price: 'Free', desc: 'Food, books, & good vibes', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Movies with a View: Bridesmaids', date: '2026-08-20', time: '6pm', venue: 'Brooklyn Bridge Park', neighborhood: 'Brooklyn Heights', price: 'Free', desc: 'Comedy film at waterfront, first-come first-served', days: ['thu'], category: 'film', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Swedish Princess Cake Workshop', date: '2026-08-20', time: '6:30pm', venue: 'Falu House', neighborhood: 'Greenpoint', price: '$115', desc: 'Learn to layer & decorate Swedish princess cake', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // Thursday, August 20
-            { name: 'Free Outdoor Movies: Arco', date: '2026-08-20', time: 'Various', venue: 'Brigadier General Charles Young Playground', neighborhood: 'Harlem', price: 'Free', desc: 'Sci-fi thriller outdoor screening', days: ['thu'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Free Outdoor Movies: Shrek', date: '2026-08-20', time: 'Various', venue: 'Union Square Park', neighborhood: 'Flatiron', price: 'Free', desc: 'Animated adventure family film', days: ['thu'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Free Outdoor Movies: The Wild Robot', date: '2026-08-20', time: 'Various', venue: 'Riverside Park', neighborhood: 'Upper West Side', price: 'Free', desc: 'Animated sci-fi feature', days: ['thu'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Guggenheim Late Shift Block Party', date: '2026-08-20', time: '5-8:30pm', venue: 'Guggenheim Museum', neighborhood: 'Upper East Side', price: 'Free', desc: 'End-of-summer block party at museum', days: ['thu'], category: 'art', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Musical Chairs at Bryant Park', date: '2026-08-20', time: '5:30pm', venue: 'Bryant Park', neighborhood: 'Midtown', price: 'Free', desc: 'Fun game-playing event', days: ['thu'], category: 'other', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Economy Art Show (Opening Reception)', date: '2026-08-20', time: '6pm-midnight', venue: 'Studio6 Gallery', neighborhood: 'Lower East Side', price: 'Free', desc: 'Group exhibition thru 8/23', days: ['thu'], category: 'art', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Summerstage', date: '2026-08-20', time: '6-9pm', venue: 'Various Parks', neighborhood: 'NYC Parks', price: 'Free', desc: '40th season of free performances', days: ['thu','fri','sat','sun'], category: 'music', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Aaron Mahnke: Exhumed Book Launch', date: '2026-08-20', time: '7pm', venue: 'Powerhouse Arena', neighborhood: 'Dumbo', price: '$15', desc: 'Author discusses folklore and history', days: ['thu'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Facts Machine: Science, Comedy + Trivia', date: '2026-08-20', time: '7pm', venue: 'Caveat', neighborhood: 'Lower East Side', price: '$15', desc: 'Scientists and comedians share facts', days: ['thu'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Locrian Chamber Players: Music from the Past Decade', date: '2026-08-20', time: '8pm', venue: 'Various', neighborhood: 'Various', price: '$10', desc: 'Contemporary chamber music', days: ['thu'], category: 'music', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Entirely from Memory (High School Musical)', date: '2026-08-20', time: '8pm', venue: 'Various', neighborhood: 'Various', price: '$10', desc: 'Actors recreate films from memory', days: ['thu'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Landline Comedy at Wild East Brewing Co.', date: '2026-08-20', time: '8:30pm', venue: 'Wild East Brewing Co.', neighborhood: 'Various', price: '$10', desc: 'Comedy night at brewery', days: ['thu'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Anime NYC', date: '2026-08-20', time: '1-8pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast', days: ['thu','fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Book Fair at Cafe Catmandoo', date: '2026-08-20', time: '5-9pm', venue: 'Cafe Catmandoo', neighborhood: 'Woodside', price: 'Free', desc: 'Food, reads, and good vibes', days: ['thu'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Movies with a View: Bridesmaids', date: '2026-08-20', time: '6pm', venue: 'Brooklyn Bridge Park', neighborhood: 'Brooklyn Heights', price: 'Free', desc: 'Comedy at waterfront venue', days: ['thu'], category: 'film', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Swedish Princess Cake Workshop', date: '2026-08-20', time: '6:30pm', venue: 'Falu House', neighborhood: 'Greenpoint', price: '$115', desc: 'Learn from professional baker', days: ['thu'], category: 'learning', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
+            // FRIDAY, AUGUST 21
+            { name: 'Radiolab at Little Island', date: '2026-08-21', time: '5-6pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'WNYC radio show live performance', days: ['fri','sat','sun'], category: 'talks', source: 'The Skint', williamsburg: false },
+            { name: 'Flop House Comedy Club', date: '2026-08-21', time: '8pm, 9:30pm, 11pm', venue: 'Flop House / 201 Allen St', neighborhood: 'Williamsburg/LES', price: '50% off with code SKINT', desc: 'NYC longest-running indie comedy club', days: ['fri','sat'], category: 'comedy', source: 'The Skint', williamsburg: true },
+            { name: 'Bryant Park Picnic Performances', date: '2026-08-21', time: '7pm', venue: 'Bryant Park', neighborhood: 'Midtown', price: 'Free', desc: 'Guitar culture evening with wnyc host', days: ['fri','sat'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'BRIC Celebrate Brooklyn!', date: '2026-08-21', time: '6-10pm', venue: "Prospect Park's Lena Horne Bandshell", neighborhood: 'Prospect Park', price: 'Free', desc: '35th anniversary with Jadakiss (Fri) & Americana night (Sat)', days: ['fri','sat'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Michael', date: '2026-08-21', time: 'Various', venue: 'Fred Samuel Playground', neighborhood: 'Harlem', price: 'Free', desc: 'Thriller film screening', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Nacho Libre', date: '2026-08-21', time: 'Various', venue: 'Central Lawn in Sunset Park', neighborhood: 'Sunset Park', price: 'Free', desc: 'Comedy film outdoors', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Project Hail Mary', date: '2026-08-21', time: 'Various', venue: 'WNYC Transmitter Park', neighborhood: 'Greenpoint', price: 'Free', desc: 'Sci-fi thriller at waterfront', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Free Outdoor Movies: Spy Kids', date: '2026-08-21', time: 'Various', venue: 'North Oculus Plaza', neighborhood: 'Lower Manhattan', price: 'Free', desc: 'Family action-adventure film', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'MoMA PS1 Warm Up Music Series', date: '2026-08-21', time: '4-10pm', venue: 'MoMA PS1', neighborhood: 'LIC', price: '$20-$35', desc: 'Outdoor dance party with global subgenres (Marcellus Pittman, Moesha 13, Mabe Fratti)', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'Vocabaret: Sports Edition', date: '2026-08-21', time: '7pm', venue: 'Caveat', neighborhood: 'LES', price: '$19-$25', desc: 'Wordplay variety show for language lovers', days: ['fri'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: "Molière in the Park: Don Juan Pop-up Preview", date: '2026-08-21', time: '7pm', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Work-in-progress theater preview outdoors', days: ['fri'], category: 'art', source: 'The Skint', williamsburg: true },
+            { name: 'Cruel Summer 80s + 90s Dance Party', date: '2026-08-21', time: '7-11pm', venue: 'Littlefield', neighborhood: 'Gowanus', price: '$10-$15', desc: '80s/90s cover band + DJ party', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: false },
+            { name: 'Cemetery Cinema: Psycho', date: '2026-08-21', time: '7:30pm', venue: 'Coney Island USA', neighborhood: 'Coney Island', price: '$14', desc: 'Hitchcock classic with live music', days: ['fri'], category: 'film', source: 'The Skint', williamsburg: false },
+            { name: 'Bitches Brew Free Comedy Show', date: '2026-08-21', time: '8:30pm', venue: 'Halyards', neighborhood: 'Gowanus', price: 'Free (tips appreciated)', desc: 'Women-produced stand-up comedy', days: ['fri'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'NYC Magic Ensemble', date: '2026-08-21', time: '9:30pm', venue: 'Caveat', neighborhood: 'LES', price: '$19-$30', desc: 'Night of magicians & mentalists', days: ['fri'], category: 'other', source: 'The Skint', williamsburg: false },
+            { name: "Ash Diggs: The Jokes I Met", date: '2026-08-21', time: '10pm', venue: 'Union Hall', neighborhood: 'Park Slope', price: '$10-$15', desc: 'Stand-up comedy from Subway Takes creator', days: ['fri'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Be My Baby! A Motown Soul Party!', date: '2026-08-21', time: '10:30pm-2am', venue: 'Alphaville', neighborhood: 'Williamsburg', price: '$5-$10', desc: 'DJ Little Sally spins Motown + limbo competition ($50 prize)', days: ['fri'], category: 'music', source: 'The Skint', williamsburg: true },
+            { name: 'Anime NYC Convention', date: '2026-08-21', time: '10am-7pm', venue: 'Javits Convention Center', neighborhood: 'Midtown West', price: '$65+', desc: 'Largest anime convention on East Coast (continues)', days: ['fri','sat','sun'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Neopets in Neo York Pop-up', date: '2026-08-21', time: '10am-7pm', venue: 'Shopify NY', neighborhood: 'SoHo', price: 'Free', desc: 'Limited-edition Neopets merchandise & experiences', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Last Minute California Pop-up', date: '2026-08-21', time: '11am-6pm', venue: 'The Canvas SoHo', neighborhood: 'SoHo', price: 'TBD', desc: 'Pop-up retail thru Aug 23', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Loco Dice, Seth Troxler, Victor Calderone All Night Long', date: '2026-08-21', time: '11pm', venue: 'Pacha', neighborhood: 'Bushwick', price: '$85+', desc: 'Electronic music all-nighter with world-class DJs', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Papi Juice Party', date: '2026-08-21', time: '9:45pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Brooklyn nightlife stars + musical guests', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Louis Cato: The Harlem Renaissance (continuing)', date: '2026-08-21', time: '8:30pm', venue: 'Little Island', neighborhood: 'West Village', price: '$25', desc: 'Harlem Renaissance jazz performance', days: ['fri','sat','sun'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Ghetto Gastro: Red Rice', date: '2026-08-21', time: '5pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Culinary collective explores rice across cultures', days: ['fri','sat','sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: "Sasha Velour's Nightgowns", date: '2026-08-21', time: '7pm', venue: "Prospect Park's Lena Horne Bandshell", neighborhood: 'Prospect Park', price: 'Free', desc: 'Drag performance art show', days: ['fri'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // Friday, August 21
-            { name: 'Radiolab at Little Island', date: '2026-08-21', time: '5-6pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'WNYC radio show live performances', days: ['fri','sat','sun'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'MoMA PS1 Warm Up Music Series', date: '2026-08-21', time: '4-10pm', venue: 'MoMA PS1', neighborhood: 'Long Island City', price: '$15', desc: 'Summer outdoor dance party', days: ['fri'], category: 'music', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Vocabaret: Sports Edition', date: '2026-08-21', time: '7pm', venue: 'Caveat', neighborhood: 'Lower East Side', price: '$15', desc: 'Wordplay variety show', days: ['fri'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Molière in the Park: Don Juan Pop-up Preview', date: '2026-08-21', time: '7pm', venue: 'Domino Park', neighborhood: 'Williamsburg', price: 'Free', desc: 'Free theater at outdoor venue', days: ['fri'], category: 'art', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: true },
-            { name: 'Cemetery Cinema: Psycho', date: '2026-08-21', time: '7:30pm', venue: 'Coney Island USA', neighborhood: 'Coney Island', price: '$10', desc: 'Classic Hitchcock outdoor screening', days: ['fri'], category: 'film', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Bitches Brew Free Comedy Show', date: '2026-08-21', time: '8:30pm', venue: 'Various', neighborhood: 'Various', price: 'Free', desc: 'Women-produced comedy show', days: ['fri'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'NYC Magic Ensemble', date: '2026-08-21', time: '9:30pm', venue: 'Caveat', neighborhood: 'Lower East Side', price: '$15', desc: 'Night of magicians and mentalists', days: ['fri'], category: 'other', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Ash Diggs: The Jokes I Met', date: '2026-08-21', time: '10pm', venue: 'Union Hall', neighborhood: 'Park Slope', price: '$10', desc: 'One hour of stand-up from Subway Takes creator', days: ['fri'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Be My Baby! A Motown Soul Party!', date: '2026-08-21', time: '10:30pm-2am', venue: 'Alphaville', neighborhood: 'Williamsburg', price: '$5 adv/$10 door', desc: 'DJ Little Sally spinning Motown hits + limbo competition', days: ['fri'], category: 'music', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: true },
-            { name: 'Neopets in Neo York Pop-up', date: '2026-08-21', time: '10am-7pm', venue: 'Shopify NY', neighborhood: 'SoHo', price: 'Free', desc: 'Limited-edition merchandise and experiences', days: ['fri'], category: 'other', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Last Minute California Pop-up', date: '2026-08-21', time: '11am-6pm', venue: 'The Canvas Soho', neighborhood: 'SoHo', price: 'TBD', desc: 'Pop-up retail experience thru 8/23', days: ['fri','sat','sun'], category: 'markets', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Loco Dice, Seth Troxler, Victor Calderone All Night Long', date: '2026-08-21', time: '11pm', venue: 'Pacha', neighborhood: 'Bushwick', price: '$85+', desc: 'Electronic music all-nighter', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Papi Juice Party', date: '2026-08-21', time: '9:45pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'DJ party with musical guests', days: ['fri'], category: 'music', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Ghetto Gastro: Red Rice (Performance & Food)', date: '2026-08-21', time: '5pm', venue: 'Little Island', neighborhood: 'West Village', price: 'Free', desc: 'Culinary collective explores rice across cultures', days: ['fri','sat','sun'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: "Sasha Velour's Nightgowns", date: '2026-08-21', time: '7pm', venue: "Prospect Park's Lena Horne Bandshell", neighborhood: 'Prospect Park', price: 'Free', desc: 'Drag performance art show', days: ['fri'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
+            // SATURDAY, AUGUST 22
+            { name: 'Battle of Brooklyn Community Day', date: '2026-08-22', time: '11am-5pm', venue: 'Center for Brooklyn History', neighborhood: 'Brooklyn Heights', price: 'Free', desc: '250th anniversary celebration of largest Revolutionary War battle', days: ['sat'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'BFF Bagel Tab at Popup Bagels', date: '2026-08-22', time: '7am-4pm', venue: 'Multiple Popup Bagels Locations', neighborhood: 'Various', price: 'Free (first 100 members)', desc: 'Free bagel & schmear pop-up every Saturday in August', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Summer Streets NYC', date: '2026-08-22', time: '9am-5pm', venue: 'Eastern Parkway & Grand Concourse', neighborhood: 'Brooklyn & Bronx', price: 'Free', desc: 'Car-free streets for pedestrians, cyclists, performers', days: ['sat'], category: 'outdoors', source: 'The Skint / No Sleep Club NYC', williamsburg: false },
+            { name: 'Fly NYC', date: '2026-08-22', time: '12-5pm', venue: 'Pier I in Riverside Park South', neighborhood: 'UWS', price: 'Free', desc: 'Annual all-ages kite flying festival with live music', days: ['sat'], category: 'outdoors', source: 'The Skint', williamsburg: false },
+            { name: 'Art House Crawl + Illuminated Creatures Parade', date: '2026-08-22', time: '2-4pm, 7-9pm', venue: "Governors Island (Nolan Park & Colonels Row)", neighborhood: 'Governors Island', price: 'Free', desc: 'DIY costume & puppet parade celebrating nature', days: ['sat'], category: 'art', source: 'The Skint', williamsburg: false },
+            { name: 'How Was It? Storytelling Show', date: '2026-08-22', time: '5pm', venue: 'QED Astoria', neighborhood: 'Astoria', price: '$5', desc: 'Evening of engaging personal stories', days: ['sat'], category: 'talks', source: 'The Skint', williamsburg: false },
+            { name: 'Asian AF Comedy Variety Show', date: '2026-08-22', time: '7pm', venue: 'UCB Theatre', neighborhood: 'East Village', price: '$15-$20', desc: 'Stand-up, sketch, improv & storytelling', days: ['sat'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'Fun Gutter', date: '2026-08-22', time: '7:30pm', venue: 'The Cobra Club', neighborhood: 'Bushwick', price: 'Free ($10 suggested)', desc: 'Party & comedy show + bar crawl after', days: ['sat'], category: 'comedy', source: 'The Skint', williamsburg: false },
+            { name: 'The Lost World: The Art of Minnie Evans (Exhibition Opening)', date: '2026-08-22', time: '10:30am-6pm', venue: 'Whitney Museum', neighborhood: 'Chelsea', price: '$24-$30', desc: 'Retrospective of self-taught 20th century artist', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Brooklyn Horror Society 3-Year Anniversary BBQ', date: '2026-08-22', time: '1pm', venue: 'Prospect Park (9th Street Bandshell)', neighborhood: 'Prospect Park', price: 'Free or $10', desc: 'Community celebration (bring food or $10)', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Brave Sons of England (Musical)', date: '2026-08-22', time: '2pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$27.50', desc: 'New musical based on Shakespeare\'s Henriad plays', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: "NYC Eldest Daughter's Day Picnic", date: '2026-08-22', time: '4pm', venue: 'TBD (announced via app)', neighborhood: 'Various', price: 'Free', desc: 'Celebrate with picnic blanket & shared snacks', days: ['sat'], category: 'other', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'The Latex Ball 2026', date: '2026-08-22', time: '6pm', venue: 'Terminal 5', neighborhood: 'Midtown West', price: 'Free (limited capacity)', desc: 'Celebration of love, creativity & expression with competitions', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: "Red Hook's Proclamation of Historical Significance", date: '2026-08-22', time: '6pm', venue: 'Valentino Pier', neighborhood: 'Red Hook', price: 'Free', desc: 'Panel of historians discusses Red Hook history', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-22', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist Shakespeare comedy with female revenge theme', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Fixing the American Healthcare System Comedy Festival (Day 1)', date: '2026-08-22', time: '7pm', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy writers, cartoonists & storytellers tackle healthcare', days: ['sat','sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
+            { name: 'Summerween Reading & Open Mic', date: '2026-08-22', time: '7pm', venue: 'Ridgewood Venue', neighborhood: 'Ridgewood', price: 'Free', desc: 'Print celebration with ghost stories & confessions', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'Casanara Two-Year Anniversary Block Party', date: '2026-08-22', time: 'Noon-3am', venue: 'St. James & Fulton (outside bar)', neighborhood: 'Various', price: 'TBD', desc: 'All-day celebration with music & after-party', days: ['sat'], category: 'music', source: 'No Sleep Club NYC', williamsburg: false },
 
-            // Saturday, August 22
-            { name: 'Summer Streets NYC', date: '2026-08-22', time: '9am-5pm', venue: 'Eastern Parkway & Grand Concourse', neighborhood: 'Multiple Boroughs', price: 'Free', desc: 'Car-free streets for pedestrians', days: ['sat'], category: 'outdoors', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Coney Island Sand Sculpting Competition', date: '2026-08-22', time: '11am-4pm', venue: 'Coney Island Beach', neighborhood: 'Coney Island', price: 'Free', desc: 'Annual sand art competition', days: ['sat'], category: 'art', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Fly NYC', date: '2026-08-22', time: '12-5pm', venue: 'Various Parks', neighborhood: 'NYC Parks', price: 'Free', desc: 'Annual all-ages kite festival', days: ['sat'], category: 'outdoors', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Art House Crawl + Illuminated Creatures Parade', date: '2026-08-22', time: '2-4pm, 7-9pm', venue: "Governors Island", neighborhood: 'Governors Island', price: '$2', desc: 'Eco-luminous art parade', days: ['sat'], category: 'art', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'How Was It? Storytelling Show', date: '2026-08-22', time: '5pm', venue: 'QED Astoria', neighborhood: 'Astoria', price: '$10', desc: 'Evening of true personal stories', days: ['sat'], category: 'talks', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Asian AF Comedy Variety Show', date: '2026-08-22', time: '7pm', venue: 'UCB Comedy', neighborhood: 'East Village', price: '$10', desc: 'Stand-up, sketch, improv, and dance', days: ['sat'], category: 'comedy', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Fun Gutter', date: '2026-08-22', time: '7:30pm', venue: 'Various', neighborhood: 'Various', price: '$5', desc: 'Party, show and community check-in', days: ['sat'], category: 'music', source: 'The Skint', sourceUrl: 'https://www.theskint.com', williamsburg: false },
-            { name: 'Battle of Brooklyn Community Day', date: '2026-08-22', time: '11am-5pm', venue: 'Center for Brooklyn History', neighborhood: 'Brooklyn Heights', price: 'Free', desc: 'All-day 250th anniversary event', days: ['sat'], category: 'learning', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'BFF Bagel Tab at Popup Bagels', date: '2026-08-22', time: '7am-4pm', venue: 'Multiple Locations', neighborhood: 'Various', price: 'TBD', desc: 'Pop-up bagel experience', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: "The Lost World: The Art of Minnie Evans", date: '2026-08-22', time: '10:30am-6pm', venue: 'Whitney Museum', neighborhood: 'Chelsea', price: '$30', desc: 'Exhibition of extraordinary self-taught artist', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Brooklyn Horror Society 3-Year Anniversary BBQ', date: '2026-08-22', time: '1pm', venue: 'Prospect Park', neighborhood: 'Prospect Park', price: 'Free or $10', desc: 'Community celebration (RSVP)', days: ['sat'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Brave Sons of England (Musical)', date: '2026-08-22', time: '2pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$27.50', desc: 'New musical with classic sound', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: "NYC Eldest Daughter's Day Picnic", date: '2026-08-22', time: '4pm', venue: 'TBD (announced via app)', neighborhood: 'Various', price: 'Free', desc: 'Celebrate with eldest daughters', days: ['sat'], category: 'other', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'The Latex Ball 2026', date: '2026-08-22', time: '6pm', venue: 'Terminal 5', neighborhood: 'Midtown West', price: 'Free (limited capacity)', desc: 'Celebration of love, creativity, color', days: ['sat'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: "Red Hook's Proclamation of Historical Significance", date: '2026-08-22', time: '6pm', venue: 'Valentino Pier', neighborhood: 'Red Hook', price: 'Free', desc: 'Lively review and historical discussion', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-22', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist murder spree comedy', days: ['sat','sun'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'Fixing the American Healthcare System (In 2 Days) Comedy Festival', date: '2026-08-22', time: '7pm', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: '$15-20', desc: 'Comedy writers, cartoonists, storytellers', days: ['sat','sun'], category: 'comedy', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: true },
-            { name: 'Summerween Reading & Open Mic', date: '2026-08-22', time: '7pm', venue: 'Ridgewood', neighborhood: 'Ridgewood', price: 'Free', desc: 'Print and reading celebration', days: ['sat'], category: 'talks', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-
-            // Sunday, August 23
-            { name: 'In the Heights Rush Tickets', date: '2026-08-23', time: '9am-noon', venue: 'The United Palace', neighborhood: 'Washington Heights', price: '$28', desc: '10,000 tickets available under $28', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'The Battle of Brooklyn 250: The Meaning of Freedom', date: '2026-08-23', time: '10am-1pm', venue: 'Green-Wood Cemetery', neighborhood: 'Brooklyn', price: 'Free', desc: 'Costumed interpreters and flag display', days: ['sun'], category: 'learning', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'NYC Plant Market', date: '2026-08-23', time: '1-7pm', venue: 'Culture Lab LIC', neighborhood: 'Long Island City', price: 'Free entry', desc: 'Largest plant market with special programming', days: ['sun'], category: 'markets', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: false },
-            { name: 'A Palestinian Dessert Making Class: The Art of Knafeh', date: '2026-08-23', time: '2pm or 5pm', venue: 'Bat Haus', neighborhood: 'Williamsburg', price: '$95', desc: 'Hands-on Palestinian dessert class', days: ['sun'], category: 'food', source: 'No Sleep Club NYC', sourceUrl: 'https://nosleepclubnyc.substack.com', williamsburg: true },
+            // SUNDAY, AUGUST 23
+            { name: 'In the Heights Rush Tickets ($28)', date: '2026-08-23', time: '9am-noon', venue: 'The United Palace', neighborhood: 'Washington Heights', price: '$28', desc: '10,000 tickets under $28 + community celebration', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'The Battle of Brooklyn 250: The Meaning of Freedom', date: '2026-08-23', time: '10am-1pm', venue: 'Green-Wood Cemetery', neighborhood: 'Brooklyn', price: 'Free', desc: 'Costumed interpreters, flag display & interactive activities', days: ['sun'], category: 'learning', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'NYC Plant Market', date: '2026-08-23', time: '1-7pm', venue: 'Culture Lab LIC', neighborhood: 'LIC', price: 'Free entry', desc: 'Largest plant market with vendors, art, food & live music', days: ['sun'], category: 'markets', source: 'No Sleep Club NYC', williamsburg: false },
+            { name: 'A Palestinian Dessert Making Class: The Art of Knafeh', date: '2026-08-23', time: '2pm or 5pm', venue: 'Bat Haus', neighborhood: 'Williamsburg', price: '$95', desc: 'Hands-on Palestinian dessert-making class with proceeds donated', days: ['sun'], category: 'food', source: 'No Sleep Club NYC', williamsburg: true },
+            { name: 'Fixing the American Healthcare System Comedy Festival (Days 2-3)', date: '2026-08-23', time: 'Multiple times', venue: 'Brooklyn Art Haus', neighborhood: 'Williamsburg', price: 'TBD', desc: 'Comedy cartoons (noon), discussion (4pm), game show finale (7pm)', days: ['sun'], category: 'comedy', source: 'No Sleep Club NYC', williamsburg: true },
+            { name: 'Raging of the Shrews: A Revenge Play', date: '2026-08-23', time: '7pm', venue: 'Under St. Marks', neighborhood: 'East Village', price: '$20', desc: 'Revisionist Shakespeare revenge comedy (continuing)', days: ['sun'], category: 'art', source: 'No Sleep Club NYC', williamsburg: false },
         ];
 
-        // Initialize
         window.addEventListener('DOMContentLoaded', () => {
             allEvents.push(...events);
             initializeFilters();
@@ -486,11 +277,10 @@
         });
 
         function initializeFilters() {
-            const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-            const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            const categories = ['All', 'Music', 'Comedy', 'Art', 'Markets', 'Runs', 'Film', 'Talks', 'Outdoors', 'Food', 'Learning', 'Networking', 'Wellness', 'Other'];
-
-            const sources = [...new Set(allEvents.map(e => e.source))].sort();
+            const days = ['wed','thu','fri','sat','sun'];
+            const dayNames = ['Wed 19', 'Thu 20', 'Fri 21', 'Sat 22', 'Sun 23'];
+            const categories = ['All', 'Music', 'Comedy', 'Art', 'Food', 'Film', 'Learning', 'Markets', 'Talks', 'Wellness', 'Outdoors', 'Other'];
+            const sources = ['The Skint', 'No Sleep Club NYC'];
 
             const dayChips = document.getElementById('dayChips');
             dayNames.forEach((name, i) => {
@@ -523,12 +313,14 @@
         function toggleFilter(type, value, element) {
             if (value === null) {
                 filters[type].clear();
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
             } else if (filters[type].has(value)) {
                 filters[type].delete(value);
+                element.classList.remove('active');
             } else {
                 filters[type].add(value);
+                element.classList.add('active');
             }
-            element?.classList.toggle('active');
             renderEvents();
         }
 
@@ -557,69 +349,54 @@
             strip.innerHTML = wburg.length > 0 ? wburg.map(e => `
                 <div class="wburg-card">
                     <h3>★ ${e.name}</h3>
-                    <p>${e.time} • ${e.venue}</p>
-                    <p style="font-size: 0.8em; color: var(--text-muted);">${e.date}</p>
+                    <p>${e.time}</p>
+                    <p>${e.venue}</p>
                 </div>
-            `).join('') : '<p style="color: var(--text-muted);">No Williamsburg events match current filters</p>';
+            `).join('') : '<p style="color: var(--text-muted); padding: 10px;">No Williamsburg events match current filters</p>';
 
             // Group by day
-            const byDay = {};
-            const dayOrder = ['2026-08-18', '2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23'];
-            const dayNames = { '2026-08-18': 'Monday', '2026-08-19': 'Wednesday', '2026-08-20': 'Thursday', '2026-08-21': 'Friday', '2026-08-22': 'Saturday', '2026-08-23': 'Sunday' };
-            const dayDates = { '2026-08-18': 'Aug 18', '2026-08-19': 'Aug 19', '2026-08-20': 'Aug 20', '2026-08-21': 'Aug 21', '2026-08-22': 'Aug 22', '2026-08-23': 'Aug 23' };
+            const byDate = {};
+            const dateOrder = ['2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23'];
+            const dayNames = { '2026-08-19': 'Wednesday', '2026-08-20': 'Thursday', '2026-08-21': 'Friday', '2026-08-22': 'Saturday', '2026-08-23': 'Sunday' };
+            const dayDates = { '2026-08-19': 'Aug 19', '2026-08-20': 'Aug 20', '2026-08-21': 'Aug 21', '2026-08-22': 'Aug 22', '2026-08-23': 'Aug 23' };
 
-            dayOrder.forEach(date => byDay[date] = []);
+            dateOrder.forEach(date => byDate[date] = []);
             filtered.forEach(e => {
-                if (!byDay[e.date]) byDay[e.date] = [];
-                byDay[e.date].push(e);
+                if (!byDate[e.date]) byDate[e.date] = [];
+                byDate[e.date].push(e);
             });
 
             let html = '';
-            dayOrder.forEach(date => {
-                const events = byDay[date] || [];
-                if (events.length === 0) return;
+            dateOrder.forEach(date => {
+                const dayEvents = byDate[date] || [];
+                if (dayEvents.length === 0) return;
                 html += `
                     <div class="day-section">
                         <div class="day-header">
                             <div class="dh-name">${dayNames[date]}</div>
                             <div class="dh-date">${dayDates[date]}</div>
-                            <div class="dh-count">${events.length}</div>
+                            <div class="dh-count">${dayEvents.length}</div>
                         </div>
                         <div class="day-grid">
-                            ${events.map(e => renderEventCard(e)).join('')}
+                            ${dayEvents.map(e => renderEventCard(e)).join('')}
                         </div>
                     </div>
                 `;
             });
 
-            const ongoing = filtered.filter(e => e.days.length >= 4);
-            if (ongoing.length > 0) {
-                html += `
-                    <div class="day-section">
-                        <div class="day-header ongoing">
-                            <div class="dh-name">Ongoing</div>
-                            <div class="dh-count">${ongoing.length}</div>
-                        </div>
-                        <div class="day-grid">
-                            ${ongoing.map(e => renderEventCard(e)).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
             document.getElementById('eventsContainer').innerHTML = html;
         }
 
         function renderEventCard(e) {
-            const priceClass = e.price.includes('Free') ? 'price-free' : e.price.includes('$') && parseInt(e.price) < 15 ? 'price-cheap' : 'price-paid';
+            const priceClass = e.price.includes('Free') ? 'price-free' : e.price.includes('$') && !e.price.includes('$$$') ? 'price-cheap' : 'price-paid';
             return `
                 <div class="event-card">
-                    <div class="event-name">${e.name}${e.williamsburg ? '<span class="wburg-badge">★ Wburg</span>' : ''}</div>
-                    <div class="event-time">📍 ${e.time}</div>
-                    <div class="event-venue">${e.venue} • ${e.neighborhood}</div>
+                    <div class="event-name">${e.name}${e.williamsburg ? '<span class="wburg-badge">★</span>' : ''}</div>
+                    <div class="event-time">🕐 ${e.time}</div>
+                    <div class="event-venue">📍 ${e.venue} • ${e.neighborhood}</div>
                     <div><span class="price-badge ${priceClass}">${e.price}</span></div>
                     <div class="event-desc">${e.desc}</div>
-                    <div class="event-source">Source: <a href="${e.sourceUrl}" target="_blank">${e.source}</a></div>
+                    <div class="event-source">Source: ${e.source}</div>
                     <div><span class="category-chip cat-${e.category}">${e.category}</span></div>
                 </div>
             `;
@@ -635,16 +412,6 @@
             renderEvents();
         }
 
-        function launchUpdater() {
-            if (window.location.protocol === 'file:') {
-                alert('Update launcher not available. This digest was last updated Aug 18, 2026.');
-            } else {
-                window.location.href = 'claude-digest://update';
-                alert('Launching updater… a terminal window will open and refresh the digest (5–10 min). Then reload this page.');
-            }
-        }
-
-        // Initial render
         renderEvents();
     </script>
 </body>
