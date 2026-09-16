@@ -1,897 +1,599 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYC Events Digest - Sept 2-6, 2026</title>
-    <style>
-        :root {
-            --color-primary: #1f2937;
-            --color-text: #111827;
-            --color-muted: #6b7280;
-            --color-border: #e5e7eb;
-            --color-free: #10b981;
-            --color-cheap-low: #fbbf24;
-            --color-cheap-mid: #3b82f6;
-            --color-bg: #ffffff;
-            --color-accent: #f59e0b;
-
-            --cat-music: #a855f7;
-            --cat-comedy: #f97316;
-            --cat-art: #ec4899;
-            --cat-markets: #14b8a6;
-            --cat-runs: #22c55e;
-            --cat-film: #ef4444;
-            --cat-talks: #3b82f6;
-            --cat-outdoors: #84cc16;
-            --cat-food: #f59e0b;
-            --cat-learning: #06b6d4;
-            --cat-networking: #8b5cf6;
-            --cat-wellness: #10b981;
-            --cat-other: #64748b;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) {
-                --color-primary: #f3f4f6;
-                --color-text: #f3f4f6;
-                --color-muted: #9ca3af;
-                --color-border: #374151;
-                --color-bg: #111827;
-            }
-        }
-
-        [data-theme="dark"] {
-            --color-primary: #f3f4f6;
-            --color-text: #f3f4f6;
-            --color-muted: #9ca3af;
-            --color-border: #374151;
-            --color-bg: #111827;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: var(--color-text);
-            background-color: var(--color-bg);
-            line-height: 1.6;
-            padding: 1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--color-border);
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            color: var(--color-muted);
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .updated {
-            color: var(--color-muted);
-            font-size: 0.875rem;
-        }
-
-        .update-btn {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-            margin-top: 1rem;
-            transition: opacity 0.2s;
-        }
-
-        .update-btn:hover {
-            opacity: 0.8;
-        }
-
-        /* Filters */
-        .filters {
-            position: sticky;
-            top: 0;
-            background: var(--color-bg);
-            border: 1px solid var(--color-border);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            z-index: 10;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .filter-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .filter-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 0.5rem;
-            border: 1px solid var(--color-border);
-            border-radius: 0.375rem;
-            background: var(--color-bg);
-            color: var(--color-text);
-        }
-
-        .event-count {
-            padding: 0.5rem 1rem;
-            background: var(--color-border);
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            color: var(--color-muted);
-        }
-
-        .clear-btn {
-            background: transparent;
-            color: var(--color-primary);
-            border: 1px solid var(--color-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-        }
-
-        .clear-btn:hover {
-            background: var(--color-border);
-        }
-
-        .chip {
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            background: var(--color-border);
-            border: 1px solid var(--color-border);
-            border-radius: 1.5rem;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .chip:hover {
-            border-color: var(--color-primary);
-            background: var(--color-primary);
-            color: var(--color-bg);
-        }
-
-        .chip.active {
-            border-color: var(--color-primary);
-            background: var(--color-primary);
-            color: var(--color-bg);
-        }
-
-        /* Williamsburg Strip */
-        .williamsburg-strip {
-            margin-bottom: 1.5rem;
-        }
-
-        .strip-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-muted);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .strip-scroll {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .strip-card {
-            flex: 0 0 250px;
-            background: var(--color-border);
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            font-size: 0.85rem;
-        }
-
-        .strip-card-name {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .strip-card-meta {
-            color: var(--color-muted);
-            font-size: 0.8rem;
-        }
-
-        /* Museum Free Nights */
-        .museum-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .museum-box h3 {
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
-        }
-
-        .museum-item {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        /* Day Sections */
-        .day-section {
-            margin-bottom: 2rem;
-        }
-
-        .day-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--color-border);
-        }
-
-        .day-header.ongoing {
-            border-bottom-color: var(--color-accent);
-        }
-
-        .dh-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .day-header.ongoing .dh-name {
-            color: var(--color-accent);
-        }
-
-        .dh-date {
-            color: var(--color-muted);
-            font-size: 0.95rem;
-        }
-
-        .dh-count {
-            margin-left: auto;
-            background: var(--color-border);
-            padding: 0.3rem 0.7rem;
-            border-radius: 1rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .day-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .day-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        @media (max-width: 500px) {
-            .day-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Event Cards */
-        .event-card {
-            background: var(--color-border);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border-left: 4px solid var(--color-muted);
-        }
-
-        .event-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .event-name {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-meta {
-            color: var(--color-muted);
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-venue {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-price {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-price.free {
-            background: var(--color-free);
-            color: white;
-        }
-
-        .event-price.cheap-low {
-            background: var(--color-cheap-low);
-            color: #1f2937;
-        }
-
-        .event-price.cheap-mid {
-            background: var(--color-cheap-mid);
-            color: white;
-        }
-
-        .event-desc {
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .event-source {
-            font-size: 0.8rem;
-            color: var(--color-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .event-source a {
-            color: #3b82f6;
-            text-decoration: none;
-        }
-
-        .event-source a:hover {
-            text-decoration: underline;
-        }
-
-        .event-tags {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-
-        .event-tag {
-            display: inline-block;
-            padding: 0.25rem 0.6rem;
-            background: var(--color-muted);
-            color: white;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .event-tag.music { background: var(--cat-music); }
-        .event-tag.comedy { background: var(--cat-comedy); }
-        .event-tag.art { background: var(--cat-art); }
-        .event-tag.markets { background: var(--cat-markets); }
-        .event-tag.runs { background: var(--cat-runs); }
-        .event-tag.film { background: var(--cat-film); }
-        .event-tag.talks { background: var(--cat-talks); }
-        .event-tag.outdoors { background: var(--cat-outdoors); }
-        .event-tag.food { background: var(--cat-food); }
-        .event-tag.learning { background: var(--cat-learning); }
-        .event-tag.networking { background: var(--cat-networking); }
-        .event-tag.wellness { background: var(--cat-wellness); }
-        .event-tag.other { background: var(--cat-other); }
-
-        .williamsburg-badge {
-            display: inline-block;
-            background: var(--color-accent);
-            color: #1f2937;
-            padding: 0.2rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-left: 0.4rem;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* NBR Table */
-        .nbr-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--color-border);
-        }
-
-        .nbr-section h3 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .nbr-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        .nbr-table th,
-        .nbr-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .nbr-table th {
-            background: var(--color-border);
-            font-weight: 600;
-        }
-
-        .nbr-table tr.highlight {
-            background: rgba(34, 197, 94, 0.1);
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--color-border);
-            color: var(--color-muted);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        footer h4 {
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--color-primary);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NYC Free &amp; Cheap Events — Sep 16–20, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --bg2:#151922; --card:#1b2130; --card2:#212838; --line:#2a3142;
+  --tx:#e8ecf4; --mut:#98a2b8; --mut2:#6b7488; --accent:#f4b942; --accent2:#7c5cff;
+  --green:#16a34a; --greenbg:#0f2e1c; --yellow:#ca8a04; --yellowbg:#302607; --blue:#2563eb; --bluebg:#0e1e3d;
+  --wburg:#f4b942; --wburgbg:#2a2109;
+  --music:#a855f7; --comedy:#f97316; --art:#ec4899; --markets:#14b8a6; --runs:#22c55e; --film:#ef4444;
+  --talks:#3b82f6; --outdoors:#84cc16; --food:#f59e0b; --learning:#06b6d4; --networking:#8b5cf6; --wellness:#10b981; --other:#64748b;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+
+/* Header */
+header.top{background:linear-gradient(160deg,#1a1f2e 0%,#0f1115 70%);border-bottom:1px solid var(--line);padding:30px 0 26px}
+.title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(26px,4.5vw,42px);letter-spacing:-.5px;margin:0;line-height:1.05}
+.title .em{color:var(--accent)}
+.daterange{display:inline-block;margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(15px,2.4vw,20px);color:var(--tx);background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:5px 15px}
+.subtitle{color:var(--mut);margin-top:12px;font-size:15px;max-width:680px}
+.updated{color:var(--mut2);font-size:12.5px;margin-top:6px}
+.hdr-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.updbtn{flex:none;background:var(--accent);color:#1a1300;border:none;border-radius:10px;padding:11px 18px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter';box-shadow:0 2px 0 #b8842a;transition:transform .05s}
+.updbtn:hover{filter:brightness(1.05)}
+.updbtn:active{transform:translateY(1px);box-shadow:0 1px 0 #b8842a}
+
+/* Filters */
+.filters{position:sticky;top:0;z-index:50;background:rgba(15,17,21,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 0 12px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:7px 0}
+.frow.lbl::before{content:attr(data-l);color:var(--mut2);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-right:4px;min-width:64px}
+.search{flex:1;min-width:210px;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:10px 13px;font-size:15px;font-family:'Inter'}
+.search::placeholder{color:var(--mut2)}
+.count{font-size:13px;color:var(--mut);white-space:nowrap;font-weight:600}
+.count b{color:var(--accent);font-size:15px}
+.clearx{background:var(--card2);border:1px solid var(--line);color:var(--mut);border-radius:8px;width:34px;height:34px;font-size:16px;cursor:pointer;line-height:1}
+.clearbtn{background:transparent;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:7px 12px;font-size:12.5px;cursor:pointer;font-weight:600}
+.clearbtn:hover,.clearx:hover{border-color:var(--accent);color:var(--accent)}
+.chip{background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;font-weight:600;white-space:nowrap;transition:all .12s;user-select:none}
+.chip:hover{border-color:var(--mut)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#1a1300}
+.chip.cat.on{color:#fff}
+.chips-scroll{display:flex;flex-wrap:wrap;gap:7px}
+.srcwrap{max-height:76px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+
+/* Section head */
+.sec-h{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;margin:34px 0 4px;display:flex;align-items:center;gap:10px}
+.sec-sub{color:var(--mut2);font-size:13px;margin:0 0 14px}
+
+/* Williamsburg strip */
+.wburg-sec{background:linear-gradient(100deg,#241c05,#171922);border:1px solid #3a2f0c;border-radius:16px;padding:16px 4px 16px 18px;margin-top:22px}
+.wburg-h{display:flex;align-items:center;gap:9px;font-family:'Space Grotesk';font-weight:700;font-size:17px;color:var(--accent);margin:0 14px 12px 0}
+.wburg-h .star{font-size:19px}
+.wstrip{display:flex;gap:12px;overflow-x:auto;padding:2px 14px 8px 0;scroll-snap-type:x mandatory}
+.wstrip::-webkit-scrollbar{height:8px}
+.wstrip::-webkit-scrollbar-thumb{background:#3a2f0c;border-radius:8px}
+.wcard{flex:0 0 240px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 13px}
+.wcard .wc-n{font-weight:700;font-size:14px;line-height:1.25;margin-bottom:5px}
+.wcard .wc-m{color:var(--mut);font-size:12px;margin-bottom:3px}
+.wcard .wc-b{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* Museum box */
+.mus-sec{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-top:26px}
+.mus-h{font-family:'Space Grotesk';font-weight:700;font-size:17px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.mus-sub{color:var(--mut2);font-size:12.5px;margin:0 0 14px}
+.mus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.mus-item{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px 14px}
+.mus-item .mi-n{font-weight:700;font-size:14.5px;margin-bottom:5px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mus-item .mi-d{color:var(--mut);font-size:12.5px;line-height:1.4}
+.mi-tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.mi-tag.free{background:var(--greenbg);color:#4ade80;border:1px solid #1e5636}
+.mi-tag.no{background:#2a1414;color:#f87171;border:1px solid #5b2222}
+
+/* Day sections + grid */
+.day-section{margin-top:30px}
+.day-header{display:flex;align-items:baseline;gap:12px;padding:10px 0 4px;border-bottom:2px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
+.dh-name{font-family:'Space Grotesk';font-weight:700;font-size:23px;letter-spacing:-.3px}
+.dh-date{color:var(--mut);font-size:15px;font-weight:600}
+.dh-count{margin-left:auto;background:var(--card2);border:1px solid var(--line);color:var(--mut);font-size:12px;font-weight:700;padding:3px 11px;border-radius:999px}
+.day-header.ongoing{border-bottom-color:var(--accent2)}
+.day-header.ongoing .dh-name{color:var(--accent2)}
+.day-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.day-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.day-grid{grid-template-columns:1fr}}
+
+/* Event card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--other)}
+.card .c-n{font-weight:700;font-size:15.5px;line-height:1.25;padding-right:6px}
+.card .c-when{color:var(--mut);font-size:12.5px;font-weight:600}
+.card .c-where{color:var(--mut);font-size:12.5px}
+.card .c-where .hood{color:var(--mut2)}
+.card .c-desc{color:#c4ccdb;font-size:13px;line-height:1.4;margin-top:2px}
+.card .c-foot{margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.badge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;line-height:1.3}
+.badge.free{background:var(--greenbg);color:#4ade80;border:1px solid #1e5636}
+.badge.cheap{background:var(--yellowbg);color:#fbbf24;border:1px solid #5c4a0d}
+.badge.mid{background:var(--bluebg);color:#7da5ff;border:1px solid #1e3a6b}
+.badge.wburg{background:var(--wburgbg);color:var(--accent);border:1px solid #4d3d0d}
+.cat-chip{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;color:#fff;letter-spacing:.02em}
+.c-src{font-size:11.5px;color:var(--mut2)}
+.c-src a{color:var(--mut);text-decoration:none;border-bottom:1px dotted var(--mut2)}
+.c-src a:hover{color:var(--accent);border-color:var(--accent)}
+.noresult{color:var(--mut);text-align:center;padding:40px 0;font-size:15px}
+
+/* NBR runs */
+.nbr-sec{margin-top:34px;background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.nbr-h{font-family:'Space Grotesk';font-weight:700;font-size:17px;margin:0 0 3px}
+.nbr-note{color:var(--accent);font-size:12.5px;margin:0 0 12px;font-weight:600}
+.nbr-table{width:100%;border-collapse:collapse;font-size:13px}
+.nbr-table td{padding:7px 10px;border-bottom:1px solid var(--line);color:var(--mut)}
+.nbr-table tr td:first-child{color:var(--tx);font-weight:600;white-space:nowrap}
+.nbr-table tr td:last-child{text-align:right;color:var(--mut2);white-space:nowrap}
+.nbr-table tr.hl td{background:var(--greenbg);color:#dcfce7}
+.nbr-table tr.hl td:first-child{color:#86efac}
+.nbr-table tr.hl td:last-child{color:#4ade80}
+.nbr-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+@media(max-width:640px){.nbr-cols{grid-template-columns:1fr}}
+
+/* Footer */
+footer{margin:40px 0 60px;border-top:1px solid var(--line);padding-top:22px;color:var(--mut2);font-size:12.5px;line-height:1.6}
+footer h4{color:var(--mut);font-size:13px;margin:0 0 6px;font-weight:700}
+footer .ig{margin-top:14px;color:var(--mut)}
+footer code{background:var(--card2);padding:1px 6px;border-radius:5px;color:var(--accent);font-size:12px}
+
+/* Toast */
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:#0b0d12;border:1px solid var(--accent);color:var(--tx);padding:14px 20px;border-radius:12px;max-width:460px;font-size:13.5px;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:all .3s;z-index:200}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>NYC Events Digest</h1>
-            <div class="subtitle">Free & cheap events in New York • Williamsburg focus • Sept 2–6, 2026</div>
-            <div class="updated">Updated September 2, 2026</div>
-            <button class="update-btn" onclick="updateDigest()">↺ Update</button>
-        </header>
 
-        <!-- Filters -->
-        <div class="filters">
-            <div class="filter-row">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search events..." onkeyup="filterEvents()">
-                <div class="event-count" id="eventCount">Loading...</div>
-                <button class="clear-btn" onclick="clearFilters()">✕ Clear filters</button>
-            </div>
-
-            <div class="filter-row" id="dayFilters">
-                <span class="chip active" onclick="toggleDay(this, 'all')">All</span>
-                <span class="chip" onclick="toggleDay(this, 'wed')">Wednesday</span>
-                <span class="chip" onclick="toggleDay(this, 'thu')">Thursday</span>
-                <span class="chip" onclick="toggleDay(this, 'fri')">Friday</span>
-                <span class="chip" onclick="toggleDay(this, 'sat')">Saturday</span>
-                <span class="chip" onclick="toggleDay(this, 'sun')">Sunday</span>
-            </div>
-
-            <div class="filter-row" id="categoryFilters">
-                <span class="chip active" onclick="toggleCategory(this, 'all')">All</span>
-                <span class="chip" onclick="toggleCategory(this, 'music')">Music</span>
-                <span class="chip" onclick="toggleCategory(this, 'comedy')">Comedy</span>
-                <span class="chip" onclick="toggleCategory(this, 'art')">Art</span>
-                <span class="chip" onclick="toggleCategory(this, 'markets')">Markets</span>
-                <span class="chip" onclick="toggleCategory(this, 'runs')">Runs</span>
-                <span class="chip" onclick="toggleCategory(this, 'film')">Film</span>
-                <span class="chip" onclick="toggleCategory(this, 'talks')">Talks</span>
-                <span class="chip" onclick="toggleCategory(this, 'outdoors')">Outdoors</span>
-                <span class="chip" onclick="toggleCategory(this, 'food')">Food</span>
-                <span class="chip" onclick="toggleCategory(this, 'learning')">Learning</span>
-                <span class="chip" onclick="toggleCategory(this, 'networking')">Networking</span>
-                <span class="chip" onclick="toggleCategory(this, 'wellness')">Wellness</span>
-                <span class="chip" onclick="toggleCategory(this, 'other')">Other</span>
-            </div>
-
-            <div class="filter-row" id="sourceFilters"></div>
-        </div>
-
-        <!-- Williamsburg Strip -->
-        <div class="williamsburg-strip">
-            <div class="strip-title">⭐ Williamsburg & Local Spots</div>
-            <div class="strip-scroll" id="williamsburgStrip"></div>
-        </div>
-
-        <!-- Museum Free Nights -->
-        <div class="museum-box">
-            <h3>🎨 Museum Free Nights This Week</h3>
-            <div class="museum-item"><strong>Whitney Museum:</strong> Every Friday 5–10 PM (free, tickets required)</div>
-            <div class="museum-item"><strong>MoMA:</strong> Free admission for all (since Jan 2026)</div>
-            <div class="museum-item"><strong>Brooklyn Museum:</strong> No First Saturday in September</div>
-            <div class="museum-item"><strong>Metropolitan Opera HD Festival:</strong> Lincoln Center Plaza, free outdoor screenings Sept 2–7</div>
-        </div>
-
-        <!-- Events by Day -->
-        <div id="eventsContainer"></div>
-
-        <!-- NBR Table -->
-        <div class="nbr-section">
-            <h3>🏃 North Brooklyn Runners (NBR) Weekly Schedule</h3>
-            <table class="nbr-table">
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Time</th>
-                        <th>Run Name</th>
-                        <th>Distance</th>
-                        <th>Cost</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mon</td>
-                        <td>6:45 AM</td>
-                        <td>Morning Easy Run</td>
-                        <td>3–8 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Mon</td>
-                        <td>7:30 PM</td>
-                        <td>Night Easy Run</td>
-                        <td>3–8 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Wed</td>
-                        <td>7:00 PM</td>
-                        <td>Beginner Run</td>
-                        <td>2–5 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Wed</td>
-                        <td>7:30 PM</td>
-                        <td>Night Road Run</td>
-                        <td>4–10 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr class="highlight">
-                        <td>Fri (1st)</td>
-                        <td>7:30 AM</td>
-                        <td>Salmon Run</td>
-                        <td>5 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr class="highlight">
-                        <td>Fri (2nd)</td>
-                        <td>7:30 AM</td>
-                        <td>Donut Run</td>
-                        <td>5 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Fri (2nd)</td>
-                        <td>6:30 PM</td>
-                        <td>Brewery Run</td>
-                        <td>5 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Fri (3rd)</td>
-                        <td>6:00 PM</td>
-                        <td>Ice Cream Run</td>
-                        <td>4 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Fri (4th)</td>
-                        <td>7:30 AM</td>
-                        <td>Bagel Run</td>
-                        <td>5 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Sat</td>
-                        <td>9:00 AM</td>
-                        <td>Bridge & Coffee</td>
-                        <td>5 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Sat</td>
-                        <td>7:00 AM</td>
-                        <td>Long Run (Narwhals)</td>
-                        <td>8–15 mi</td>
-                        <td>Free</td>
-                    </tr>
-                    <tr>
-                        <td>Sun</td>
-                        <td>8:30 AM</td>
-                        <td>Funday Long Run</td>
-                        <td>8–15 mi</td>
-                        <td>Free</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Footer -->
-        <footer>
-            <h4>Sources & Access Notes</h4>
-            <p><strong>Free access sources:</strong> The Skint, NYC for FREE, Club Free Time, Field Notes NYC, Alex Feim Art Map, City Happenings, Secret NYC, One Fine Day NYC, Cool Stuff NYC</p>
-            <p><strong>Paywalled (not included):</strong> Bite The Apple, Blankman List (first week only), Found NY</p>
-            <p><strong>Follow on Instagram:</strong> @thekatieromero · @celinaprentiss · @nyc_forfree · @secretnyc · @nonsensenyc</p>
-            <p><strong>More info:</strong> North Brooklyn Runners: northbrooklynrunners.org · Rockaway Film Festival: rockawaytimes.com · Lincoln Center: lincolncenter.org</p>
-        </footer>
+<header class="top">
+  <div class="wrap">
+    <div class="hdr-row">
+      <div>
+        <h1 class="title">NYC <span class="em">Free &amp; Cheap</span> Events</h1>
+        <span class="daterange">Wed Sep 16 – Sun Sep 20, 2026</span>
+        <p class="subtitle">Free and under-$20 evenings and weekend picks across New York City, with a Williamsburg &amp; North Brooklyn focus. Deduplicated from ~40 sources.</p>
+        <p class="updated">Updated Sep 16, 2026 · America/New_York</p>
+      </div>
+      <button class="updbtn" onclick="doUpdate()">&#8635; Update</button>
     </div>
+  </div>
+</header>
 
-    <script>
-        // Event data compiled from all sources
-        const allEvents = [
-            // WEDNESDAY, SEPT 2
-            { id: 1, name: "Metropolitan Opera Summer HD Festival: Tristan und Isolde Act I", date: "Wed, Sep 2", time: "8:00 PM", venue: "Lincoln Center Plaza", neighborhood: "Upper West Side", price: "Free", category: "music", days: ["wed"], williamsburg: false, source: "Field Notes NYC / The Met", desc: "Free outdoor opera screening with ~2,500 first-come seats" },
-            { id: 2, name: "Verve's 70th Anniversary: Samara Joy & Christian McBride", date: "Wed, Sep 2", time: "7:00 PM", venue: "Rumsey Playfield, Central Park", neighborhood: "Midtown", price: "Free", category: "music", days: ["wed"], williamsburg: false, source: "Field Notes NYC", desc: "Jazz celebration with GRAMMY winners" },
-            { id: 3, name: "Book Talk: The Girl in the Green Dress", date: "Wed, Sep 2", time: "6:30 PM", venue: "P&T Knitwear", neighborhood: "Lower East Side", price: "$5", category: "talks", days: ["wed"], williamsburg: false, source: "City Happenings", desc: "Author Mariah Fredericks discusses Jazz Age novel" },
-            { id: 4, name: "Niú Lái Free Film Screening", date: "Wed, Sep 2", time: "7:00 PM", venue: "Seventh Heaven Bar & Karaoke", neighborhood: "Brooklyn", price: "Free", category: "film", days: ["wed"], williamsburg: false, source: "Field Notes NYC", desc: "Animated film from China about a brave cow" },
-            { id: 5, name: "Summerstage: Samara Joy", date: "Wed, Sep 2", time: "6:00 PM", venue: "Rumsey Playfield, Central Park", neighborhood: "Midtown", price: "Free", category: "music", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Free performance by jazz artist" },
-            { id: 6, name: "Doctors Without Boundaries Comedy", date: "Wed, Sep 2", time: "7:00 PM", venue: "Caveat, LES", neighborhood: "Lower East Side", price: "$13.61", category: "comedy", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Stand-up show with medical condition breakdowns" },
-            { id: 7, name: "We Have Fun: Stand-Up Show", date: "Wed, Sep 2", time: "7:30 PM", venue: "Young Ethel's", neighborhood: "South Slope, Brooklyn", price: "Free", category: "comedy", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Hosted by Zach Sims and Dan Wilbur" },
-            { id: 8, name: "Jazz in the Garden Opening Reception", date: "Wed, Sep 2", time: "5:00 PM", venue: "Various galleries", neighborhood: "Manhattan", price: "Free", category: "art", days: ["wed"], williamsburg: false, source: "Alex Feim / City Happenings", desc: "Gallery openings citywide" },
+<div class="filters">
+  <div class="wrap">
+    <div class="frow">
+      <input id="q" class="search" type="text" placeholder="Search events, venues, neighborhoods…" oninput="render()">
+      <button class="clearx" title="Clear search" onclick="document.getElementById('q').value='';render()">&times;</button>
+      <span class="count"><b id="cnt">0</b> events</span>
+      <button class="clearbtn" onclick="clearAll()">Clear filters</button>
+    </div>
+    <div class="frow lbl" data-l="Days"><div class="chips-scroll" id="dayChips"></div></div>
+    <div class="frow lbl" data-l="Type"><div class="chips-scroll" id="catChips"></div></div>
+    <div class="frow lbl" data-l="Source"><div class="chips-scroll srcwrap" id="srcChips"></div></div>
+  </div>
+</div>
 
-            // THURSDAY, SEPT 3
-            { id: 9, name: "NYC Unicycle Festival (Day 1)", date: "Thu, Sep 3", time: "All day", venue: "Multiple locations", neighborhood: "Jackson Heights/Citywide", price: "Free", category: "outdoors", days: ["thu","fri","sat","sun"], williamsburg: false, source: "Secret NYC", desc: "One-wheeled madness with rides, games, demonstrations" },
-            { id: 10, name: "Soft Strides: Anniversary Run Club", date: "Thu, Sep 3", time: "8:00 AM", venue: "Soft Bar Williamsburg", neighborhood: "Williamsburg", price: "Free", category: "runs", days: ["thu"], williamsburg: true, source: "NYC for FREE", desc: "Community run with post-run DJ and B-12 shots" },
-            { id: 11, name: "Jazz in the Garden", date: "Thu, Sep 3", time: "5:00 PM", venue: "With Others", neighborhood: "Williamsburg", price: "Free", category: "music", days: ["thu"], williamsburg: true, source: "City Happenings", desc: "Live jazz, small bites, wine in garden" },
-            { id: 12, name: "Writing on Raving: Word+Image Edition", date: "Thu, Sep 3", time: "7:00 PM", venue: "Bureau of General Services–Queer Division", neighborhood: "Greenwich Village", price: "$10", category: "talks", days: ["thu"], williamsburg: false, source: "Blankman List", desc: "Readings exploring rave culture paired with visual art" },
-            { id: 13, name: "The Rally Reading Series", date: "Thu, Sep 3", time: "7:00 PM", venue: "Pete's Candy Store", neighborhood: "Williamsburg", price: "Free", category: "talks", days: ["thu"], williamsburg: true, source: "The Skint", desc: "10th season opening with readings and discussion" },
-            { id: 14, name: "House Party Comedy", date: "Thu, Sep 3", time: "7:00 PM", venue: "House Party Cafe + Lounge", neighborhood: "Bushwick", price: "$10", category: "comedy", days: ["thu"], williamsburg: false, source: "The Skint", desc: "Stand-up by Sima Sepehri and Zubi Ahmed" },
-            { id: 15, name: "Bryant Park Picnic Performances", date: "Thu, Sep 3", time: "7:00 PM", venue: "Bryant Park", neighborhood: "Midtown", price: "Free", category: "music", days: ["thu"], williamsburg: false, source: "The Skint", desc: "Asian American Arts Alliance performances" },
-            { id: 16, name: "Gallery Openings Reception 6-8pm", date: "Thu, Sep 3", time: "6:00 PM", venue: "Multiple galleries", neighborhood: "Manhattan", price: "Free", category: "art", days: ["thu"], williamsburg: false, source: "Alex Feim Art Map", desc: "GOCA, DC Moore, Karma, Island, Picture Theory + more" },
+<div class="wrap">
 
-            // FRIDAY, SEPT 4
-            { id: 17, name: "Art of Failure Pop-Up", date: "Fri, Sep 4", time: "10:00 AM", venue: "22 Wooster Street", neighborhood: "SoHo", price: "Free", category: "art", days: ["fri"], williamsburg: false, source: "NYC for FREE", desc: "Immersive exploration of entrepreneur setbacks" },
-            { id: 18, name: "APPLE TV F1 Monza in Manhattan", date: "Fri, Sep 4", time: "12:00 PM", venue: "L'Industrie Pizzeria", neighborhood: "Little Italy", price: "Free", category: "food", days: ["fri"], williamsburg: false, source: "NYC for FREE", desc: "Limited-edition Monza menu, first 76 guests get free shirt" },
-            { id: 19, name: "First Friday at Poster House", date: "Fri, Sep 4", time: "10:00 AM", venue: "Poster House", neighborhood: "Flatiron", price: "Free", category: "art", days: ["fri"], williamsburg: false, source: "Field Notes NYC", desc: "Free all day with tours, workshops, performances" },
-            { id: 20, name: "Bodega Cats of New York Slideshow", date: "Fri, Sep 4", time: "7:00 PM", venue: "The City Reliquary", neighborhood: "Brooklyn", price: "Free", category: "talks", days: ["fri"], williamsburg: false, source: "Field Notes NYC", desc: "Documenting feline residents of corner stores" },
-            { id: 21, name: "Cake Zine: Closing Time", date: "Fri, Sep 4", time: "5:00 PM", venue: "The Glade at Little Island", neighborhood: "Meatpacking", price: "Free", category: "talks", days: ["fri"], williamsburg: false, source: "Field Notes NYC", desc: "Original reading series about NYC food scene" },
-            { id: 22, name: "Tale Storytelling Show", date: "Fri, Sep 4", time: "7:30 PM", venue: "The Red Room at KGB Bar", neighborhood: "East Village", price: "$10+", category: "comedy", days: ["fri"], williamsburg: false, source: "The Skint", desc: "Evening by NYC's best storytellers" },
-            { id: 23, name: "Dark Knight Screening", date: "Fri, Sep 4", time: "7:30 PM", venue: "MoMA", neighborhood: "Midtown", price: "Free", category: "film", days: ["fri"], williamsburg: false, source: "City Happenings", desc: "Film screening at the museum" },
-            { id: 24, name: "Free Brass Festival at Bryant Park", date: "Fri, Sep 4", time: "7:00 PM", venue: "Bryant Park", neighborhood: "Midtown", price: "Free", category: "music", days: ["fri"], williamsburg: false, source: "Secret NYC", desc: "First-ever festival headlined by New Breed Brass Band" },
-            { id: 25, name: "Comedy on the Patio at The Stand", date: "Fri, Sep 4", time: "5:00 PM", venue: "The Stand", neighborhood: "Union Square", price: "Free entry", category: "comedy", days: ["fri"], williamsburg: false, source: "Secret NYC", desc: "Funniest comedians under the stars, happy hour drinks" },
-            { id: 26, name: "KIKO Milano SoHo Grand Opening", date: "Fri, Sep 4", time: "10:00 AM", venue: "KIKO Milano SoHo", neighborhood: "SoHo", price: "Free", category: "other", days: ["fri","sat","sun"], williamsburg: false, source: "NYC for FREE", desc: "Free beauty products for first 500 guests, DJ programming" },
-            { id: 27, name: "Fenty Beauty Shade Match Up", date: "Fri, Sep 4", time: "10:00 AM", venue: "Sephora & Ulta Beauty", neighborhood: "Multiple", price: "Free", category: "other", days: ["fri","sat","sun"], williamsburg: false, source: "NYC for FREE", desc: "Shade matching with free samples and giveaways" },
-            { id: 28, name: "Sephora St. Marks Celebration", date: "Fri, Sep 4", time: "10:00 AM", venue: "Sephora St. Marks", neighborhood: "East Village", price: "Free", category: "other", days: ["fri","sat"], williamsburg: false, source: "NYC for FREE", desc: "Scratch cards for $2k in Sephora gift cards" },
-            { id: 29, name: "Gallery Openings Reception 6-8pm", date: "Fri, Sep 4", time: "6:00 PM", venue: "Multiple galleries", neighborhood: "Manhattan", price: "Free", category: "art", days: ["fri"], williamsburg: false, source: "Alex Feim Art Map", desc: "Apex Art, Claire Oliver, David Nolan, Fragment + more" },
+  <!-- Williamsburg strip -->
+  <div class="wburg-sec">
+    <div class="wburg-h"><span class="star">&#9733;</span> Williamsburg &amp; North Brooklyn</div>
+    <div class="wstrip" id="wstrip"></div>
+  </div>
 
-            // SATURDAY, SEPT 5
-            { id: 30, name: "Rockaway Film Festival (Full Run)", date: "Sat, Sep 5", time: "Various", venue: "Arverne Cinema", neighborhood: "Rockaway", price: "Free-$10", category: "film", days: ["wed","thu","fri","sat","sun"], williamsburg: false, source: "Rockaway Times", desc: "Independent films, shorts, live music, Q&A through Sept 6" },
-            { id: 31, name: "US Open Tennis Watch Parties", date: "Sat, Sep 5", time: "Various", venue: "Citywide", neighborhood: "Multiple", price: "Free", category: "outdoors", days: ["fri","sat","sun"], williamsburg: false, source: "Secret NYC", desc: "Watch parties of world-famous tournament" },
-            { id: 32, name: "The Woobles Pop-Up Shop", date: "Sat, Sep 5", time: "10:00 AM", venue: "291 Grand Street", neighborhood: "Chinatown", price: "Free", category: "other", days: ["fri","sat","sun"], williamsburg: false, source: "NYC for FREE", desc: "First 300 visitors daily get free $30 crochet kit" },
-            { id: 33, name: "Chris McCarthy Sextet at Smalls Jazz Club", date: "Sat, Sep 5", time: "9:00 PM", venue: "Smalls Jazz Club", neighborhood: "West Village", price: "$40+", category: "music", days: ["sat"], williamsburg: false, source: "Blankman List", desc: "Jazz ensemble with pianist-composer and vocalist" },
-            { id: 34, name: "Labor Day Bookstore Sale", date: "Sat, Sep 5", time: "All day", venue: "The Center for Fiction", neighborhood: "Fort Greene", price: "Free", category: "other", days: ["sat","sun"], williamsburg: false, source: "Field Notes NYC", desc: "Annual sale with 20-40% off books through Monday" },
-            { id: 35, name: "RU Open House Weekends", date: "Sat, Sep 5", time: "11:00 AM", venue: "RU House, Governors Island", neighborhood: "Governors Island", price: "Free", category: "art", days: ["sat"], williamsburg: false, source: "Field Notes NYC", desc: "View works by resident artists in studio settings" },
-            { id: 36, name: "Wild Inside Film", date: "Sat, Sep 5", time: "6:40 PM", venue: "Syndicated Bar Theater Kitchen", neighborhood: "Bushwick", price: "$10", category: "film", days: ["sat"], williamsburg: false, source: "Field Notes NYC", desc: "Documentary about Eurasian Eagle-Owl escape from Central Park Zoo" },
-            { id: 37, name: "Molière in the Park: Don Juan", date: "Sat, Sep 5", time: "7:00 PM", venue: "LeFrak Center, Prospect Park", neighborhood: "Prospect Park", price: "Free", category: "film", days: ["sat","sun"], williamsburg: false, source: "NYC for FREE", desc: "Free theater with three-actor ensemble and live cello" },
-            { id: 38, name: "Practical Magic 2 Coney Island Pop-UP", date: "Sat, Sep 5", time: "6:00 PM", venue: "Deno's Wonder Wheel", neighborhood: "Coney Island", price: "Free", category: "other", days: ["sat"], williamsburg: false, source: "NYC for FREE", desc: "Free admission, tarot readings, giveaways, fireworks 9:45pm" },
-            { id: 39, name: "New York Hysterical: Stand-Up Comedy", date: "Sat, Sep 5", time: "6:00 PM", venue: "New York Historical Society", neighborhood: "Upper West Side", price: "Free", category: "comedy", days: ["sat"], williamsburg: false, source: "Field Notes NYC", desc: "Stand-up hour with TV performers" },
-            { id: 40, name: "Pacsun x PLAY Palm Angels Launch", date: "Sat, Sep 5", time: "2:00 PM", venue: "Pacsun SoHo", neighborhood: "SoHo", price: "Free", category: "other", days: ["sat"], williamsburg: false, source: "NYC for FREE", desc: "Collection launch with matcha station and arcade giveaways" },
-            { id: 41, name: "Gallery Openings Reception 6-8pm", date: "Sat, Sep 5", time: "6:00 PM", venue: "Multiple galleries", neighborhood: "Manhattan", price: "Free", category: "art", days: ["sat"], williamsburg: false, source: "Alex Feim Art Map", desc: "AIR Gallery, Kaje, Open Source, Whitney, Kates-Ferri + more" },
+  <!-- Museum free nights -->
+  <div class="mus-sec">
+    <div class="mus-h">&#127963;&#65039; Museum Free Nights &amp; Pay-What-You-Wish</div>
+    <p class="mus-sub">Always-on ways into the big museums this week.</p>
+    <div class="mus-grid">
+      <div class="mus-item">
+        <div class="mi-n">Whitney <span class="mi-tag free">Fri free</span></div>
+        <div class="mi-d">Free Friday Nights — <b>Fri Sep 18, 5–10 pm</b>. Whole museum free; reserve free timed tickets (released Mondays 10 am).</div>
+      </div>
+      <div class="mus-item">
+        <div class="mi-n">MoMA <span class="mi-tag free">Fri free*</span></div>
+        <div class="mi-d">UNIQLO Free Friday Nights — <b>Fri Sep 18, 4–8 pm</b>. *Free for NY State residents; reserve about a week ahead.</div>
+      </div>
+      <div class="mus-item">
+        <div class="mi-n">Brooklyn Museum <span class="mi-tag no">not this wk</span></div>
+        <div class="mi-d">First Saturdays are free — but Sep 19 is the <b>third</b> Saturday. Next free First Saturday: <b>Oct 3</b>.</div>
+      </div>
+      <div class="mus-item">
+        <div class="mi-n">The Met <span class="mi-tag free">PWYW</span></div>
+        <div class="mi-d">Pay-what-you-wish <b>every day</b> for NY State residents and NY/NJ/CT students (bring ID).</div>
+      </div>
+    </div>
+  </div>
 
-            // SUNDAY, SEPT 6
-            { id: 42, name: "Metropolitan Opera Summer HD Festival", date: "Sun, Sep 6", time: "8:00 PM", venue: "Lincoln Center Plaza", neighborhood: "Upper West Side", price: "Free", category: "music", days: ["sun"], williamsburg: false, source: "The Met", desc: "Final screenings with 2,500 first-come seats" },
-            { id: 43, name: "NYC Unicycle Festival - Jackson Heights", date: "Sun, Sep 6", time: "12:00 PM", venue: "34th Ave, Jackson Heights", neighborhood: "Queens", price: "Free", category: "runs", days: ["sun"], williamsburg: false, source: "Field Notes NYC", desc: "World-class performers, mountain unicyclists, basketball" },
-            { id: 44, name: "Street Tree Care with Adamah", date: "Sun, Sep 6", time: "10:00 AM", venue: "Montgomery Street Trees", neighborhood: "Crown Heights", price: "Free", category: "wellness", days: ["sun"], williamsburg: false, source: "Blankman List", desc: "Volunteer environmental service for neighborhood trees" },
-            { id: 45, name: "El Funoun: Dabke Dance Presentation", date: "Sun, Sep 6", time: "12:00 PM", venue: "Arverne Cinema Courtyard", neighborhood: "Far Rockaway", price: "Free", category: "outdoors", days: ["sun"], williamsburg: false, source: "Blankman List", desc: "Palestinian dance company performing traditional dabke" },
-            { id: 46, name: "West Side County Fair", date: "Sun, Sep 6", time: "1:00 PM", venue: "Pier 1", neighborhood: "Upper West Side", price: "Free", category: "food", days: ["sun"], williamsburg: false, source: "NYC for FREE", desc: "County fair with live music, vendors, entertainment" },
-            { id: 47, name: "Poetry in the Garden", date: "Sun, Sep 6", time: "5:00 PM", venue: "Elizabeth Street Garden", neighborhood: "Nolita", price: "Free", category: "talks", days: ["sun"], williamsburg: false, source: "Field Notes NYC", desc: "Reading series with theme of 'glass'" },
-            { id: 48, name: "Chinatown Block Party", date: "Sun, Sep 6", time: "4:00 PM", venue: "Mott + Mosco Streets", neighborhood: "Chinatown", price: "Free", category: "food", days: ["sun"], williamsburg: false, source: "The Skint", desc: "Community celebration with food and entertainment" },
-            { id: 49, name: "Smorgasburg Caribbean Festival at Prospect Park", date: "Sun, Sep 6", time: "11:00 AM", venue: "Breeze Hill, Prospect Park", neighborhood: "Prospect Park", price: "Free", category: "food", days: ["sun"], williamsburg: false, source: "Secret NYC", desc: "Food, music, DJs, steel pan, Caribbean vendors, arts & crafts" },
-            { id: 50, name: "Brooklyn Bridge Park Boathouse Classical", date: "Sun, Sep 6", time: "2:00 PM", venue: "Brooklyn Bridge Park Boathouse", neighborhood: "Brooklyn Bridge Park", price: "Free", category: "music", days: ["sun"], williamsburg: false, source: "Secret NYC", desc: "David Shohl performs 13 Preludes and Fugues (world premiere)" },
-            { id: 51, name: "Gallery Openings Reception 6-8pm", date: "Sun, Sep 6", time: "6:00 PM", venue: "Multiple galleries", neighborhood: "Manhattan", price: "Free", category: "art", days: ["sun"], williamsburg: false, source: "Alex Feim Art Map", desc: "Incubator Studio, Kates-Ferri Projects, theNextWave + more" },
-            { id: 52, name: "West Indian Day Parade Preparations", date: "Sun, Sep 6", time: "All day", venue: "Crown Heights / Eastern Parkway", neighborhood: "Brooklyn", price: "Free", category: "outdoors", days: ["sun"], williamsburg: false, source: "Secret NYC", desc: "Festivities leading up to Monday's main parade" },
+  <!-- Main events -->
+  <div id="events"></div>
 
-            // Additional discovered events
-            { id: 53, name: "Maine Pop Up at Dilly Dally", date: "Thu-Sat, Sep 3-8", time: "All day", venue: "Dilly Dally", neighborhood: "Prospect Heights", price: "Food purchases", category: "food", days: ["thu","fri","sat"], williamsburg: false, source: "City Happenings", desc: "Week-long Maine celebration: lobster rolls, blueberry cakes" },
-            { id: 54, name: "The Serve: SharkNinja Pop-Up", date: "Sat-Sun, Sep 5-6", time: "12:00 PM", venue: "Grand Central Terminal", neighborhood: "Midtown", price: "Free", category: "other", days: ["sat","sun"], williamsburg: false, source: "NYC for FREE", desc: "Free hairstyling, skincare, Ninja AutoBarista samples" },
-            { id: 55, name: "Free Outdoor Movies Multiple Venues", date: "Wed-Sun, Sep 2-6", time: "Dusk", venue: "Various Parks", neighborhood: "Citywide", price: "Free", category: "film", days: ["wed","thu","fri","sat","sun"], williamsburg: false, source: "The Skint", desc: "Movies in parks citywide: Akeelah, In the Heights, When Harry Met Sally + more" },
-            { id: 56, name: "Infinite Good Times Movie Club: Demolition Man", date: "Wed, Sep 2", time: "6:30 PM", venue: "Lucky 13 Saloon at Gowanus Metal Bar", neighborhood: "Gowanus", price: "Free (suggested $5)", category: "film", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Screening of Demolition Man with pre-show trivia" },
-            { id: 57, name: "Yoga Club: Touching Grass Tour", date: "Wed, Sep 2", time: "6:30 PM", venue: "Prospect Park's Long Meadow", neighborhood: "Prospect Park", price: "Free", category: "wellness", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Free all-levels vinyasa session" },
-            { id: 58, name: "Our Bar Theatre at Fáilte", date: "Wed, Sep 2", time: "8:00 PM", venue: "Fáilte Bar + Restaurant", neighborhood: "Kips Bay", price: "$13", category: "other", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Original theater scenes at a real bar, theme: 'power'" },
-            { id: 59, name: "Improvised The Office at UCB", date: "Wed, Sep 2", time: "8:30 PM", venue: "UCB", neighborhood: "East Village", price: "$13", category: "comedy", days: ["wed"], williamsburg: false, source: "The Skint", desc: "Improvisers create live episode of The Office" },
-            { id: 60, name: "Charlie Parker Jazz Festival", date: "Fri-Sat, Sep 4-5", time: "Various", venue: "Marcus Garvey Park", neighborhood: "Harlem", price: "Free", category: "music", days: ["fri","sat"], williamsburg: false, source: "Summerstage", desc: "40th season Summerstage free performances" },
-            { id: 61, name: "BRIC Celebrate Brooklyn Festival", date: "Fri-Sat, Sep 4-5", time: "6:00 PM", venue: "Prospect Park Lena Horne Bandshell", neighborhood: "Prospect Park", price: "Free", category: "music", days: ["fri","sat"], williamsburg: false, source: "The Skint", desc: "Longest-running free outdoor performing arts festival" },
-            { id: 62, name: "Creative Mornings NYC", date: "Fri, Sep 4", time: "8:30 AM", venue: "Museum of Arts and Design", neighborhood: "Midtown", price: "Free", category: "learning", days: ["fri"], williamsburg: false, source: "CreativeMornings", desc: "Morning talks and breakfast event" },
-            { id: 63, name: "The Ninth Rockaway Film Festival", date: "Wed-Sun, Sep 2-6", time: "Various", venue: "Arverne Cinema", neighborhood: "Rockaway", price: "Free-$10", category: "film", days: ["wed","thu","fri","sat","sun"], williamsburg: false, source: "The Skint", desc: "Five days of indie films, shorts, live music, filmmaker Q&A" },
-        ];
+  <!-- NBR runs -->
+  <div class="nbr-sec">
+    <div class="nbr-h">&#127939; NBR Run Club — weekly schedule</div>
+    <p class="nbr-note">This week: Sep 18 is the <b>3rd Friday</b> &rarr; Ice Cream Run 6 pm. Runs falling within Sep 16–20 are highlighted.</p>
+    <div class="nbr-cols">
+      <table class="nbr-table" id="nbrA"></table>
+      <table class="nbr-table" id="nbrB"></table>
+    </div>
+  </div>
 
-        let filteredEvents = [...allEvents];
-        let activeFilters = { days: [], categories: [], search: '', sources: [] };
+  <footer>
+    <h4>Sources not reachable this run</h4>
+    <div><b>Paywalled / preview only:</b> warmly (calli), Next Stop: IRL, Cool Stuff NYC, Field Notes NYC (Fri–Sun portion), Bite The Apple (Katie Romero), Blankman List (Sep window behind paywall). &nbsp; <b>Email/invite only:</b> Nonsense NYC. &nbsp; <b>Paywalled:</b> Found NY (ny.itsfound.com). &nbsp; <b>Out of season:</b> Jane's Walk (May only), Secret Science Club (no Sept date), CreativeMornings BK (Sep 11, before window). &nbsp; <b>Skipped:</b> The Underground (SF-focused).</div>
+    <div style="margin-top:10px"><b>Notes:</b> The Skint had not posted a weekend edition yet (Fri–Sun drawn from other sources). NYPL calendar bot-blocked; only confirmable listings shown. Club Free Time hides exact venues behind a free membership login — such entries link back to Club Free Time for the address. Some ticketed shows over ~$20 were excluded.</div>
+    <div class="ig">Instagram accounts worth checking manually: <code>@thekatieromero</code> · <code>@celinaprentiss</code> · <code>@nyc_forfree</code> · <code>@secretnyc</code> · <code>@nonsensenyc</code></div>
+  </footer>
 
-        function getDateKey(date) {
-            if (date.includes("Wed")) return "wed";
-            if (date.includes("Thu")) return "thu";
-            if (date.includes("Fri")) return "fri";
-            if (date.includes("Sat")) return "sat";
-            if (date.includes("Sun")) return "sun";
-            return "other";
-        }
+</div>
 
-        function filterEvents() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            activeFilters.search = search;
+<div id="toast"></div>
 
-            filteredEvents = allEvents.filter(event => {
-                const matchSearch = search === '' ||
-                    event.name.toLowerCase().includes(search) ||
-                    event.desc.toLowerCase().includes(search) ||
-                    event.venue.toLowerCase().includes(search);
+<script>
+/* ============ DATA ============ */
+/* keys: n name, t time, v venue, h neighborhood, p price, tier(free|cheap|mid), d desc,
+   s source(primary, for chip), sa attribution(optional), u url, c category, days[], w williamsburg */
+var EVENTS = [
+/* --- WEDNESDAY Sep 16 --- */
+{n:"Pitch & Run",t:"7:30am",v:"Williamsburg meetup",h:"Williamsburg",p:"Free",tier:"free",d:"A free community run-club meetup to start the day.",s:"GM NYC",u:"https://www.gmnyc.com/",c:"runs",days:["wed"],w:true},
+{n:"Cynthia Sayer's Duelin' Banjos",t:"11:00am & 1:00pm",v:"Stanley H. Kaplan Penthouse, Lincoln Center",h:"Lincoln Center",p:"Free",tier:"free",d:"Award-winning banjo artists play a relaxed, dementia-friendly daytime concert.",s:"Lincoln Center",u:"https://www.lincolncenter.org/",c:"music",days:["wed"],w:false},
+{n:"Brooklyn Borough Hall Jazz",t:"12:00pm",v:"Columbus Park at Brooklyn Borough Hall",h:"Downtown Brooklyn",p:"Free",tier:"free",d:"Local jazz musicians play outdoors at midday via the Jazz Foundation of America.",s:"NYC Parks",u:"https://www.nycgovparks.org/events/concerts",c:"music",days:["wed"],w:false},
+{n:"The Shirley Chisholm Way Exhibit",t:"12:00pm",v:"Lefferts Historic House",h:"Prospect Park",p:"Free",tier:"free",d:"A free history exhibition on trailblazing Brooklyn congresswoman Shirley Chisholm.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"art",days:["wed"],w:false},
+{n:"Krave Beauty x Go Greek Launch",t:"4:00pm",v:"Go Greek Yogurt",h:"Williamsburg",p:"Free",tier:"free",d:"Pop-up launch with a limited-edition free beverage and gifts.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"food",days:["wed"],w:true},
+{n:"Gather Round: Let's Dance at Manhattan West",t:"5:00pm",v:"Manhattan West Plaza",h:"Midtown West",p:"Free",tier:"free",d:"Free weekly outdoor dance-and-music series with a live band and mambo social.",s:"The Skint",u:"https://www.theskint.com",c:"music",days:["wed"],w:false},
+{n:"Music for Enophiles (Brian Eno tribute)",t:"6:00pm",v:"Mercury Lounge",h:"Lower East Side",p:"$15",tier:"mid",d:"A band dedicated to Brian Eno's solo pop recordings performs.",s:"The Skint",u:"https://www.theskint.com",c:"music",days:["wed"],w:false},
+{n:"Joseph Yaeger: Agita (Opening)",t:"6:00pm",v:"Gladstone Gallery",h:"Chelsea",p:"Free",tier:"free",d:"Opening reception for a solo presentation by the contemporary painter.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["wed"],w:false},
+{n:"Gaetano Pesce & Anthea Hamilton (Openings)",t:"6:00pm",v:"Salon 94",h:"Upper East Side",p:"Free",tier:"free",d:"Twin openings pairing Pesce's design work with Hamilton's spatial installations.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["wed"],w:false},
+{n:"Ten Years of Fierman (Opening)",t:"6:00pm",v:"Fierman Gallery",h:"Lower East Side",p:"Free",tier:"free",d:"A gallery retrospective marking Fierman's tenth anniversary.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["wed"],w:false},
+{n:"Allie Tsubota & Azikiwe Mohammed (Openings)",t:"6:00pm",v:"Baxter St at the Camera Club of NY",h:"Chinatown",p:"Free",tier:"free",d:"Dual photography openings exploring memory, displacement and identity.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["wed"],w:false},
+{n:"Thucydides Fever Dream (Opening)",t:"6:00pm",v:"Hill Art Foundation",h:"Chelsea",p:"Free",tier:"free",d:"A conceptual group exhibition invoking historical and philosophical themes.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["wed"],w:false},
+{n:"Reimagining Mary Todd Lincoln",t:"6:30pm",v:"P+T Knitwear Bookstore + Cafe",h:"Lower East Side",p:"$10",tier:"cheap",d:"A journalist discusses her new biography of Mary Todd Lincoln with a panel.",s:"The Skint",u:"https://www.theskint.com",c:"talks",days:["wed"],w:false},
+{n:"Sunnyside Horror Society: Tribute to Tim Curry",t:"6:30pm",v:"Sanger Hall",h:"Sunnyside, Queens",p:"Free",tier:"free",d:"Marathon screening of the 1990 miniseries 'It' honoring Tim Curry.",s:"The Skint",u:"https://www.theskint.com",c:"film",days:["wed"],w:false},
+{n:"SNF Brain Insight Lecture: Finding Meaning in Memories",t:"6:30pm",v:"Jerome L. Greene Science Center (Columbia)",h:"Manhattanville",p:"Free",tier:"free",d:"A free Columbia lecture on how experience shapes memory and decision-making.",s:"Field Notes NYC",u:"https://fieldnotesnyc.substack.com/",c:"learning",days:["wed"],w:false},
+{n:"Notes to New Mothers",t:"7:00pm",v:"St. Ann's Church",h:"Brooklyn Heights",p:"$10",tier:"cheap",d:"Contributors including Jenny Slate discuss an anthology on early motherhood.",s:"The Skint",u:"https://www.theskint.com",c:"talks",days:["wed"],w:false},
+{n:"Adam Wade: Live in New York",t:"7:00pm",v:"Under St. Marks Theater",h:"East Village",p:"$5–15",tier:"cheap",d:"The 20-time Moth story-slam winner performs storytelling on a sliding scale.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["wed"],w:false},
+{n:"99 Minutes: Films of Haydee Caillot",t:"7:00pm",v:"Night Club 101",h:"East Village",p:"Donation",tier:"cheap",d:"A microcinema screening of films by the Eric Rohmer collaborator on love and chance.",s:"Field Notes NYC",u:"https://fieldnotesnyc.substack.com/",c:"film",days:["wed"],w:false},
+{n:"Open Decks w/ Steen and SilkyBlack",t:"7:00pm",v:"SILO Brooklyn",h:"East Williamsburg",p:"Free w/ RSVP",tier:"free",d:"A free open-decks night where local DJs trade sets.",s:"Dice.fm",u:"https://dice.fm/venue/silo-brooklyn-eb72",c:"music",days:["wed"],w:false},
+{n:"Sounds of the Americas: Outdoor Salsa Concert",t:"6:00pm",v:"The Plaza at 300 Ashland",h:"Fort Greene",p:"Free",tier:"free",d:"A free outdoor salsa concert with a dance lesson before the live band.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"music",days:["wed"],w:false},
+{n:"Trivia at Pete's Candy Store",t:"7:30pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free ($10 sugg.)",tier:"free",d:"Six rounds of pub trivia spanning general knowledge, music and visual ID.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"learning",days:["wed"],w:true},
+{n:"Emo Revival Book Talk",t:"8:00pm",v:"Book Club Bar",h:"Bushwick",p:"Free",tier:"free",d:"A discussion of a book tracing the emo scene's resurgence from 2008 to 2018.",s:"The Skint",u:"https://www.theskint.com",c:"talks",days:["wed"],w:false},
+{n:"Free Outdoor Movie: Oscar-Nominated Animated Shorts",t:"8:00pm",v:"Parklife",h:"Gowanus",p:"Free",tier:"free",d:"Outdoor screening of the 2026 Oscar-nominated animated shorts.",s:"The Skint",u:"https://www.theskint.com",c:"film",days:["wed"],w:false},
+{n:"Stargazing on Pier 1",t:"8:00pm",v:"Pier 1 Northern Promenade, Brooklyn Bridge Park",h:"Brooklyn Heights",p:"Free",tier:"free",d:"Amateur Astronomers Association telescopes set up for free planet viewing over the harbor.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"outdoors",days:["wed"],w:false},
+{n:"Hot Gossip Comedy Show",t:"8:30pm",v:"UCB",h:"East Village",p:"$10",tier:"cheap",d:"Stand-up featuring SNL and late-night TV performers.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["wed"],w:false},
+{n:"Hump Night Dance Party",t:"10:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A weekly midweek dance party with rotating DJs and cocktail specials.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"music",days:["wed"],w:true},
 
-                const matchDay = activeFilters.days.length === 0 ||
-                    activeFilters.days.some(d => event.days.includes(d));
+/* --- THURSDAY Sep 17 --- */
+{n:"Educators' After-Hours Evening (Open House Week)",t:"4:00–7:30pm",v:"NYPL Library for the Performing Arts",h:"Lincoln Center",p:"Free",tier:"free",d:"After-hours evening for teachers and librarians to explore classroom resources.",s:"NYPL",u:"https://www.nypl.org/locations/lpa",c:"learning",days:["thu"],w:false},
+{n:"Free Hours at the Waterfront Museum",t:"4:00pm",v:"Waterfront Museum (Barge No. 79)",h:"Red Hook",p:"Free",tier:"free",d:"Climb aboard and explore a restored 1914 wooden railroad barge during free evening hours.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"art",days:["thu"],w:false},
+{n:"Where We Gather Now (Art Opening)",t:"6:00pm",v:"2 Rivington Street",h:"Lower East Side",p:"Free",tier:"free",d:"Opening reception for South African photographer Lyall Aston's first NYC exhibition.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Louise Bourgeois: Germinal (Opening)",t:"6:00pm",v:"Craig Starr Gallery",h:"Upper East Side",p:"Free",tier:"free",d:"A retrospective featuring seminal works by the legendary artist.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Ugo Rondinone: waterfall (Opening)",t:"6:00pm",v:"Gladstone Gallery",h:"Chelsea",p:"Free",tier:"free",d:"Opening of an installation-based work exploring natural phenomena.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Wendell Castle: Living (Opening)",t:"6:00pm",v:"Friedman Benda",h:"Chelsea",p:"Free",tier:"free",d:"A retrospective of the influential furniture sculptor.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Emily Mae Smith & Ross Bleckner (Openings)",t:"6:00pm",v:"Petzel",h:"Chelsea",p:"Free",tier:"free",d:"Dual openings pairing Smith's 'Transit of Venus' with Bleckner's 'Octopus.'",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Pierre Soulages, Wangari Mathenge & Inma Barrero (Openings)",t:"6:00pm",v:"Levy Gorvy Dayan",h:"Upper East Side",p:"Free",tier:"free",d:"Three concurrent openings spanning works on paper, memory works and 'MOTHERS.'",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Jeffrey Gibson: The Animal That Therefore I Am",t:"6:00pm",v:"The Met (Genesis Facade)",h:"Upper East Side",p:"Free",tier:"free",d:"Opening of a Genesis Facade commission engaging Indigenous identity.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Mike Mignola: Circus of Bones (Opening)",t:"6:00pm",v:"Philippe Labaune Gallery",h:"Chelsea",p:"Free",tier:"free",d:"Opening of narrative, illustrative works by the Hellboy comics artist.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Ryan Flores: The Watchers (Opening + Talk)",t:"Talk 4pm; reception 6pm",v:"Greenwich House Pottery",h:"West Village",p:"Free",tier:"free",d:"Ceramic works on observation and surveillance, with an afternoon artist talk.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["thu"],w:false},
+{n:"Lessons + Lace: Stevie Nicks",t:"6:30pm",v:"P+T Knitwear Bookstore + Cafe",h:"Lower East Side",p:"$10",tier:"cheap",d:"A culture writer celebrates her Stevie Nicks book with a Rolling Stone editor.",s:"The Skint",u:"https://www.theskint.com",c:"talks",days:["thu"],w:false},
+{n:"Why We Create, and Don't Create",t:"6:30pm",v:"Index Chinatown",h:"Chinatown",p:"$15",tier:"mid",d:"A conversation examining creativity's origins and technology's impact on art.",s:"Field Notes NYC",u:"https://fieldnotesnyc.substack.com/",c:"talks",days:["thu"],w:false},
+{n:"Salon Creatives Vol. VII",t:"6:30pm",v:"Casa La Femme",h:"West Village",p:"Free",tier:"free",d:"A creative-community gathering for filmmakers, musicians, artists and writers.",s:"City Happenings",u:"https://cityhappenings.substack.com/",c:"networking",days:["thu"],w:false},
+{n:"Building the Future of NYC",t:"7:00pm",v:"Cooper Union Great Hall",h:"East Village",p:"Free",tier:"free",d:"A panel of policymakers and creatives on equitable urban planning.",s:"The Skint",sa:"The Skint / Field Notes NYC",u:"https://www.theskint.com",c:"talks",days:["thu"],w:false},
+{n:"Facts Machine: Science, Comedy + Trivia",t:"7:00pm",v:"Caveat",h:"Lower East Side",p:"$14",tier:"mid",d:"Scientists and comedians share facts and play games on a space-science theme.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["thu"],w:false},
+{n:"Connor Ratliff Presents: The Acting Class",t:"7:00pm",v:"UCB",h:"East Village",p:"$10",tier:"cheap",d:"A fully improvised comedy show disguised as an acting workshop.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["thu"],w:false},
+{n:"Gen Z vs Millennials Gameshow",t:"7:00pm",v:"Eris Mainstage",h:"East Williamsburg",p:"$12–17",tier:"mid",d:"Comic pairs compete in challenges to settle generational superiority.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["thu"],w:true},
+{n:"Free Outdoor Movie: Zoolander",t:"7:00pm",v:"North Oculus Plaza",h:"Financial District",p:"Free",tier:"free",d:"Free outdoor screening of the comedy.",s:"The Skint",u:"https://www.theskint.com",c:"film",days:["thu"],w:false},
+{n:"Shift Ctrl",t:"7:00pm",v:"Triple Canopy",h:"SoHo",p:"Free (RSVP)",tier:"free",d:"A discussion on organizing within the tech industry and worker advocacy.",s:"Field Notes NYC",u:"https://fieldnotesnyc.substack.com/",c:"talks",days:["thu"],w:false},
+{n:"Will Liverman: Songs of Humanity & Peace",t:"7:30pm",v:"David Rubenstein Atrium, Lincoln Center",h:"Lincoln Center",p:"Free",tier:"free",d:"Acclaimed opera singer-composer presents the NYC premiere of a song cycle.",s:"Lincoln Center",u:"https://www.lincolncenter.org/",c:"music",days:["thu"],w:false},
+{n:"Pete's Reading Series (Season 26 Kickoff)",t:"7:30pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"The long-running literary reading series kicks off its 26th season.",s:"Pete's Candy Store",sa:"The Skint / Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"talks",days:["thu"],w:true},
+{n:"Top Shelf Stories",t:"7:30pm",v:"UCB",h:"East Village",p:"$10",tier:"cheap",d:"An evening of crafted storytelling with multiple performers and an audience slot.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["thu"],w:false},
+{n:"Forest of Mononoke",t:"7:30pm",v:"The Ritual Division",h:"Gowanus",p:"$5–15",tier:"cheap",d:"An immersive installation of glowing acrylic sculptures with live performance, PWYW.",s:"The Skint",u:"https://www.theskint.com",c:"art",days:["thu"],w:false},
+{n:"The Hunger Games: Catching Fire Entirely from Memory",t:"8:00pm",v:"Littlefield",h:"Gowanus",p:"$12",tier:"mid",d:"Performers recreate the film on stage without scripts or rehearsals.",s:"The Skint",u:"https://www.theskint.com",c:"comedy",days:["thu"],w:false},
+{n:"Table Tennis Thursdays",t:"12:00pm",v:"Willoughby Plaza",h:"Downtown Brooklyn",p:"Free",tier:"free",d:"Free drop-in ping pong on the public plaza tables.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"other",days:["thu"],w:false},
+{n:"CookUnity: The Most Legendary Lunch Break",t:"11:30am",v:"Five Manhattan bodegas",h:"Manhattan (various)",p:"Free",tier:"free",d:"Award-winning chefs serve free gourmet lunches at bodega takeovers.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"food",days:["thu"],w:false},
+{n:"Demon Time (Improvised Sketch Comedy)",t:"8:30pm",v:"Eris Deep Space",h:"East Williamsburg",p:"Free",tier:"free",d:"A free weekly show of wild, all-new improvised sketches.",s:"Brooklyn Comedy Collective",u:"https://www.brooklyncc.com/show-schedule",c:"comedy",days:["thu"],w:true},
+{n:"Techno Thursday [Melodic2Hard]",t:"9:00pm",v:"SILO Brooklyn",h:"East Williamsburg",p:"Free w/ RSVP",tier:"free",d:"A main-room techno night moving from melodic techno into driving hard techno.",s:"Dice.fm",u:"https://dice.fm/venue/silo-brooklyn-eb72",c:"music",days:["thu"],w:false},
+{n:"Sweetooth Comedy",t:"9:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A free stand-up showcase with cash-prize giveaways.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"comedy",days:["thu"],w:true},
+{n:"Carly Rae Jepsen Album Release Party",t:"10:00pm",v:"C'mon Everybody",h:"Bed-Stuy",p:"$13",tier:"mid",d:"A drag tribute and listening party celebrating the new album.",s:"The Skint",u:"https://www.theskint.com",c:"music",days:["thu"],w:false},
 
-                const matchCategory = activeFilters.categories.length === 0 ||
-                    activeFilters.categories.includes(event.category);
+/* --- FRIDAY Sep 18 --- */
+{n:"¡VAYA! New Swing Sextet",t:"7:30pm",v:"David Rubenstein Atrium, Lincoln Center",h:"Lincoln Center",p:"Free",tier:"free",d:"The Grammy-nominated Latin swing band delivers salsa and Latin jazz.",s:"Lincoln Center",sa:"Lincoln Center / Club Free Time",u:"https://www.lincolncenter.org/",c:"music",days:["fri"],w:false},
+{n:"Piano in the Park: Bertha Hope",t:"12:30pm",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Jazz pianist and Dizzy Gillespie collaborator plays ragtime, stride and jazz outdoors.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["fri"],w:false},
+{n:"Dunkin' Refresher Truck",t:"2:30pm",v:"Pier 17, Seaport",h:"Financial District",p:"Free",tier:"free",d:"Free seasonal drinks and swag from a sampling truck.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"food",days:["fri"],w:false},
+{n:"300 Ashland Block Party: DJs Toribio & Mickey Perez",t:"5:00pm",v:"The Plaza at 300 Ashland",h:"Fort Greene",p:"Free",tier:"free",d:"A free outdoor set of block-party and park-jam music across global rhythms.",s:"NYC Parks",u:"https://www.nycgovparks.org/events/concerts",c:"music",days:["fri"],w:false},
+{n:"The DUMBO Pizza Party",t:"5:00pm",v:"DUMBO Archway",h:"DUMBO",p:"$2 slices",tier:"cheap",d:"A street party with $2 pizza slices, gelato, a photobooth and live music.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"food",days:["fri"],w:false},
+{n:"Numbskull Open Mic",t:"5:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"An open mic for stand-up, characters and comedic performances.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"comedy",days:["fri"],w:true},
+{n:"Movies With A View: How to Train Your Dragon",t:"6:00pm",v:"Pier 1 Harbor View Lawn, Brooklyn Bridge Park",h:"Brooklyn Heights",p:"Free",tier:"free",d:"A free outdoor screening with skyline views; movie starts at sunset.",s:"Brooklyn Bridge Park",sa:"Time Out NY / Brooklyn Bridge Park",u:"https://brooklynbridgepark.org/event/movies-with-a-view-september-18/",c:"film",days:["fri"],w:false},
+{n:"Artist Talk: Mike Cloud with Peter Halley",t:"6:00pm",v:"Thomas Erben Gallery",h:"Chelsea",p:"Free",tier:"free",d:"Painter Mike Cloud discusses his 'Suitcase Portraits' with artist Peter Halley.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"talks",days:["fri"],w:false},
+{n:"Emma McIntyre: This body holds / swamp stuff (Opening)",t:"6:00pm",v:"David Zwirner",h:"Chelsea",p:"Free",tier:"free",d:"Opening of bodily and ecological investigations in mixed media.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["fri"],w:false},
+{n:"Jordan Wolfson (Opening)",t:"6:00pm",v:"Gagosian",h:"Chelsea",p:"Free",tier:"free",d:"Opening of new multimedia works by the provocative contemporary artist.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["fri"],w:false},
+{n:"Taryn Simon: Father Country I Do Love You (Opening)",t:"6:00pm",v:"Guggenheim",h:"Upper East Side",p:"Free",tier:"free",d:"Opening of photography and archives examining nationalist ideology.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["fri"],w:false},
+{n:"Andrea Bowers & Kenneth Victor Young (Openings)",t:"6:00pm",v:"Andrew Kreps",h:"Tribeca",p:"Free",tier:"free",d:"Dual openings by socially engaged artist Andrea Bowers and Kenneth Victor Young.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["fri"],w:false},
+{n:"Milton Resnick: Earth, Elephant, and New Bride (Opening)",t:"6:00pm",v:"Resnick & Passlof Foundation",h:"Lower East Side",p:"Free",tier:"free",d:"An abstract-expressionist retrospective with a 'Three Material Views' group show.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["fri"],w:false},
+{n:"Aperture Loves New York (Opening)",t:"6:00pm",v:"Aperture",h:"Chelsea",p:"Free",tier:"free",d:"A photographic celebration of the urban environment.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["fri"],w:false},
+{n:"Book Design in the Age of Slop",t:"6:30pm",v:"AIGA, 300 Lafayette St",h:"SoHo",p:"$11+",tier:"mid",d:"Designers discuss thoughtful book design amid AI-generated content.",s:"City Happenings",u:"https://cityhappenings.substack.com/",c:"talks",days:["fri"],w:false},
+{n:"Kweendom LGBTQ Comedy",t:"7:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A free LGBTQ comedy showcase with donations for LGBTQ organizations.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"comedy",days:["fri"],w:true},
+{n:"Uptown Film Center: In the Heights",t:"7:30pm",v:"Riverside Park (north of W 96th St)",h:"Upper West Side",p:"Free",tier:"free",d:"A free outdoor screening of Lin-Manuel Miranda's musical.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"film",days:["fri"],w:false},
+{n:"Outdoor Movie at the Oculus",t:"7:00pm",v:"North Oculus Plaza",h:"Financial District",p:"Free",tier:"free",d:"A free family-friendly outdoor movie with special activations.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"film",days:["fri"],w:false},
+{n:"NBC100: A Century Together (Opening)",t:"12:00–6:00pm",v:"Paley Museum",h:"Midtown",p:"$16–20",tier:"mid",d:"A three-floor experience with 75+ costumes and artifacts from NBC's history.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"art",days:["fri"],w:false},
 
-                return matchSearch && matchDay && matchCategory;
-            });
+/* --- SATURDAY Sep 19 --- */
+{n:"Champs Run Club powered by New Balance",t:"8:00am",v:"10 Times Square",h:"Midtown",p:"Free",tier:"free",d:"A free community running event starting at the flagship store.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"runs",days:["sat"],w:false},
+{n:"Tatte Grand Opening",t:"8:00am",v:"315 Park Ave South",h:"Flatiron",p:"Free",tier:"free",d:"Cafe opening with complimentary matcha and pistachio lattes while supplies last.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"food",days:["sat","sun"],w:false},
+{n:"Waterfront Workouts: Saturday Yoga",t:"9:30am",v:"Pier 3 Plaza, Brooklyn Bridge Park",h:"Brooklyn Heights",p:"Free",tier:"free",d:"A free all-levels outdoor yoga class on the waterfront.",s:"Brooklyn Bridge Park",u:"https://brooklynbridgepark.org/event-series/waterfront-workouts/",c:"wellness",days:["sat"],w:false},
+{n:"Cafe Yaeji (Oatly pop-up)",t:"9:00am–3:00pm",v:"48 Ludlow St",h:"Lower East Side",p:"Free",tier:"free",d:"Free gochujang lattes in a Korean dabang-inspired cafe by artist Yaeji.",s:"NYC for FREE",sa:"NYC for FREE / No Sleep Club NYC",u:"https://www.nycforfree.co/events",c:"food",days:["sat","sun"],w:false},
+{n:"New York Transit Museum Bus Festival",t:"10:00am–3:30pm",v:"Emily Warren Roebling Plaza, Brooklyn Bridge Park",h:"DUMBO",p:"Free",tier:"free",d:"Climb aboard vintage buses from a century of NYC transit history, with all-ages activities.",s:"NY Transit Museum",sa:"NY Transit Museum / No Sleep Club",u:"https://www.nytransitmuseum.org/bus-festival/",c:"other",days:["sat"],w:false},
+{n:"Free Kayaking at the Boathouse",t:"10:00am",v:"Pier 2 Floating Dock, Brooklyn Bridge Park",h:"Brooklyn Heights",p:"Free",tier:"free",d:"Free 20-minute walk-up kayak paddles in the protected embayment.",s:"Brooklyn Bridge Park Boathouse",u:"https://www.bbpboathouse.org/",c:"outdoors",days:["sat"],w:false},
+{n:"Dance Fitness with Shape Up NYC",t:"10:00am",v:"Prospect Park Boathouse",h:"Prospect Park",p:"Free",tier:"free",d:"A free Zumba-style dance fitness class open to all levels.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"wellness",days:["sat"],w:false},
+{n:"Touch A Truck",t:"10:00am",v:"Clinton Ave (Myrtle to Willoughby)",h:"Clinton Hill",p:"Free",tier:"free",d:"Kids explore fire trucks, ambulances and buses and honk the horns.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"other",days:["sat"],w:false},
+{n:"Basketweaving with Nature",t:"10:00am",v:"Empire Fulton Ferry Lawn",h:"DUMBO",p:"Free",tier:"free",d:"A free hands-on workshop weaving a basket from natural materials.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"learning",days:["sat"],w:false},
+{n:"Carroll Park Fair",t:"10:00am",v:"Carroll Park (Smith to Court)",h:"Carroll Gardens",p:"Free",tier:"free",d:"An all-ages fair with face painting, kids' music and stalls of art, books and antiques.",s:"Brooklyn CB6",u:"https://brooklyncb6.cityofnewyork.us/",c:"markets",days:["sat"],w:false},
+{n:"Bollywood & Bhangra Dance Workshop on the Pier",t:"10:00am",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Ajna Dance Company leads an all-levels workshop inspired by South Asian music.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"learning",days:["sat"],w:false},
+{n:"Limon Dance Company Workshop in the Park",t:"10:00am",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Move to live accompaniment with dancers from the famed Limon Dance Company.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"learning",days:["sat"],w:false},
+{n:"Free Public Kayaking on the Hudson",t:"10:00am",v:"Hudson River public boathouse",h:"Hudson River waterfront",p:"Free",tier:"free",d:"A welcoming free public kayaking session with basic instruction and gear.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"outdoors",days:["sat","sun"],w:false},
+{n:"Music in the Garden",t:"10:30am",v:"The Amazing Garden (Columbia at Carroll)",h:"Carroll Gardens",p:"Free",tier:"free",d:"A free outdoor family music session in a community garden.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"music",days:["sat"],w:false},
+{n:"Coumba Samba: Stars and Stripes (Opening)",t:"10:30am–6:00pm",v:"Whitney Museum",h:"Meatpacking District",p:"Free (25 & under)",tier:"free",d:"First solo museum show of the Senegalese-American artist's site-specific installations.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"art",days:["sat"],w:false},
+{n:"Strand Day 2026 (Union Square)",t:"10:00am",v:"The Strand, 828 Broadway",h:"Union Square",p:"Free",tier:"free",d:"The Strand's 99th-anniversary celebration with signings, storytimes and a store discount.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"other",days:["sat"],w:false},
+{n:"Strand Day 2026 (Upper West Side)",t:"10:30am–3:00pm",v:"Strand kiosks, Columbus Ave & Broadway",h:"Upper West Side",p:"Free",tier:"free",d:"Face painting, balloon twisting and kids' storytimes at the Strand's uptown kiosks.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"other",days:["sat"],w:false},
+{n:"Bryant Park Crossword Tournament",t:"10:30am",v:"Bryant Park",h:"Midtown",p:"Free",tier:"free",d:"Compete in singles and pairs divisions on original puzzles by WSJ editor Mike Shenk.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"other",days:["sat"],w:false},
+{n:"Shinnecock Oral History Plant Tour",t:"11:00am",v:"Native Flora Garden, Brooklyn Botanic Garden",h:"Prospect Heights",p:"Free w/ adm. ($22)",tier:"free",d:"A Shinnecock Nation member shares traditional ecological knowledge of native plants.",s:"Brooklyn Botanic Garden",u:"https://www.bbg.org/visit/calendar",c:"outdoors",days:["sat"],w:false},
+{n:"Book Signing with Gabriella Stern",t:"11:00am",v:"Union Square Greenmarket",h:"Union Square",p:"Free",tier:"free",d:"Meet the author and get a signed copy of her recipe-card deck, The Soda Shoppe.",s:"GrowNYC",u:"https://grownyc.org/events/",c:"food",days:["sat"],w:false},
+{n:"PLAZAWORK 2026",t:"11:00am",v:"Hearst Plaza, Lincoln Center",h:"Lincoln Center",p:"Free",tier:"free",d:"A free outdoor performance responding to creative prompts.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"art",days:["sat"],w:false},
+{n:"Family Day at Hudson Yards",t:"11:00am",v:"Hudson Yards",h:"Midtown West",p:"Free",tier:"free",d:"A KIDZ BOP dance party, live magic show and concert for families.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"other",days:["sat"],w:false},
+{n:"Smorgasburg Williamsburg",t:"11:00am",v:"90 Kent Ave (East River State Park)",h:"Williamsburg",p:"Free entry",tier:"free",d:"The original open-air food market with 100+ vendors on the waterfront.",s:"Smorgasburg",u:"https://www.smorgasburg.com/",c:"food",days:["sat"],w:true},
+{n:"Brooklyn Flea Record Fair",t:"11:00am–6:00pm",v:"Smorgasburg, 90 Kent Ave",h:"Williamsburg",p:"Free entry",tier:"free",d:"40+ record and music-merch vendors with vinyl DJ sets.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"markets",days:["sat"],w:true},
+{n:"Croquet on the Field",t:"11:30am",v:"Flex Field, Domino Park",h:"Williamsburg",p:"Free",tier:"free",d:"Free first-come lawn croquet on the flat field at the waterfront park.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"outdoors",days:["sat"],w:true},
+{n:"German-American Steuben Parade",t:"12:00pm",v:"Fifth Avenue",h:"Midtown / UES",p:"Free",tier:"free",d:"One of the largest German-American cultural parades, with costumes and marching bands.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"other",days:["sat"],w:false},
+{n:"Free Canoeing on Newtown Creek",t:"12:00pm",v:"Manhattan Avenue Street End Park",h:"Greenpoint",p:"Free",tier:"free",d:"Free 20-minute guided canoe paddles with the North Brooklyn Community Boathouse.",s:"North Brooklyn Community Boathouse",u:"https://nbcboathouse.org/publicpaddle",c:"outdoors",days:["sat"],w:false},
+{n:"Art Is Alive Festival Block Party",t:"12:00pm",v:"Asase Yaa School of the Arts",h:"Bed-Stuy",p:"Free",tier:"free",d:"A weeklong arts festival culminates in a block party with dance, drumming and wellness.",s:"Time Out NY",u:"https://www.timeout.com/newyork",c:"music",days:["sat"],w:false},
+{n:"Vanderbilt Avenue Open Street",t:"12:00pm",v:"Vanderbilt Ave (Atlantic to Park Pl)",h:"Prospect Heights",p:"Free",tier:"free",d:"The last car-free Saturday of the season with open-air dining, vendors and activities.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"outdoors",days:["sat"],w:false},
+{n:"Make Your Own Cornhusk Doll",t:"12:00pm",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Learn cornhusk doll making with Mohawk artist Danielle Soames.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"learning",days:["sat"],w:false},
+{n:"Demons & Angels Art Market",t:"12:30–6:30pm",v:"Brooklyn Community Pride Center, 1561 Bedford Ave",h:"Crown Heights",p:"Free entry",tier:"free",d:"A local artist market with a photobooth, cosplay and raffles.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"markets",days:["sat"],w:false},
+{n:"Celebrate Pollinators: Monarchs, Bees & More",t:"12:30pm",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Nature walks, butterfly crafts and hands-on activities about monarch migration.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"outdoors",days:["sat"],w:false},
+{n:"Day of Art: Dark Laboratory",t:"11:00am",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Panels, exhibitions, films and workshops exploring climate and racial justice.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"talks",days:["sat"],w:false},
+{n:"Return of the Buffalo: Tatanka Owe Akupi",t:"2:00pm",v:"Procession to Brooklyn Bridge Park",h:"Downtown Brooklyn",p:"Free",tier:"free",d:"Fifty life-size buffalo puppets roam to the waterfront with music, poetry and ceremony (also Lower Manhattan Fri).",s:"St. Ann's Warehouse",sa:"St. Ann's Warehouse / Club Free Time",u:"https://stannswarehouse.org/",c:"art",days:["fri","sat"],w:false},
+{n:"High Line Plinth: Tuan Andrew Nguyen",t:"2:30–4:00pm",v:"The High Line",h:"Chelsea",p:"Free",tier:"free",d:"A public program celebrating the artist's new High Line Plinth commission.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"outdoors",days:["sat"],w:false},
+{n:"Roller Dance Social with Live DJ",t:"2:45pm",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"An outdoor roller-skating social with live DJs spinning tunes.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["sat","sun"],w:false},
+{n:"Pete's Mini Zine Fest",t:"2:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A free zine fest featuring 20+ local publishers and artists.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"art",days:["sat"],w:true},
+{n:"Sentient Earth Artist Roundtable",t:"3:00pm",v:"Amant",h:"East Williamsburg",p:"Free",tier:"free",d:"A panel with four artists on the 'Sentient Earth' exhibition.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"talks",days:["sat"],w:true},
+{n:"MOTHERSHIP EIGHT Dance & Music Festival",t:"3:00pm",v:"Richard Rodgers Amphitheater",h:"Harlem",p:"Free",tier:"free",d:"An interactive free voyage through music, community and dance traditions.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"music",days:["sat"],w:false},
+{n:"FAMChella on Fifth",t:"3:00pm",v:"5th Ave (68th to 81st)",h:"Bay Ridge",p:"Free",tier:"free",d:"A free family dance party with a bouncy house along Bay Ridge's Fifth Avenue.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"music",days:["sat"],w:false},
+{n:"Hurricane Maria Memorial: Poetry & Music",t:"3:00pm",v:"Nuyorican Poets Cafe (via Club Free Time)",h:"NYC",p:"Free",tier:"free",d:"Spoken word and live music followed by an open mic.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"talks",days:["sat"],w:false},
+{n:"Loose Lips Mic",t:"3:30pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A free comedy open mic for stand-up and storytelling.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"comedy",days:["sat"],w:true},
+{n:"Papi Juice: Party on the Waterfront",t:"4:00pm",v:"Waterfront (via Club Free Time)",h:"NYC",p:"Free",tier:"free",d:"The QTBIPOC DJ collective guest-curates a free waterfront dance party.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["sat"],w:false},
+{n:"Rooftop Films: In the Heights",t:"6:45pm",v:"Ferry Plaza Park, Brooklyn Army Terminal",h:"Sunset Park",p:"Free",tier:"free",d:"A free outdoor evening screening on the Sunset Park waterfront.",s:"Brooklyn Army Terminal",u:"https://brooklynarmyterminal.com/events",c:"film",days:["sat"],w:false},
+{n:"Tango Dancing in the Park",t:"6:00pm",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"An all-levels outdoor tango gathering with a casual atmosphere.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["sat"],w:false},
+{n:"NYC Slice + Pint Crawl Launch Party",t:"6:00–9:00pm",v:"Threes Brewing, 113 Franklin St",h:"Greenpoint",p:"Free",tier:"free",d:"Launch party for a pilsner brewed to pair with NY pizza, with food and a DJ set.",s:"City Happenings",u:"https://cityhappenings.substack.com/",c:"food",days:["sat"],w:false},
+{n:"Johanna Hedva: Gravity, My Favorite Enemy (Opening)",t:"6:00pm",v:"CARA",h:"West Village",p:"Free",tier:"free",d:"Opening exploring physical and metaphorical gravitational force.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["sat"],w:false},
+{n:"How We Work: Smack Mellon at 30 (Opening)",t:"6:00pm",v:"Smack Mellon",h:"DUMBO",p:"Free",tier:"free",d:"An institutional retrospective marking three decades of the Brooklyn nonprofit.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["sat"],w:false},
+{n:"SculptureCenter Fall Openings",t:"6:00pm",v:"SculptureCenter",h:"Long Island City",p:"Free",tier:"free",d:"Concurrent openings by Aziz Hazara, Yining Fei and Cevdet Erek.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["sat"],w:false},
+{n:"Mu Pan: Micro MUniverse (Opening)",t:"6:00pm",v:"Hashimoto Contemporary",h:"Lower East Side",p:"Free",tier:"free",d:"Opening of intricate, microcosmic visual explorations.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["sat"],w:false},
+{n:"Britton & The Sting: LOVE FIRE",t:"7:30pm",v:"David Rubenstein Atrium, Lincoln Center",h:"Lincoln Center",p:"Free",tier:"free",d:"An electro-soul collective makes its Lincoln Center debut turning a concert into ritual.",s:"Lincoln Center",sa:"Lincoln Center / Club Free Time",u:"https://www.lincolncenter.org/",c:"music",days:["sat"],w:false},
+{n:"Dos Flakos, Jeremy Giros, Bendito, Sunny Cheeba",t:"9:00pm",v:"Dead Letter No.9",h:"Williamsburg",p:"Free",tier:"free",d:"A free multi-DJ session closing out Dos Flakos' summer residency.",s:"Dice.fm",u:"https://dice.fm/",c:"music",days:["sat"],w:true},
+{n:"15th Annual Morningside Lights Procession",t:"8:00pm",v:"Morningside Park",h:"Morningside Heights",p:"Free",tier:"free",d:"A procession of handmade illuminated lanterns floats through the park.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"art",days:["sat"],w:false},
+{n:"Liminal Collective: Flow State",t:"11:30pm",v:"The Onyx Room, House of Yes",h:"Bushwick",p:"$21.63",tier:"mid",d:"Melodic techno and dark minimal with guest Capybaraz into the early hours.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"music",days:["sat"],w:false},
 
-            renderEvents();
-        }
+/* --- SUNDAY Sep 20 --- */
+{n:"Coffee Project NY Opening Party",t:"8:00am",v:"1219 First Ave",h:"Upper East Side",p:"Free",tier:"free",d:"Free coffee to celebrate the neighborhood cafe's opening.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"food",days:["sun"],w:false},
+{n:"What Lives in the East River?",t:"10:00am",v:"Pier 4 Beach, Brooklyn Bridge Park",h:"Brooklyn Heights",p:"Free",tier:"free",d:"Park educators haul a seine net through the shallows to reveal East River marine life.",s:"Brooklyn Bridge Parents",sa:"Brooklyn Bridge Parents / Club Free Time",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"outdoors",days:["sun"],w:false},
+{n:"Montague Street Open Streets + FAD Market",t:"10:00am",v:"Montague St (Clinton to Hicks)",h:"Brooklyn Heights",p:"Free",tier:"free",d:"Car-free Montague Street with a 60+ maker market and midday kids' programming.",s:"FAD Market",sa:"FAD Market / Brooklyn Bridge Parents",u:"https://fadmarket.co/open-streets-on-montague",c:"markets",days:["sun"],w:false},
+{n:"Downtown Connection Free Shuttle",t:"10:00am",v:"Lower Manhattan loop",h:"Financial District",p:"Free",tier:"free",d:"A free hop-on/hop-off shuttle past 30+ Lower Manhattan sights including the 9/11 Memorial.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"outdoors",days:["sun"],w:false},
+{n:"Intro to Capoeira",t:"11:00am",v:"Flex Field, Domino Park",h:"Williamsburg",p:"Free",tier:"free",d:"A free beginner Brazilian capoeira class on the Williamsburg waterfront.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"wellness",days:["sun"],w:true},
+{n:"ROTFEST 2026",t:"11:00am",v:"BK ROT Garden, 1309 Dekalb Ave",h:"Bushwick",p:"Free",tier:"free",d:"A free community arts festival with cyanotype, collage, origami and screen printing.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"art",days:["sun"],w:false},
+{n:"EcoArts Festival",t:"11:00am–4:00pm",v:"Colonels Row, Governors Island",h:"Governors Island",p:"Free",tier:"free",d:"Eco-themed dance, installations and papermaking and textile-reuse workshops.",s:"City Happenings",sa:"City Happenings / Brooklyn Bridge Parents",u:"https://cityhappenings.substack.com/",c:"art",days:["sun"],w:false},
+{n:"Smorgasburg Prospect Park",t:"11:00am",v:"Breeze Hill, Prospect Park",h:"Prospect Park",p:"Free entry",tier:"free",d:"The Sunday edition of the famed open-air food market inside the park.",s:"Prospect Park Alliance",u:"https://www.prospectpark.org/",c:"food",days:["sun"],w:false},
+{n:"CUFFH Block Party",t:"11:00am–3:00pm",v:"280 Starr St",h:"Bushwick",p:"Free (RSVP)",tier:"free",d:"A community celebration with shared meals, drinks, roller skating and art.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"outdoors",days:["sun"],w:false},
+{n:"Day of Performing & Visual Arts: Climate Week Kickoff",t:"11:00am",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"Artists across mediums reflect on climate change to launch Climate Week NYC.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"art",days:["sun"],w:false},
+{n:"An Afternoon of Rowing in New York Harbor",t:"12:00pm",v:"New York Harbor public boathouse",h:"NYC waterfront",p:"Free",tier:"free",d:"After a brief orientation, join a crew for free community rowing in the harbor.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"outdoors",days:["sun"],w:false},
+{n:"Pigeon Palooza",t:"1:00–6:00pm",v:"Leroy's Place, 353 7th Ave",h:"Park Slope",p:"Free",tier:"free",d:"A baby-pigeon-themed party with art, performers, drinks and costumes.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"other",days:["sun"],w:false},
+{n:"Slow Summer Reading Party",t:"1:00pm",v:"Liberty Lawn, Pier 6, Brooklyn Bridge Park",h:"Brooklyn Heights",p:"Free",tier:"free",d:"A waterfront reading party with live music and books to borrow.",s:"NYC for FREE",sa:"NYC for FREE / Brooklyn Bridge Parents",u:"https://www.nycforfree.co/events",c:"other",days:["sun"],w:false},
+{n:"Solar Gazing on the Pier",t:"1:00pm",v:"Pier (via Club Free Time)",h:"NYC waterfront",p:"Free",tier:"free",d:"The Amateur Astronomers Association brings solar telescopes for safe sun viewing.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"outdoors",days:["sun"],w:false},
+{n:"Alex Hitchcock: Jazz at an Arts Salon",t:"2:00pm",v:"Arts salon (via Club Free Time)",h:"NYC",p:"Free",tier:"free",d:"The acclaimed saxophonist plays an afternoon of contemporary jazz.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["sun"],w:false},
+{n:"Let the Music Play in the Park: Local Jazz",t:"2:00pm",v:"Details via Club Free Time",h:"NYC",p:"Free",tier:"free",d:"A free community jazz concert featuring local musicians and vocalists.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["sun"],w:false},
+{n:"Hot Dogs and Hot Queers: BBQ + Market",t:"2:00–6:00pm",v:"Ginger's Bar, 363 5th Ave",h:"Park Slope",p:"Free entry",tier:"free",d:"A BBQ and queer vendor-market celebration.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"markets",days:["sun"],w:false},
+{n:"Kalina Winters: Reflective Egg (Opening)",t:"2:00–6:00pm",v:"Marvin Gardens",h:"Ridgewood",p:"Free",tier:"free",d:"A Ridgewood artist-run space reopens with mirror and oval imagery.",s:"Alex Feim Art Map",u:"https://alexfeim.substack.com/",c:"art",days:["sun"],w:false},
+{n:"Storytelling with Tammy Hall",t:"3:00pm",v:"Lefferts Historic House",h:"Prospect Park",p:"Free",tier:"free",d:"Folktales followed by a community open mic at the historic house.",s:"Brooklyn Bridge Parents",u:"https://brooklynbridgeparents.com/free-kid-friendly-events-this-week-in-brooklyn-9-14-9-20/",c:"talks",days:["sun"],w:false},
+{n:"Creep Mic",t:"3:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A free comedy open mic for unconventional and alternative performers.",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"comedy",days:["sun"],w:true},
+{n:"Moliere in the Park: Don Juan",t:"3:00pm & 7:00pm",v:"LeFrak Center at Lakeside, Prospect Park",h:"Prospect Park",p:"Free",tier:"free",d:"A free professional outdoor staging of Moliere's Don Juan (also Fri 7pm).",s:"Prospect Park Alliance",sa:"Prospect Park Alliance / Club Free Time",u:"https://www.prospectpark.org/",c:"art",days:["fri","sun"],w:false},
+{n:"ABBA on the Beach",t:"4:00pm",v:"Coney Island beach",h:"Coney Island",p:"Free entry",tier:"free",d:"A summer-sendoff beach disco with an ABBA dress code.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"music",days:["sun"],w:false},
+{n:"Cecile McLorin Salvant at a Historic Church",t:"4:00pm",v:"Historic church (via Club Free Time)",h:"NYC",p:"Free",tier:"free",d:"The Grammy-winning vocalist weaves jazz, blues, cabaret and baroque.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"music",days:["sun"],w:false},
+{n:"An Evening of Poetry in the Garden",t:"5:00pm",v:"Garden (via Club Free Time, w/ McNally Jackson)",h:"NYC",p:"Free",tier:"free",d:"An outdoor poetry reading in partnership with McNally Jackson.",s:"Club Free Time",u:"https://www.clubfreetime.com/new-york-city-nyc/free-events-things-to-do/this-weekend",c:"talks",days:["sun"],w:false},
+{n:"Open Mic at Pete's Candy Store",t:"5:00pm",v:"Pete's Candy Store",h:"Williamsburg",p:"Free",tier:"free",d:"A free music open mic with a 25-year history (one-drink minimum to perform).",s:"Pete's Candy Store",u:"https://www.petescandystore.com/calendar",c:"music",days:["sun"],w:true},
+{n:"Twin Urn Burn: Closing Ceremony",t:"5:00pm",v:"Queens Botanical Garden",h:"Flushing",p:"$6",tier:"cheap",d:"A six-month public-art project concludes with a fall-equinox participatory ritual.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"art",days:["sun"],w:false},
+{n:"Yes Block Party",t:"12:00–6:00pm",v:"House of Yes",h:"Bushwick",p:"Free",tier:"free",d:"The tenth annual outdoor celebration with performances, art and dancing.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"music",days:["sun"],w:false},
+{n:"Festival of New Trumpet Music (FONT) — Final Night",t:"7:00pm",v:"Various NYC venues",h:"NYC (various)",p:"Free–$33",tier:"mid",d:"The festival's final night celebrates artists taking the trumpet in new directions.",s:"Time Out NY",u:"https://www.timeout.com/newyork",c:"music",days:["sun"],w:false},
 
-        function toggleDay(element, day) {
-            element.classList.toggle('active');
-            if (day === 'all') {
-                document.querySelectorAll('#dayFilters .chip').forEach(c => c.classList.remove('active'));
-                element.classList.add('active');
-                activeFilters.days = [];
-            } else {
-                document.querySelectorAll('#dayFilters .chip')[0].classList.remove('active');
-                if (activeFilters.days.includes(day)) {
-                    activeFilters.days = activeFilters.days.filter(d => d !== day);
-                } else {
-                    activeFilters.days.push(day);
-                }
-            }
-            filterEvents();
-        }
+/* --- MULTI-DAY (2–3 days) --- */
+{n:"TEMPTATIONS Cat Bodega",t:"12:00–6:00pm",v:"213 Bowery",h:"Nolita",p:"Free",tier:"free",d:"An immersive free pop-up styled as a bodega celebrating cats.",s:"No Sleep Club NYC",sa:"No Sleep Club / The Skint",u:"https://nosleepclubnyc.substack.com/",c:"other",days:["thu","fri","sat"],w:false},
+{n:"Illumination: Light Art Festival 2026",t:"7:00–11:00pm",v:"Robert F. Wagner Jr. Park",h:"Battery Park City",p:"Free",tier:"free",d:"Ten-plus large-scale light installations, projection mapping, DJs and performances.",s:"No Sleep Club NYC",sa:"No Sleep Club / The Skint",u:"https://nosleepclubnyc.substack.com/",c:"art",days:["thu","fri","sat"],w:false},
+{n:"Reservoir: Interdisciplinary Performance",t:"6:30pm",v:"Barnard Movement Lab",h:"Morningside Heights",p:"Free",tier:"free",d:"A part-lecture, part-performance work on Chile's water crisis (Thu–Fri).",s:"Time Out NY",u:"https://www.timeout.com/newyork",c:"art",days:["thu","fri"],w:false},
+{n:"Cj Hendry x Sulwhasoo: Secret Garden",t:"10:00am",v:"Brant Foundation Gallery",h:"East Village",p:"Free",tier:"free",d:"An immersive forest of flat-pack wooden sculpture inspired by a Seoul garden.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"art",days:["fri","sat","sun"],w:false},
+{n:"Tecovas Williamsburg Grand Opening",t:"11:00am",v:"89 N 6th St",h:"Williamsburg",p:"Free",tier:"free",d:"A Western-themed store opening with live music, drinks and freebies for early guests.",s:"NYC for FREE",u:"https://www.nycforfree.co/events",c:"other",days:["fri","sat","sun"],w:true},
+{n:"Sacred Splendor: Jewish Ritual Art & Christian Treasures",t:"11:00am–6:00pm",v:"Jewish Museum",h:"Upper East Side",p:"Free Sat",tier:"free",d:"Medieval to early-modern European sacred art in dialogue; free on Saturdays.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"art",days:["fri","sat","sun"],w:false},
+{n:"People in the City: Modern Portraits",t:"Gallery hours",v:"Mishkin Gallery, Baruch College",h:"Gramercy",p:"Free",tier:"free",d:"A free show of photography and prints depicting New Yorkers from 1929 to 1986.",s:"The Skint",u:"https://www.theskint.com",c:"art",days:["wed","thu","fri"],w:false},
+{n:"Brooklyn Flea",t:"10:00am",v:"Under the Manhattan Bridge Arch, 80 Pearl St",h:"DUMBO",p:"Free entry",tier:"free",d:"The long-running weekend flea of vintage, antiques and makers.",s:"Brooklyn Flea",u:"https://www.brooklynflea.com/",c:"markets",days:["sat","sun"],w:false},
+{n:"Family Bowl (No Cover)",t:"12:00pm",v:"Brooklyn Bowl",h:"Williamsburg",p:"Free (no cover)",tier:"free",d:"Free no-cover daytime access to the Williamsburg music-and-bowling venue.",s:"Brooklyn Bowl",u:"https://www.brooklynbowl.com/brooklyn/shows/all",c:"other",days:["sat","sun"],w:true},
+{n:"Fall Family Discovery Weekends",t:"10:30am–12:30pm",v:"Discovery Garden, Brooklyn Botanic Garden",h:"Prospect Heights",p:"Free w/ adm. ($22)",tier:"free",d:"A drop-in weekend program combining nature learning and play for families.",s:"Brooklyn Botanic Garden",u:"https://www.bbg.org/visit/calendar",c:"outdoors",days:["sat","sun"],w:false},
+{n:"Fall First Discoveries",t:"10:30am–12:30pm",v:"Discovery Garden, Brooklyn Botanic Garden",h:"Prospect Heights",p:"Free w/ adm. ($22)",tier:"free",d:"Drop-in program where toddlers pot plants, make crafts and explore nature.",s:"Brooklyn Botanic Garden",u:"https://www.bbg.org/visit/calendar",c:"outdoors",days:["wed","fri"],w:false},
+{n:"Free Kayaking with North Brooklyn Community Boathouse",t:"1:00pm",v:"Bushwick Inlet Park",h:"Williamsburg",p:"Free",tier:"free",d:"Free walk-up short kayak paddles off the Williamsburg waterfront, no registration.",s:"North Brooklyn Community Boathouse",u:"https://nbcboathouse.org/publicpaddle",c:"outdoors",days:["sat"],w:true},
 
-        function toggleCategory(element, category) {
-            element.classList.toggle('active');
-            if (category === 'all') {
-                document.querySelectorAll('#categoryFilters .chip').forEach(c => c.classList.remove('active'));
-                element.classList.add('active');
-                activeFilters.categories = [];
-            } else {
-                document.querySelectorAll('#categoryFilters .chip')[0].classList.remove('active');
-                if (activeFilters.categories.includes(category)) {
-                    activeFilters.categories = activeFilters.categories.filter(c => c !== category);
-                } else {
-                    activeFilters.categories.push(category);
-                }
-            }
-            filterEvents();
-        }
+/* --- ONGOING (4+ days) --- */
+{n:"Doll Dressing",t:"Museum hours (opening Wed 6pm)",v:"The Museum at FIT",h:"Chelsea",p:"Free",tier:"free",d:"Free exhibition exploring the relationship between dolls and fashion through 170+ objects.",s:"The Skint",sa:"The Skint / Alex Feim",u:"https://www.theskint.com",c:"art",days:["wed","thu","fri","sat","sun"],w:false},
+{n:"Cursed! The Power of Magic in the Ancient World",t:"Gallery hours",v:"Institute for the Study of the Ancient World (NYU)",h:"Upper East Side",p:"Free",tier:"free",d:"Free exhibition examining magic's role in ancient societies through ~50 artworks.",s:"The Skint",u:"https://www.theskint.com",c:"art",days:["thu","fri","sat","sun"],w:false},
+{n:"Feast of San Gennaro (100th Anniversary)",t:"Daily, midday–late",v:"Mulberry Street, Little Italy",h:"Little Italy",p:"Free entry",tier:"free",d:"Little Italy's historic street feast returns with food vendors, music and games.",s:"The Skint",sa:"The Skint / Marked",u:"https://www.theskint.com",c:"food",days:["thu","fri","sat","sun"],w:false},
+{n:"Tom Yum Week",t:"Various",v:"17+ Thai restaurants citywide",h:"Citywide",p:"Free entry",tier:"free",d:"Thai restaurants team up with artists to turn meals into installations through Sep 30.",s:"No Sleep Club NYC",u:"https://nosleepclubnyc.substack.com/",c:"food",days:["wed","thu","fri","sat","sun"],w:false},
+{n:"Juilliard Fall Festival",t:"Various",v:"The Juilliard School",h:"Lincoln Center",p:"Many free",tier:"free",d:"A multi-day festival of student music, dance and drama performances, many free.",s:"The Skint",u:"https://www.theskint.com",c:"music",days:["wed","thu","fri","sat","sun"],w:false},
+{n:"Yuen Woo-Ping Retrospective",t:"Various",v:"MoMA",h:"Midtown",p:"$14 ($10 students)",tier:"mid",d:"A film series spanning five decades of the martial-arts director's action choreography.",s:"The Skint",u:"https://www.theskint.com",c:"film",days:["thu","fri","sat","sun"],w:false},
+{n:"Pacific Island Film Festival",t:"Various",v:"Playwrights Horizons, Village East, AMC Lincoln Sq & more",h:"Manhattan (various)",p:"Some free",tier:"free",d:"Four days of films and events celebrating storytelling from across Oceania.",s:"City Happenings",u:"https://cityhappenings.substack.com/",c:"film",days:["thu","fri","sat","sun"],w:false},
+{n:"MoMA PS1 — Free Admission",t:"12:00–6:00pm (Thu–Mon)",v:"MoMA PS1",h:"Long Island City",p:"Free",tier:"free",d:"Free general admission to all visitors (free for everyone since Jan 1, 2026).",s:"MoMA PS1",u:"https://www.momaps1.org/en/calendar",c:"art",days:["thu","fri","sat","sun"],w:false},
+{n:"Brooklyn Botanic Garden: Seasonal Highlights Tour",t:"1:00–2:00pm daily",v:"Brooklyn Botanic Garden",h:"Prospect Heights",p:"Free w/ adm. ($22)",tier:"free",d:"Garden Guides lead a daily walk highlighting plants in peak fall bloom (free Fri before noon).",s:"Brooklyn Botanic Garden",u:"https://www.bbg.org/visit/calendar",c:"outdoors",days:["wed","thu","fri","sat","sun"],w:false},
+{n:"Best of Brooklyn Stand-Up Comedy",t:"Nightly (multiple showtimes)",v:"The Tiny Cupboard",h:"Bushwick",p:"$13.50–19.50",tier:"mid",d:"Nightly rooftop stand-up showcases featuring the best of Brooklyn's comedians.",s:"The Tiny Cupboard",u:"https://www.thetinycupboard.com/events",c:"comedy",days:["wed","thu","fri","sat","sun"],w:false}
+];
 
-        function clearFilters() {
-            document.getElementById('searchInput').value = '';
-            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('#dayFilters .chip')[0].classList.add('active');
-            document.querySelectorAll('#categoryFilters .chip')[0].classList.add('active');
-            activeFilters = { days: [], categories: [], search: '', sources: [] };
-            filterEvents();
-        }
+/* ============ CONFIG ============ */
+var CATCOLORS={music:"#a855f7",comedy:"#f97316",art:"#ec4899",markets:"#14b8a6",runs:"#22c55e",film:"#ef4444",talks:"#3b82f6",outdoors:"#84cc16",food:"#f59e0b",learning:"#06b6d4",networking:"#8b5cf6",wellness:"#10b981",other:"#64748b"};
+var DAYS=[["wed","Wednesday","Sep 16"],["thu","Thursday","Sep 17"],["fri","Friday","Sep 18"],["sat","Saturday","Sep 19"],["sun","Sunday","Sep 20"]];
+var CATORDER=["music","comedy","art","markets","runs","film","talks","outdoors","food","learning","networking","wellness","other"];
+var CATLABEL={music:"Music",comedy:"Comedy",art:"Art",markets:"Markets",runs:"Runs",film:"Film",talks:"Talks",outdoors:"Outdoors",food:"Food",learning:"Learning",networking:"Networking",wellness:"Wellness",other:"Other"};
+var DAYSHORT={wed:"Wed 9/16",thu:"Thu 9/17",fri:"Fri 9/18",sat:"Sat 9/19",sun:"Sun 9/20"};
 
-        function renderEvents() {
-            const container = document.getElementById('eventsContainer');
-            const days = ['wed', 'thu', 'fri', 'sat', 'sun'];
-            const dayNames = { wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
-            const dayDates = { wed: 'Sep 2', thu: 'Sep 3', fri: 'Sep 4', sat: 'Sep 5', sun: 'Sep 6' };
+/* ============ STATE ============ */
+var fDays=new Set(), fCats=new Set(), fSrcs=new Set();
 
-            let html = '';
-            const ongoingEvents = filteredEvents.filter(e => e.days.length >= 4);
+/* ============ HELPERS ============ */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function parseTime(t){
+  var s=(t||"").toLowerCase();
+  if(s.indexOf("all day")>-1||s.indexOf("gallery")>-1||s.indexOf("museum hours")>-1||s.indexOf("nightly")>-1||s.indexOf("various")>-1||s.indexOf("daily")>-1) return -5;
+  var m=s.match(/(\d{1,2})(?::(\d{2}))?\s*(a|p)\.?\s*m/);
+  if(!m) return 9999;
+  var h=parseInt(m[1],10); var min=m[2]?parseInt(m[2],10):0;
+  if(m[3]==="p"&&h!==12) h+=12; if(m[3]==="a"&&h===12) h=0;
+  return h*60+min;
+}
+function tierLabel(ev){return ev.p;}
+function baseMatch(ev){
+  var q=document.getElementById("q").value.trim().toLowerCase();
+  if(q){var hay=(ev.n+" "+ev.v+" "+ev.h+" "+ev.d+" "+ev.c+" "+ev.s).toLowerCase(); if(hay.indexOf(q)<0) return false;}
+  if(fCats.size && !fCats.has(ev.c)) return false;
+  if(fSrcs.size && !fSrcs.has(ev.s)) return false;
+  return true;
+}
+function dayMatch(ev){
+  if(fDays.size===0) return true;
+  for(var i=0;i<ev.days.length;i++){ if(fDays.has(ev.days[i])) return true; }
+  return false;
+}
+function isOngoing(ev){return ev.days.length>=4;}
 
-            // Render events by day
-            days.forEach(day => {
-                const dayEvents = filteredEvents.filter(e => e.days.includes(day) && e.days.length < 4);
-                if (dayEvents.length > 0) {
-                    html += `<div class="day-section">
-                        <div class="day-header">
-                            <span class="dh-name">${dayNames[day]}</span>
-                            <span class="dh-date">${dayDates[day]}</span>
-                            <span class="dh-count">${dayEvents.length}</span>
-                        </div>
-                        <div class="day-grid">
-                            ${dayEvents.map(e => renderEventCard(e)).join('')}
-                        </div>
-                    </div>`;
-                }
-            });
+/* ============ RENDER: chips ============ */
+function buildChips(){
+  var dc=document.getElementById("dayChips");
+  var h='<span class="chip'+(fDays.size===0?' on':'')+'" onclick="setDay(null)">All</span>';
+  DAYS.forEach(function(d){ h+='<span class="chip'+(fDays.has(d[0])?' on':'')+'" onclick="setDay(\''+d[0]+'\')">'+DAYSHORT[d[0]]+'</span>'; });
+  dc.innerHTML=h;
 
-            // Render ongoing events
-            if (ongoingEvents.length > 0) {
-                html += `<div class="day-section">
-                    <div class="day-header ongoing">
-                        <span class="dh-name">Ongoing</span>
-                        <span class="dh-count">${ongoingEvents.length}</span>
-                    </div>
-                    <div class="day-grid">
-                        ${ongoingEvents.map(e => renderEventCard(e)).join('')}
-                    </div>
-                </div>`;
-            }
+  var cc=document.getElementById("catChips");
+  var ch='<span class="chip'+(fCats.size===0?' on':'')+'" onclick="setCat(null)">All</span>';
+  CATORDER.forEach(function(c){
+    var on=fCats.has(c);
+    var st=on?' style="background:'+CATCOLORS[c]+';border-color:'+CATCOLORS[c]+';color:#fff"':'';
+    ch+='<span class="chip cat'+(on?' on':'')+'"'+st+' onclick="setCat(\''+c+'\')">'+CATLABEL[c]+'</span>';
+  });
+  cc.innerHTML=ch;
 
-            container.innerHTML = html;
-            updateEventCount();
-            renderWilliamsburgStrip();
-        }
+  var srcs={}; EVENTS.forEach(function(e){srcs[e.s]=1;});
+  var list=Object.keys(srcs).sort(function(a,b){return a.toLowerCase()<b.toLowerCase()?-1:1;});
+  var sc=document.getElementById("srcChips");
+  var sh='<span class="chip'+(fSrcs.size===0?' on':'')+'" onclick="setSrc(null)">All</span>';
+  list.forEach(function(s){ sh+='<span class="chip'+(fSrcs.has(s)?' on':'')+'" onclick="setSrc(\''+s.replace(/'/g,"\\'")+'\')">'+esc(s)+'</span>'; });
+  sc.innerHTML=sh;
+}
+function setDay(d){ if(d===null){fDays.clear();} else { if(fDays.has(d))fDays.delete(d); else fDays.add(d);} render(); }
+function setCat(c){ if(c===null){fCats.clear();} else { if(fCats.has(c))fCats.delete(c); else fCats.add(c);} render(); }
+function setSrc(s){ if(s===null){fSrcs.clear();} else { if(fSrcs.has(s))fSrcs.delete(s); else fSrcs.add(s);} render(); }
+function clearAll(){ fDays.clear();fCats.clear();fSrcs.clear();document.getElementById("q").value="";render(); }
 
-        function renderEventCard(event) {
-            const priceClass = event.price === 'Free' ? 'free' : event.price.includes('$5') || event.price.includes('$10') || event.price.includes('$1') ? 'cheap-low' : 'cheap-mid';
-            return `<div class="event-card">
-                <div class="event-name">${event.name}</div>
-                <div class="event-meta">${event.date} at ${event.time}</div>
-                <div class="event-venue">${event.venue}${event.neighborhood ? ` • ${event.neighborhood}` : ''}</div>
-                <span class="event-price ${priceClass}">${event.price}${event.williamsburg ? '<span class="williamsburg-badge">★ WBURG</span>' : ''}</span>
-                <div class="event-desc">${event.desc}</div>
-                <div class="event-source"><a href="#">${event.source}</a></div>
-                <div class="event-tags">
-                    <span class="event-tag ${event.category}">${event.category}</span>
-                </div>
-            </div>`;
-        }
+/* ============ RENDER: cards ============ */
+function cardHTML(ev){
+  var acc=CATCOLORS[ev.c]||"#64748b";
+  var star=ev.w?'<span class="badge wburg">&#9733; Wburg</span>':'';
+  var attr=ev.sa?ev.sa:ev.s;
+  var h='<div class="card" style="">';
+  h+='<div class="c-n">'+esc(ev.n)+'</div>';
+  h+='<div class="c-when">'+esc(ev.t)+'</div>';
+  h+='<div class="c-where">'+esc(ev.v)+' <span class="hood">· '+esc(ev.h)+'</span></div>';
+  h+='<div class="c-desc">'+esc(ev.d)+'</div>';
+  h+='<div class="c-foot">';
+  h+='<span class="badge '+ev.tier+'">'+esc(ev.p)+'</span>';
+  h+='<span class="cat-chip" style="background:'+acc+'">'+CATLABEL[ev.c]+'</span>';
+  h+=star;
+  h+='<span class="c-src">via <a href="'+esc(ev.u)+'" target="_blank" rel="noopener">'+esc(attr)+'</a></span>';
+  h+='</div></div>';
+  // colored left rail
+  return h.replace('<div class="card" style="">','<div class="card" style="--rail:'+acc+'"><span style="position:absolute;left:0;top:0;bottom:0;width:4px;background:'+acc+'"></span>');
+}
+function sortEv(a,b){var ta=parseTime(a.t),tb=parseTime(b.t); if(ta!==tb)return ta-tb; return a.n<b.n?-1:1;}
 
-        function updateEventCount() {
-            document.getElementById('eventCount').textContent = `${filteredEvents.length} events`;
-        }
+function render(){
+  buildChips();
+  var visibleUnique=EVENTS.filter(function(e){return baseMatch(e)&&dayMatch(e);});
+  document.getElementById("cnt").textContent=visibleUnique.length;
 
-        function renderWilliamsburgStrip() {
-            const wburgEvents = filteredEvents.filter(e => e.williamsburg);
-            const strip = document.getElementById('williamsburgStrip');
-            strip.innerHTML = wburgEvents.slice(0, 12).map(e =>
-                `<div class="strip-card">
-                    <div class="strip-card-name">${e.name}</div>
-                    <div class="strip-card-meta">${e.date} • ${e.price}</div>
-                </div>`
-            ).join('');
-        }
+  // Williamsburg strip
+  var wb=visibleUnique.filter(function(e){return e.w;}).sort(sortEv);
+  var ws=document.getElementById("wstrip");
+  if(wb.length===0){ ws.innerHTML='<div style="color:var(--mut2);font-size:13px;padding:6px 0">No Williamsburg events match the current filters.</div>'; }
+  else{
+    ws.innerHTML=wb.map(function(ev){
+      var acc=CATCOLORS[ev.c]||"#64748b";
+      return '<div class="wcard"><div class="wc-n">'+esc(ev.n)+'</div>'+
+        '<div class="wc-m">'+esc(dayLabel(ev)+' · '+ev.t)+'</div>'+
+        '<div class="wc-m">'+esc(ev.v)+'</div>'+
+        '<div class="wc-b"><span class="badge '+ev.tier+'">'+esc(ev.p)+'</span>'+
+        '<span class="cat-chip" style="background:'+acc+'">'+CATLABEL[ev.c]+'</span></div></div>';
+    }).join("");
+  }
 
-        function updateDigest() {
-            alert("Launching updater... a terminal window will open and refresh the digest (5–10 min). Then reload this page.");
-            window.location.href = 'claude-digest://update';
-        }
+  // Day sections
+  var out="";
+  DAYS.forEach(function(d){
+    if(fDays.size>0 && !fDays.has(d[0])) return;
+    var cards=EVENTS.filter(function(e){return baseMatch(e)&&!isOngoing(e)&&e.days.indexOf(d[0])>-1;}).sort(sortEv);
+    if(cards.length===0) return;
+    out+='<div class="day-section"><div class="day-header"><span class="dh-name">'+d[1]+'</span>'+
+      '<span class="dh-date">'+d[2]+'</span><span class="dh-count">'+cards.length+' event'+(cards.length>1?'s':'')+'</span></div>'+
+      '<div class="day-grid">'+cards.map(cardHTML).join("")+'</div></div>';
+  });
 
-        // Initial render
-        window.addEventListener('load', () => {
-            renderEvents();
-        });
-    </script>
+  // Ongoing
+  var ong=EVENTS.filter(function(e){return baseMatch(e)&&isOngoing(e)&&dayMatch(e);}).sort(sortEv);
+  if(ong.length>0){
+    out+='<div class="day-section"><div class="day-header ongoing"><span class="dh-name">Ongoing / All Week</span>'+
+      '<span class="dh-date">Wed–Sun</span><span class="dh-count">'+ong.length+' event'+(ong.length>1?'s':'')+'</span></div>'+
+      '<div class="day-grid">'+ong.map(cardHTML).join("")+'</div></div>';
+  }
+
+  if(out===""){ out='<div class="noresult">No events match your filters. Try clearing some.</div>'; }
+  document.getElementById("events").innerHTML=out;
+}
+function dayLabel(ev){
+  if(isOngoing(ev)) return "All week";
+  var labels=ev.days.map(function(d){return d.charAt(0).toUpperCase()+d.slice(1);});
+  return labels.join("/");
+}
+
+/* ============ NBR runs ============ */
+function buildNBR(){
+  // Sep 18 2026 is the 3rd Friday. Highlight runs within Sep 16-20 (Wed-Sun).
+  var A=[
+    ["Mon Morning Easy","6:45am",false],
+    ["Mon Night Easy","7:30pm",false],
+    ["Wed Beginner","7:00pm",true],
+    ["Wed Night Road","7:30pm",true],
+    ["1st Fri Salmon Run","7:30am",false],
+    ["2nd Fri Donut Run","7:30am",false]
+  ];
+  var B=[
+    ["2nd Fri Brewery Run","6:30pm",false],
+    ["3rd Fri Ice Cream Run","6:00pm",true],
+    ["4th Fri Bagel Run","7:30am",false],
+    ["Sat Bridge & Coffee","9:00am",true],
+    ["Sat Long Run (Narwhals)","7:00am",true],
+    ["Sun Funday Long Run","8:30am",true]
+  ];
+  function rows(arr){return arr.map(function(r){return '<tr class="'+(r[2]?'hl':'')+'"><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>';}).join("");}
+  document.getElementById("nbrA").innerHTML=rows(A);
+  document.getElementById("nbrB").innerHTML=rows(B);
+}
+
+/* ============ Update button ============ */
+function doUpdate(){
+  try{ window.location.href='claude-digest://update'; }catch(e){}
+  showToast("Launching updater… a terminal window will open and refresh the digest (5–10 min). Then reload this page.");
+}
+function showToast(msg){
+  var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show");},7000);
+}
+
+/* ============ INIT ============ */
+buildNBR();
+render();
+</script>
 </body>
 </html>
