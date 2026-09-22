@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NYC Events Digest — Sept 22-25, 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --text: #1f2937;
@@ -13,8 +13,6 @@
             --bg-alt: #f9fafb;
             --border: #e5e7eb;
             --accent: #3b82f6;
-            --chip-bg: #f3f4f6;
-            --chip-hover: #e5e7eb;
             --williamsburg: #f59e0b;
             --free: #10b981;
             --budget: #f59e0b;
@@ -22,12 +20,12 @@
             --music: #a855f7;
             --comedy: #f97316;
             --art: #ec4899;
-            --markets: #14b8a6;
-            --runs: #22c55e;
+            --dance: #a855f7;
+            --food: #f59e0b;
             --film: #ef4444;
             --talks: #3b82f6;
+            --runs: #22c55e;
             --outdoors: #84cc16;
-            --food: #f59e0b;
             --learning: #06b6d4;
             --networking: #8b5cf6;
             --wellness: #10b981;
@@ -41,8 +39,6 @@
                 --bg: #111827;
                 --bg-alt: #1f2937;
                 --border: #374151;
-                --chip-bg: #374151;
-                --chip-hover: #4b5563;
             }
         }
 
@@ -84,12 +80,6 @@
             margin-bottom: 12px;
         }
 
-        .date-range {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
         .filters {
             background: var(--bg-alt);
             border: 1px solid var(--border);
@@ -107,10 +97,6 @@
             margin-bottom: 12px;
             flex-wrap: wrap;
             align-items: center;
-        }
-
-        .filter-row:last-child {
-            margin-bottom: 0;
         }
 
         .filter-label {
@@ -135,7 +121,7 @@
         .chip {
             padding: 6px 12px;
             border-radius: 20px;
-            background: var(--chip-bg);
+            background: var(--bg);
             border: 1px solid var(--border);
             cursor: pointer;
             font-size: 13px;
@@ -144,7 +130,7 @@
         }
 
         .chip:hover {
-            background: var(--chip-hover);
+            background: var(--bg-alt);
         }
 
         .chip.active {
@@ -167,13 +153,10 @@
             padding: 12px 16px;
             font-weight: 600;
             font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .williamsburg-header::before {
-            content: "★";
+            content: "★ ";
             font-size: 18px;
         }
 
@@ -202,7 +185,6 @@
         .williamsburg-card .meta {
             font-size: 12px;
             color: var(--text-muted);
-            margin-bottom: 4px;
         }
 
         .museum-box {
@@ -264,15 +246,10 @@
             font-weight: 600;
         }
 
-        .day-header.ongoing .dh-name {
-            color: var(--williamsburg);
-        }
-
         .day-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 16px;
-            margin-bottom: 24px;
         }
 
         @media (max-width: 768px) {
@@ -335,20 +312,9 @@
             white-space: nowrap;
         }
 
-        .price-free {
-            background: var(--free);
-            color: white;
-        }
-
-        .price-budget {
-            background: var(--budget);
-            color: white;
-        }
-
-        .price-standard {
-            background: var(--standard);
-            color: white;
-        }
+        .price-free { background: var(--free); color: white; }
+        .price-budget { background: var(--budget); color: white; }
+        .price-standard { background: var(--standard); color: white; }
 
         .category-chip {
             padding: 3px 8px;
@@ -362,7 +328,7 @@
         .cat-music { background: var(--music); }
         .cat-comedy { background: var(--comedy); }
         .cat-art { background: var(--art); }
-        .cat-dance { background: var(--music); }
+        .cat-dance { background: var(--dance); }
         .cat-food { background: var(--food); }
         .cat-film { background: var(--film); }
         .cat-talks { background: var(--talks); }
@@ -371,9 +337,9 @@
         .cat-learning { background: var(--learning); }
         .cat-networking { background: var(--networking); }
         .cat-wellness { background: var(--wellness); }
-        .cat-social { background: var(--music); }
-        .cat-books { background: var(--talks); }
         .cat-performance { background: var(--comedy); }
+        .cat-books { background: var(--talks); }
+        .cat-social { background: var(--music); }
         .cat-other { background: var(--other); }
 
         .williamsburg-badge {
@@ -420,17 +386,13 @@
             font-weight: 600;
             margin-left: 12px;
         }
-
-        .clear-btn:hover {
-            opacity: 0.9;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>NYC Events Digest</h1>
-            <div class="date-range">September 22–25, 2026</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">September 22–25, 2026</div>
             <p class="subtitle">Free & cheap events in NYC · Williamsburg focus · Evenings & weekends</p>
             <p style="font-size: 12px; color: var(--text-muted);">Updated <span id="updated-date"></span></p>
         </header>
@@ -451,8 +413,6 @@
                 <span class="chip" data-filter="day" data-value="wed">Wednesday 23</span>
                 <span class="chip" data-filter="day" data-value="thu">Thursday 24</span>
                 <span class="chip" data-filter="day" data-value="fri">Friday 25</span>
-                <span class="chip" data-filter="day" data-value="sat">Saturday 26</span>
-                <span class="chip" data-filter="day" data-value="sun">Sunday 27</span>
             </div>
             <div class="filter-row">
                 <label class="filter-label">Category:</label>
@@ -460,12 +420,9 @@
                 <span class="chip" data-filter="category" data-value="music">Music</span>
                 <span class="chip" data-filter="category" data-value="comedy">Comedy</span>
                 <span class="chip" data-filter="category" data-value="art">Art</span>
-                <span class="chip" data-filter="category" data-value="film">Film</span>
-                <span class="chip" data-filter="category" data-value="talks">Talks</span>
+                <span class="chip" data-filter="category" data-value="dance">Dance</span>
                 <span class="chip" data-filter="category" data-value="food">Food</span>
                 <span class="chip" data-filter="category" data-value="runs">Runs</span>
-                <span class="chip" data-filter="category" data-value="dance">Dance</span>
-                <span class="chip" data-filter="category" data-value="outdoors">Outdoors</span>
                 <span class="chip" data-filter="category" data-value="networking">Networking</span>
             </div>
         </div>
@@ -479,7 +436,6 @@
             <h3>🎨 Museum Free Nights</h3>
             <div class="museum-event"><strong>Whitney Museum Free Friday Nights</strong> · Fri 9/25, 5–10pm · Free admission (advance tickets required)</div>
             <div class="museum-event"><strong>MoMA UNIQLO Free Fridays</strong> · Fri 9/25, 5:30–8:30pm · Free for NY State residents</div>
-            <div class="museum-event"><strong>Brooklyn Museum First Saturdays</strong> · Sat 9/26, 5–11pm · Free (first 2 hours)</div>
             <div class="museum-event"><strong>The Met Pay-What-You-Wish</strong> · Daily · Suggested $28 (pay what you can)</div>
         </div>
 
@@ -488,7 +444,7 @@
         <footer>
             <div class="footer-section">
                 <h4>About This Digest</h4>
-                <p>Curated from 30+ free & cheap NYC event sources. Covers free to ~$20 events. Williamsburg focus with citywide coverage. Updated Sept 22, 2026.</p>
+                <p>Curated from 30+ NYC event sources including The Skint, NYC for FREE, Substacks (No Sleep Club, City Happenings, Marked, warmly), GM NYC, and search platforms. Covers free to ~$20 events. Williamsburg focus with citywide coverage.</p>
             </div>
             <div class="footer-section">
                 <h4>Instagram Worth Following</h4>
@@ -498,46 +454,45 @@
     </div>
 
     <script>
-        // Event data
         const events = [
             {name:"We Love a Theme",date:"2026-09-22",time:"7:00 PM",venue:"Pete's Candy Store",neighborhood:"Williamsburg",price:"free",description:"Monthly storytelling with theme 'lesson learned'",source:"The Skint",williamsburg:true,category:"comedy",days:["tue"]},
-            {name:"Salsa by the Water",date:"2026-09-23",time:"6:00 PM - 9:00 PM",venue:"Domino Park",neighborhood:"Williamsburg",price:"free",description:"Free lessons, live music and dancing on waterfront",source:"The Skint",williamsburg:true,category:"dance",days:["wed"]},
-            {name:"De Novo Presents",date:"2026-09-24",time:"8:00 PM",venue:"Dead Letter No.9",neighborhood:"Williamsburg",price:"free",description:"Free music event with Ignez and Daybreak",source:"Dice.fm",williamsburg:true,category:"music",days:["thu"]},
-            {name:"Kweendom LGBTQ+ Comedy",date:"2026-09-25",time:"7:00 PM",venue:"Pete's Candy Store",neighborhood:"Williamsburg",price:"free",description:"LGBTQ+ comedy and storytelling show",source:"The Skint",williamsburg:true,category:"comedy",days:["fri"]},
-            {name:"Shred for Your Life",date:"2026-09-25",time:"2:00 PM",venue:"Union Pool back deck",neighborhood:"Williamsburg",price:"free",description:"Live shredding guitar competition",source:"The Skint",williamsburg:true,category:"music",days:["fri"]},
-            {name:"Flop House Comedy Club",date:"2026-09-25",time:"8:00 PM",venue:"362 Grand Street",neighborhood:"Williamsburg",price:"$10",description:"NYC's friendliest indie comedy club",source:"The Skint",williamsburg:true,category:"comedy",days:["fri"]},
-            {name:"Bushwig",date:"2026-09-26",time:"4:00 PM - 4:00 AM",venue:"9 Bob Note/3 Dollar Bill",neighborhood:"Williamsburg",price:"$15",description:"Annual drag and queer nightlife festival",source:"Time Out NY",williamsburg:true,category:"performance",days:["sat"]},
-            {name:"Brooklyn Book Festival",date:"2026-09-27",time:"10:00 AM - 6:00 PM",venue:"Brooklyn Borough Hall",neighborhood:"Brooklyn Heights",price:"free",description:"Free readings with major authors",source:"City Happenings",williamsburg:false,category:"books",days:["sun"]},
             {name:"Miller Theater Concert",date:"2026-09-22",time:"6:00 PM",venue:"Miller Theatre",neighborhood:"Morningside Heights",price:"free",description:"György Kurtág 100th birthday concert",source:"The Skint",williamsburg:false,category:"music",days:["tue"]},
-            {name:"Climate Week NYC",date:"2026-09-22",time:"Various",venue:"Citywide",neighborhood:"Multiple",price:"free",description:"1,000+ events addressing climate crisis",source:"Time Out NY",williamsburg:false,category:"learning",days:["tue","wed","thu","fri","sat"]},
-            {name:"Fall for Dance Festival",date:"2026-09-22",time:"Various",venue:"NYC Center",neighborhood:"Midtown",price:"$30",description:"Ten-day festival with 11 premiere works",source:"No Sleep Club NYC",williamsburg:false,category:"dance",days:["tue","wed","thu","fri"]},
+            {name:"Fintech Run Club",date:"2026-09-22",time:"7:00 AM",venue:"Financial District",neighborhood:"Manhattan",price:"free",description:"Morning run for fintech professionals",source:"GM NYC",williamsburg:false,category:"runs",days:["tue"]},
+            {name:"YES Block Party",date:"2026-09-22",time:"12:00 PM",venue:"House of Yes",neighborhood:"Williamsburg",price:"free",description:"Free all-day block party",source:"Do NYC",williamsburg:true,category:"social",days:["tue"]},
+            {name:"Climate Week NYC",date:"2026-09-22",time:"Various",venue:"Citywide",neighborhood:"Multiple",price:"free",description:"1,000+ events addressing climate crisis",source:"Time Out NY",williamsburg:false,category:"learning",days:["tue","wed","thu","fri"]},
+            {name:"BBG Seasonal Tour",date:"2026-09-22",time:"1:00 PM",venue:"Brooklyn Botanic Garden",neighborhood:"Brooklyn",price:"free",description:"Early-fall foliage walk",source:"BBG",williamsburg:false,category:"outdoors",days:["tue"]},
+            {name:"Negroni Week",date:"2026-09-22",time:"Various",venue:"Various restaurants",neighborhood:"Multiple",price:"varies",description:"Bars mixing Negronis for Slow Food",source:"City Happenings",williamsburg:false,category:"food",days:["tue","wed","thu","fri"]},
             {name:"Jazz in the Garden",date:"2026-09-23",time:"5:00 PM - 8:00 PM",venue:"With Others, 340 Bedford Ave",neighborhood:"Williamsburg",price:"TBD",description:"Live jazz in backyard setting",source:"City Happenings",williamsburg:true,category:"music",days:["wed"]},
+            {name:"Salsa by the Water",date:"2026-09-23",time:"6:00 PM - 9:00 PM",venue:"Domino Park",neighborhood:"Williamsburg",price:"free",description:"Free lessons, live music and dancing on waterfront",source:"The Skint",williamsburg:true,category:"dance",days:["wed"]},
             {name:"Pitch & Run",date:"2026-09-23",time:"7:30 AM",venue:"Williamsburg",neighborhood:"Williamsburg",price:"free",description:"Running event with startup pitches",source:"GM NYC",williamsburg:true,category:"runs",days:["wed"]},
             {name:"Climate Film Festival",date:"2026-09-23",time:"6:30 PM",venue:"South Street Seaport Museum",neighborhood:"South Street Seaport",price:"free",description:"Short documentaries on climate change",source:"No Sleep Club NYC",williamsburg:false,category:"film",days:["wed"]},
-            {name:"The Armory Show",date:"2026-09-24",time:"Various",venue:"Javits Center",neighborhood:"Hell's Kitchen",price:"$60+",description:"Major international art fair",source:"No Sleep Club NYC",williamsburg:false,category:"art",days:["thu","fri","sat"]},
+            {name:"WAGMI Networking",date:"2026-09-23",time:"7:00 PM",venue:"Cloud One Lounge",neighborhood:"Financial District",price:"free",description:"Tech and business networking",source:"Meetup",williamsburg:false,category:"networking",days:["wed"]},
+            {name:"Manhatta x Semma",date:"2026-09-23",time:"5:00 PM",venue:"Manhatta, 28 Liberty St.",neighborhood:"Financial District",price:"$195",description:"One-night-only dinner collaboration",source:"No Sleep Club NYC",williamsburg:false,category:"food",days:["wed"]},
+            {name:"The Armory Show",date:"2026-09-24",time:"Various",venue:"Javits Center",neighborhood:"Hell's Kitchen",price:"$60+",description:"Major international art fair",source:"No Sleep Club NYC",williamsburg:false,category:"art",days:["thu","fri"]},
             {name:"260 Madison Exhibition",date:"2026-09-24",time:"6:00 PM - 10:00 PM",venue:"260 Madison Avenue",neighborhood:"Murray Hill",price:"free",description:"50+ artists in converted office tower",source:"No Sleep Club NYC",williamsburg:false,category:"art",days:["thu"]},
-            {name:"CJ Hendry's Flower Market",date:"2026-09-24",time:"1:00 PM - 8:00 PM",venue:"Rockefeller Center",neighborhood:"Midtown",price:"free",description:"Larger-than-life floral world",source:"No Sleep Club NYC",williamsburg:false,category:"art",days:["thu","fri","sat","sun"]},
+            {name:"CJ Hendry's Flower Market",date:"2026-09-24",time:"1:00 PM - 8:00 PM",venue:"Rockefeller Center",neighborhood:"Midtown",price:"free",description:"Larger-than-life floral world",source:"No Sleep Club NYC",williamsburg:false,category:"art",days:["thu","fri"]},
             {name:"Nolita Salsa Block Party",date:"2026-09-24",time:"TBD",venue:"Elizabeth St Garden",neighborhood:"Nolita",price:"free",description:"Free salsa lesson and dancing",source:"Marked",williamsburg:false,category:"dance",days:["thu"]},
-            {name:"Art Book Fair",date:"2026-09-24",time:"7:00 PM",venue:"MoMA PS1",neighborhood:"Long Island City",price:"$10",description:"World's leading fair for artists' books",source:"City Happenings",williamsburg:false,category:"art",days:["thu","fri","sat","sun"]},
-            {name:"Return of the Buffalo",date:"2026-09-25",time:"5:00 PM - 7:30 PM",venue:"Bowling Green Park",neighborhood:"Downtown",price:"free",description:"40 life-size buffalo puppets",source:"The Skint",williamsburg:false,category:"art",days:["fri","sat"]},
-            {name:"Illumination Light Art",date:"2026-09-25",time:"7:00 PM - 11:00 PM",venue:"Robert F. Wagner Park",neighborhood:"Downtown",price:"free",description:"Large-scale light installations",source:"The Skint",williamsburg:false,category:"art",days:["fri"]},
+            {name:"Art Book Fair",date:"2026-09-24",time:"7:00 PM",venue:"MoMA PS1",neighborhood:"Long Island City",price:"$10",description:"World's leading fair for artists' books",source:"City Happenings",williamsburg:false,category:"art",days:["thu","fri"]},
+            {name:"De Novo Presents",date:"2026-09-24",time:"8:00 PM",venue:"Dead Letter No.9",neighborhood:"Williamsburg",price:"free",description:"Free music event with Ignez and Daybreak",source:"Dice.fm",williamsburg:true,category:"music",days:["thu"]},
+            {name:"Google Chrome Exhibit",date:"2026-09-24",time:"2:00 PM",venue:"High Line Chelsea",neighborhood:"Chelsea",price:"free",description:"Interactive art exhibit",source:"NYC for FREE",williamsburg:false,category:"art",days:["thu"]},
+            {name:"Shred for Your Life",date:"2026-09-25",time:"2:00 PM",venue:"Union Pool back deck",neighborhood:"Williamsburg",price:"free",description:"Live shredding guitar competition",source:"The Skint",williamsburg:true,category:"music",days:["fri"]},
+            {name:"Kweendom LGBTQ+ Comedy",date:"2026-09-25",time:"7:00 PM",venue:"Pete's Candy Store",neighborhood:"Williamsburg",price:"free",description:"LGBTQ+ comedy and storytelling show",source:"The Skint",williamsburg:true,category:"comedy",days:["fri"]},
+            {name:"Flop House Comedy Club",date:"2026-09-25",time:"8:00 PM",venue:"362 Grand Street",neighborhood:"Williamsburg",price:"$10",description:"NYC's friendliest indie comedy club",source:"The Skint",williamsburg:true,category:"comedy",days:["fri"]},
             {name:"Washington Square Folk Festival",date:"2026-09-25",time:"1:00 PM - 5:00 PM",venue:"Washington Square Park",neighborhood:"Greenwich Village",price:"free",description:"16th annual folk festival",source:"The Skint",williamsburg:false,category:"music",days:["fri"]},
-            {name:"All Things Go Festival",date:"2026-09-25",time:"Full-day",venue:"Forest Hills Stadium",neighborhood:"Forest Hills",price:"$99",description:"Three days of live performances",source:"No Sleep Club NYC",williamsburg:false,category:"music",days:["fri","sat","sun"]},
+            {name:"Return of the Buffalo",date:"2026-09-25",time:"5:00 PM - 7:30 PM",venue:"Bowling Green Park",neighborhood:"Downtown",price:"free",description:"40 life-size buffalo puppets",source:"The Skint",williamsburg:false,category:"art",days:["fri"]},
+            {name:"Illumination Light Art",date:"2026-09-25",time:"7:00 PM - 11:00 PM",venue:"Robert F. Wagner Park",neighborhood:"Downtown",price:"free",description:"Large-scale light installations",source:"The Skint",williamsburg:false,category:"art",days:["fri"]},
+            {name:"All Things Go Festival",date:"2026-09-25",time:"Full-day",venue:"Forest Hills Stadium",neighborhood:"Forest Hills",price:"$99",description:"Three days of live performances",source:"No Sleep Club NYC",williamsburg:false,category:"music",days:["fri"]},
             {name:"Ukrainian Dreams",date:"2026-09-25",time:"7:45 PM",venue:"Cooper Square",neighborhood:"East Village",price:"free",description:"Projection mapping with folk score",source:"No Sleep Club NYC",williamsburg:false,category:"art",days:["fri"]},
             {name:"Whitney Free Friday Nights",date:"2026-09-25",time:"5:00 PM - 10:00 PM",venue:"Whitney Museum",neighborhood:"Meatpacking District",price:"free",description:"Free admission with advance tickets",source:"Whitney",williamsburg:false,category:"art",days:["fri"]},
             {name:"MoMA Free Fridays",date:"2026-09-25",time:"5:30 PM - 8:30 PM",venue:"MoMA",neighborhood:"Midtown",price:"free",description:"Free for NY State residents",source:"MoMA",williamsburg:false,category:"art",days:["fri"]},
-            {name:"CBGB Festival",date:"2026-09-26",time:"Various",venue:"Under the K Bridge Park",neighborhood:"Williamsburg",price:"variable",description:"Multi-day music festival",source:"Bandsintown",williamsburg:true,category:"music",days:["sat","sun"]},
-            {name:"YES Block Party",date:"2026-09-22",time:"12:00 PM",venue:"House of Yes",neighborhood:"Williamsburg",price:"free",description:"Free all-day block party",source:"Do NYC",williamsburg:true,category:"social",days:["tue"]},
-            {name:"Fintech Run Club",date:"2026-09-22",time:"7:00 AM",venue:"Financial District",neighborhood:"Manhattan",price:"free",description:"Morning run for fintech professionals",source:"GM NYC",williamsburg:false,category:"runs",days:["tue"]},
-            {name:"Founders Friday",date:"2026-09-25",time:"10:00 AM",venue:"Neo",neighborhood:"Manhattan",price:"free",description:"Founder networking event",source:"GM NYC",williamsburg:false,category:"networking",days:["fri"]},
-            {name:"Google Chrome Exhibit",date:"2026-09-24",time:"2:00 PM",venue:"High Line Chelsea",neighborhood:"Chelsea",price:"free",description:"Interactive art exhibit",source:"NYC for FREE",williamsburg:false,category:"art",days:["thu"]},
             {name:"Candlelight Concert",date:"2026-09-25",time:"7:00 PM",venue:"St. Ann & Holy Trinity",neighborhood:"Brooklyn Heights",price:"$50",description:"Classical music with pop hits",source:"Fever",williamsburg:false,category:"music",days:["fri"]},
-            {name:"WAGMI Networking",date:"2026-09-23",time:"7:00 PM",venue:"Cloud One Lounge",neighborhood:"Financial District",price:"free",description:"Tech and business networking",source:"Meetup",williamsburg:false,category:"networking",days:["wed"]},
-            {name:"Urban Park Rangers",date:"2026-09-22",time:"10:00 AM",venue:"Various Parks",neighborhood:"Citywide",price:"free",description:"Nature exploration and birding",source:"NYC Parks",williamsburg:false,category:"outdoors",days:["tue","wed","thu","fri"]},
-            {name:"BBG Seasonal Tour",date:"2026-09-22",time:"1:00 PM",venue:"Brooklyn Botanic Garden",neighborhood:"Brooklyn",price:"free",description:"Early-fall foliage walk",source:"BBG",williamsburg:false,category:"outdoors",days:["tue"]},
+            {name:"Founders Friday",date:"2026-09-25",time:"10:00 AM",venue:"Neo",neighborhood:"Manhattan",price:"free",description:"Founder networking event",source:"GM NYC",williamsburg:false,category:"networking",days:["fri"]},
             {name:"Tai Chi & Qigong",date:"2026-09-25",time:"11:00 AM",venue:"Brooklyn Botanic Garden",neighborhood:"Brooklyn",price:"$15",description:"Balance and relaxation exercises",source:"BBG",williamsburg:false,category:"wellness",days:["fri"]},
-            {name:"Negroni Week",date:"2026-09-22",time:"Various",venue:"Various restaurants",neighborhood:"Multiple",price:"varies",description:"Bars mixing Negronis for Slow Food",source:"City Happenings",williamsburg:false,category:"food",days:["tue","wed","thu","fri","sat"]},
-            {name:"Villa Albertine Festival",date:"2026-09-25",time:"10:00 AM",venue:"TBD",neighborhood:"Manhattan",price:"free",description:"International literary festival",source:"Secret NYC",williamsburg:false,category:"learning",days:["fri","sat"]}
+            {name:"Villa Albertine Literary Festival",date:"2026-09-25",time:"10:00 AM",venue:"TBD",neighborhood:"Manhattan",price:"free",description:"International literary festival",source:"Secret NYC",williamsburg:false,category:"learning",days:["fri"]},
+            {name:"Fall for Dance Festival",date:"2026-09-22",time:"Various",venue:"NYC Center",neighborhood:"Midtown",price:"$30",description:"Ten-day festival with 11 premiere works",source:"No Sleep Club NYC",williamsburg:false,category:"dance",days:["tue","wed","thu","fri"]},
+            {name:"Urban Park Rangers",date:"2026-09-22",time:"10:00 AM",venue:"Various Parks",neighborhood:"Citywide",price:"free",description:"Nature exploration and birding",source:"NYC Parks",williamsburg:false,category:"outdoors",days:["tue","wed","thu","fri"]},
+            {name:"CBGB Festival",date:"2026-09-26",time:"Various",venue:"Under the K Bridge Park",neighborhood:"Williamsburg",price:"variable",description:"Multi-day music festival",source:"Bandsintown",williamsburg:true,category:"music",days:["sat"]},
+            {name:"Brooklyn Book Festival",date:"2026-09-27",time:"10:00 AM - 6:00 PM",venue:"Brooklyn Borough Hall",neighborhood:"Brooklyn Heights",price:"free",description:"Free readings with major authors",source:"City Happenings",williamsburg:false,category:"books",days:["sun"]}
         ];
 
         document.getElementById('updated-date').textContent = new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
@@ -605,22 +560,6 @@
                 `;
                 container.appendChild(section);
             });
-
-            const ongoing = filtered.filter(e => e.days.length >= 4);
-            if (ongoing.length > 0) {
-                const section = document.createElement('div');
-                section.className = 'day-section';
-                section.innerHTML = `
-                    <div class="day-header ongoing">
-                        <div class="dh-name">🔄 Ongoing</div>
-                        <div class="dh-count">${ongoing.length}</div>
-                    </div>
-                    <div class="day-grid">
-                        ${ongoing.map(e => renderCard(e)).join('')}
-                    </div>
-                `;
-                container.appendChild(section);
-            }
         }
 
         function renderCard(e) {
